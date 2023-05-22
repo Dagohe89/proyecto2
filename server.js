@@ -1,13 +1,9 @@
-
+// server.js
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const db_connection = require('./database/connection.js');
-/*
-const indexRoutes = require('./routes/index.routes.js');
-const blogRoutes = require('./routes/blog.routes.js');
-*/
-//configurar nuestras propias rutas a nuestros archivos una vez creados
-const app = new express();
+
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -19,12 +15,13 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
 
 app.use(fileUpload());
-/*
-app.use(indexRoutes, blogRoutes);
-app.use((req, res) => {
-  res.status(404).render("error404");
-});*/
-//configurar nuestras rutas con nuestras propias views y public
+
+// Rutas
+const indexRoutes = require('./routes/index.routes');
+const clasificacionRoutes = require('./routes/clasificacion.routes');
+
+app.use('/', indexRoutes);
+app.use('/clasificacion', clasificacionRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;
