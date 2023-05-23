@@ -18,10 +18,10 @@ app.use(fileUpload());
 
 // Rutas
 const indexRoutes = require('./routes/index.routes');
-const clasificacionRoutes = require('./routes/competicion.routes');
+const viewRoutes = require('./routes/view.routes');
 
-app.use('/', indexRoutes);
-app.use('/competicion', competicionRoutes);
+
+app.use(indexRoutes, viewRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;
