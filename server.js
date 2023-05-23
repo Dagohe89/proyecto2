@@ -18,7 +18,7 @@ app.use(fileUpload());
 
 // Rutas
 const indexRoutes = require('./routes/index.routes');
-const clasificacionRoutes = require('./routes/clasificacion.routes');
+const clasificacionRoutes = require('./routes/competicion.routes');
 
 app.use('/', indexRoutes);
 app.use('/clasificacion', clasificacionRoutes);
