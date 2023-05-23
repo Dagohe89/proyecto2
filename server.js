@@ -21,7 +21,7 @@ const indexRoutes = require('./routes/index.routes');
 const clasificacionRoutes = require('./routes/competicion.routes');
 
 app.use('/', indexRoutes);
-app.use('/clasificacion', clasificacionRoutes);
+app.use('/competicion', competicionRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;
