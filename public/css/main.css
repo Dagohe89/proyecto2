@@ -14,3 +14,7 @@ body {
 footer {
     background-color: #f0a122 !important;
 }
+
+header img {
+    width: 100px;
+}
