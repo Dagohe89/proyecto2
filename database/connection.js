@@ -4,7 +4,7 @@ const db_connection = mysql.createPool({
   host:'localhost',
   user:'root',
   password:'',
-  database:'acdea',
+  database:'faf',
   port: 3306,
   multipleStatements: true 
 });

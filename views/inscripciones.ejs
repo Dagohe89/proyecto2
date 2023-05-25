@@ -4,29 +4,92 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripciones</title>
+    <title>FAF-Inscripciones</title>
     <%- include('partials/headLinks.ejs') %>
 </head>
 <body>
     <%- include('partials/header.ejs') %>
-    <main>
-        <div>
-            <h1>Equipo</h1>
-            <form>
-                <input type="text" placeholder="nombre completo">
-                <input type="text" placeholder="color camiseta">
-                <input type="text" placeholder="dirección del campo">
-                <input type="image" placeholder="escudo">
-            </form>
-        </div>
-        <div>
-            <h1>Jugador</h1>
-            <form>
-                <input type="text" placeholder="nombre completo">
-                <input type="text" placeholder="dni">
-                <input type="date" placeholder="fecha nacimiento">
-                <input type="image" placeholder="foto">
-            </form>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h1 class="accordion-header" id="delegado-heading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#delegado-collapse" aria-expanded="false" aria-controls="delegado-collapse">Delegado</button>
+                </h1>
+                <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y tus jugadores</p>
+                <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Nombre">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Apellido1">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Apellido2">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="DNI">
+                            </div>
+                            <div class="mb-3">
+                                <label for="foto">Foto tipo carnet</label>
+                                <input type="file" class="form-control-file" id="foto" accept="image/*">
+                              </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h1 class="accordion-header" id="equipo-heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#equipo-collapse" aria-expanded="false" aria-controls="equipo-collapse">Equipo</button>
+                </h1>
+                <p>Inscribe aquí tu equipo</p>
+                <div id="equipo-collapse" class="accordion-collapse collapse" aria-labelledby="equipo-heading">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Nombre">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Apellido1">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Apellido2">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="DNI">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h1 class="accordion-header" id="jugador-heading">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jugador-collapse" aria-expanded="false" aria-controls="jugador-collapse">Jugador</button>
+                </h1>
+                <p>Inscribe aquí los jugadores de tu equipo</p>
+                <div id="jugador-collapse" class="accordion-collapse collapse" aria-labelledby="jugador-heading">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Nombre">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Apellido1">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Apellido2">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="DNI">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <%- include('partials/footer.ejs') %>

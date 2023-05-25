@@ -18,6 +18,7 @@ router.get('/inscripciones', (req, res) => {
     res.render('inscripciones');
 });
 
+
 // Ruta de Actualidad
 router.get('/actualidad', (req, res) => {
     res.render('actualidad');
