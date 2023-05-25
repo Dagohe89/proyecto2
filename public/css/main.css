@@ -7,6 +7,10 @@ body {
     height: 100%;
 }
 
+main {
+    margin: 10px;
+}
+
 .bg-light {
     background-color: #f0a122 !important;
 }
@@ -17,4 +21,5 @@ footer {
 
 header img {
     width: 100px;
+    border-radius: 50px;
 }

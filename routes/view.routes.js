@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Ruta para la página de competicion
+// Ruta de competicion
 router.get('/competicion', (req, res) => {
   res.render('competicion');
 });
@@ -12,10 +12,6 @@ router.get('/contacto', (req, res) => {
     res.render('contacto');
   });
 
-// Ruta Sobre Nosotros
-router.get('/organizacion', (req, res) => {
-    res.render('organizacion');
-  });
 
 // Ruta de Inscripciones
 router.get('/inscripciones', (req, res) => {
