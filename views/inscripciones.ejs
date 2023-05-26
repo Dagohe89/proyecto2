@@ -18,25 +18,26 @@
                 <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y tus jugadores</p>
                 <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
                     <div class="accordion-body">
-                        <form>
+                        <form id="myForm">
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Nombre">
+                              <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido1">
+                              <input type="text" class="form-control" id="apellido1" placeholder="Apellido1" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido2">
+                              <input type="text" class="form-control" id="apellido2" placeholder="Apellido2" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="DNI">
+                              <input type="text" class="form-control" id="dni" placeholder="DNI" required>
                             </div>
                             <div class="mb-3">
-                                <label for="foto">Foto tipo carnet</label>
-                                <input type="file" class="form-control-file" id="foto" accept="image/*">
-                              </div>
+                              <label for="foto">Foto tipo carnet</label>
+                              <input type="file" class="form-control-file" id="foto" accept="image/*">
+                            </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>                        
+                          </form>
+                                                
                     </div>
                 </div>
             </div>
@@ -74,16 +75,16 @@
                     <div class="accordion-body">
                         <form>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Nombre">
+                                <input type="text" class="form-control" placeholder="Nombre" id="Nombre">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido1">
+                                <input type="text" class="form-control" placeholder="Apellido1" id="Apellido1">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido2">
+                                <input type="text" class="form-control" placeholder="Apellido2" id="Apellido2">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="DNI">
+                                <input type="text" class="form-control" placeholder="DNI" id="DNI">
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>                        
@@ -93,5 +94,6 @@
         </div>
     </main>
     <%- include('partials/footer.ejs') %>
+    <script src="/js/inscripciones.js"></script>
 </body>
 </html>
