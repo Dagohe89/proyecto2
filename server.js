@@ -19,9 +19,9 @@ app.use(fileUpload());
 // Rutas
 const indexRoutes = require('./routes/index.routes');
 const viewRoutes = require('./routes/view.routes');
+const inscripcionesRoutes = require('./routes/inscripciones.routes');
 
-
-app.use(indexRoutes, viewRoutes);
+app.use(indexRoutes, viewRoutes, inscripcionesRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;

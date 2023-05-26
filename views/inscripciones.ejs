@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAF-Inscripciones</title>
     <%- include('partials/headLinks.ejs') %>
+    <link rel="stylesheet" href="css/inscripciones.css">
 </head>
 <body>
     <%- include('partials/header.ejs') %>
@@ -17,27 +18,42 @@
                 </h1>
                 <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y tus jugadores</p>
                 <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
-                    <div class="accordion-body">
-                        <form id="myForm">
+                    <div class="accordion-body, form-box">
+                        <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate>
                             <div class="mb-3">
-                              <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
                             </div>
                             <div class="mb-3">
-                              <input type="text" class="form-control" id="apellido1" placeholder="Apellido1" required>
+                                <label for="apellido1">Apellido1</label>
+                                <input type="text" class="form-control" id="apellido1" name="apellido1" placeholder="Apellido1" required>
                             </div>
                             <div class="mb-3">
-                              <input type="text" class="form-control" id="apellido2" placeholder="Apellido2" required>
+                                <label for="apellido2">Apellido2</label>
+                                <input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="Apellido2" required>
                             </div>
                             <div class="mb-3">
-                              <input type="text" class="form-control" id="dni" placeholder="DNI" required>
+                                <label for="dni">DNI</label>
+                                <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" required>
                             </div>
                             <div class="mb-3">
-                              <label for="foto">Foto tipo carnet</label>
-                              <input type="file" class="form-control-file" id="foto" accept="image/*">
+                                <label for="usuario">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de Usuario" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contrasena">Contraseña</label>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="repetir-contrasena">Repetir Contraseña</label>
+                                <input type="password" class="form-control" id="repetir-contrasena" name="repetir-contrasena" placeholder="Repetir Contraseña" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="foto">Foto tipo carnet</label>
+                                <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
-                          </form>
-                                                
+                        </form>
                     </div>
                 </div>
             </div>
@@ -47,24 +63,32 @@
                 </h1>
                 <p>Inscribe aquí tu equipo</p>
                 <div id="equipo-collapse" class="accordion-collapse collapse" aria-labelledby="equipo-heading">
-                    <div class="accordion-body">
-                        <form>
+                    <div class="accordion-body, form-box">
+                        <form id="myFormEquipo" action="/nuevo_equipo" class="needs-validation" novalidate>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Nombre">
+                                <label for="nombre-equipo">Nombre</label>
+                                <input type="text" class="form-control" id="nombre-equipo" name="nombre" placeholder="Nombre">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido1">
+                                <label for="color-camiseta">Color de la camiseta</label>
+                                <input type="text" class="form-control" id="color-camiseta" name="color-camiseta" placeholder="Color de la camiseta">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido2">
+                                <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
+                                <input type="text" class="form-control" id="color-segunda-camiseta" name="color-segunda-camiseta" placeholder="Color de la segunda camiseta">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="DNI">
+                                <label for="direccion-campo">Dirección del campo</label>
+                                <textarea class="form-control" id="direccion-campo" name="direccion-campo" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="escudo">Escudo del equipo</label>
+                                <input type="file" class="form-control-file" id="escudo" name="escudo" accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>                        
+                        </form>
                     </div>
-                </div>
+                </div>                
             </div>
             <div class="col-md-3">
                 <h1 class="accordion-header" id="jugador-heading">
@@ -72,22 +96,38 @@
                 </h1>
                 <p>Inscribe aquí los jugadores de tu equipo</p>
                 <div id="jugador-collapse" class="accordion-collapse collapse" aria-labelledby="jugador-heading">
-                    <div class="accordion-body">
-                        <form>
+                    <div class="accordion-body, form-box">
+                        <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Nombre" id="Nombre">
+                                <label for="nombre-jugador">Nombre</label>
+                                <input type="text" class="form-control" id="nombre-jugador" name="nombre" placeholder="Nombre">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido1" id="Apellido1">
+                                <label for="apellido1-jugador">Apellido1</label>
+                                <input type="text" class="form-control" id="apellido1-jugador" name="apellido1" placeholder="Apellido1">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="Apellido2" id="Apellido2">
+                                <label for="apellido2-jugador">Apellido2</label>
+                                <input type="text" class="form-control" id="apellido2-jugador" name="apellido2" placeholder="Apellido2">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" placeholder="DNI" id="DNI">
+                                <label for="dni-jugador">DNI</label>
+                                <input type="text" class="form-control" id="dni-jugador" name="dni" placeholder="DNI">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha-nacimiento-jugador">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fecha-nacimiento-jugador" name="fecha-nacimiento" placeholder="Fecha de Nacimiento">
+                            </div>
+                            <div class="mb-3">
+                                <label for="dorsal-jugador">Dorsal</label>
+                                <input type="text" class="form-control" id="dorsal-jugador" name="dorsal" placeholder="Dorsal">
+                            </div>
+                            <div class="mb-3">
+                                <label for="foto">Foto tipo carnet</label>
+                                <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>                        
+                        </form>
                     </div>
                 </div>
             </div>
@@ -97,3 +137,5 @@
     <script src="/js/inscripciones.js"></script>
 </body>
 </html>
+
+

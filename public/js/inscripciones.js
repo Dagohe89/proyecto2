@@ -1,24 +1,70 @@
-document.getElementById('myForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evitar el envío del formulario por defecto
+// Obtener referencias a los formularios
+const formDelegado = document.getElementById('myFormDelegado');
+const formEquipo = document.getElementById('myFormEquipo');
+const formJugador = document.getElementById('myFormJugador');
 
-  // Obtener los valores de los campos del formulario
-  var nombre = document.getElementById("nombre").value;
-  var apellido1 = document.getElementById("apellido1").value;
-  var apellido2 = document.getElementById("apellido2").value;
-  var dni = document.getElementById("dni").value;
-  var foto = document.getElementById("foto").files[0]; // Archivo de foto
+// Función para aplicar la validación de Bootstrap y verificar campos vacíos
+const validateAndSubmitForm = (form) => {
+  if (!form.checkValidity()) {
+    form.classList.add('was-validated');
+    return;
+  }
 
-  // Insertar los datos en la tabla "delegado" de la base de datos
-  connection.query(
-    `INSERT INTO Delegado (nombre, apellido1, apellido2, dni, foto) VALUES (?, ?, ?, ?, ?)`,
-    [nombre, apellido1, apellido2, dni, foto.name],
-    function (error, results, fields) {
-      if (error) {
-        console.error("Error al guardar los datos:", error);
-      } else {
-        console.log("Datos guardados correctamente");
-        // Aquí puedes realizar alguna acción adicional después de guardar los datos
-      }
+  const inputs = form.querySelectorAll('.form-control');
+  let allInputsFilled = true;
+
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].value.trim() === '') {
+      allInputsFilled = false;
+      inputs[i].classList.add('is-invalid');
+    } else {
+      inputs[i].classList.remove('is-invalid');
     }
-  );
+  }
+
+  if (!allInputsFilled) {
+    return;
+  }
+
+  const formData = new FormData(form);
+  const endpoint = form.getAttribute('action');
+
+  fetch(endpoint, {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      form.reset();
+      form.classList.remove('was-validated'); // Limpiar las clases de validación
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+};
+
+// Vaciar los campos de entrada al refrescar la página
+window.addEventListener('beforeunload', () => {
+  formDelegado.reset();
+  formEquipo.reset();
+  formJugador.reset();
+});
+
+// Escuchar el evento de envío del formulario para el Delegado
+formDelegado.addEventListener('submit', (event) => {
+  event.preventDefault();
+  validateAndSubmitForm(formDelegado);
+});
+
+// Escuchar el evento de envío del formulario para el Equipo
+formEquipo.addEventListener('submit', (event) => {
+  event.preventDefault();
+  validateAndSubmitForm(formEquipo);
+});
+
+// Escuchar el evento de envío del formulario para el Jugador
+formJugador.addEventListener('submit', (event) => {
+  event.preventDefault();
+  validateAndSubmitForm(formJugador);
 });
