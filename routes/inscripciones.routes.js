@@ -3,10 +3,10 @@ const router = express.Router();
 const db_connection = require('../database/connection.js');
 
 router.post('/nuevo_delegado', (req, res) => {
-  const { nombre, apellido1, apellido2, dni, usuario, contrasena, repetir_contraseña, foto } = req.body;
+  const { nombre, apellido1, apellido2, dni, usuario, contrasena, repetir_contrasena, foto } = req.body;
   
   // Validar campos vacíos del formulario de delegado
-  if (!nombre || !apellido1 || !apellido2 || !dni || !usuario || !contrasena || !repetir_contraseña || !foto) {
+  if (!nombre || !apellido1 || !apellido2 || !dni || !usuario || !contrasena || !repetir_contrasena || !foto) {
     return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
   }
 
@@ -70,3 +70,5 @@ router.post('/nuevo_jugador', (req, res) => {
     return res.status(200).json({ message: 'Jugador insertado correctamente' });
   });
 });
+
+module.exports = router;
