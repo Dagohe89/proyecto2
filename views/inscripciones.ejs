@@ -19,7 +19,7 @@
                 <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y tus jugadores</p>
                 <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
                     <div class="accordion-body, form-box">
-                        <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate>
+                        <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
@@ -64,7 +64,7 @@
                 <p>Inscribe aquí tu equipo</p>
                 <div id="equipo-collapse" class="accordion-collapse collapse" aria-labelledby="equipo-heading">
                     <div class="accordion-body, form-box">
-                        <form id="myFormEquipo" action="/nuevo_equipo" class="needs-validation" novalidate>
+                        <form id="myFormEquipo" action="/nuevo_equipo" class="needs-validation" novalidate enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nombre-equipo">Nombre</label>
                                 <input type="text" class="form-control" id="nombre-equipo" name="nombre" placeholder="Nombre">
@@ -97,7 +97,7 @@
                 <p>Inscribe aquí los jugadores de tu equipo</p>
                 <div id="jugador-collapse" class="accordion-collapse collapse" aria-labelledby="jugador-heading">
                     <div class="accordion-body, form-box">
-                        <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate>
+                        <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nombre-jugador">Nombre</label>
                                 <input type="text" class="form-control" id="nombre-jugador" name="nombre" placeholder="Nombre">

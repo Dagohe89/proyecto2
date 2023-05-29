@@ -1,9 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const db_connection = require('../database/connection.js');
+const multer = require('multer');
 
-router.post('/nuevo_delegado', (req, res) => {
-  const { nombre, apellido1, apellido2, dni, usuario, contrasena, repetir_contrasena, foto } = req.body;
+// Configuración de Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Define la carpeta de destino donde se guardarán los archivos
+    cb(null, 'uploads');
+  },
+  filename: function (req, file, cb) {
+    // Define el nombre del archivo en el servidor
+    cb(null, file.originalname);
+  }
+});
+
+// Inicializa Multer
+const upload = multer({ storage: storage });
+
+router.post('/nuevo_delegado', upload.single('foto'), (req, res) => {
+  const { nombre, apellido1, apellido2, dni, usuario, contrasena, repetir_contrasena } = req.body;
+  const foto = req.file;
   
   // Validar campos vacíos del formulario de delegado
   if (!nombre || !apellido1 || !apellido2 || !dni || !usuario || !contrasena || !repetir_contrasena || !foto) {
@@ -14,7 +31,7 @@ router.post('/nuevo_delegado', (req, res) => {
   
   // Ejemplo de inserción en la base de datos
   const sql = 'INSERT INTO delegado (nombre, apellido1, apellido2, dni, nickname, contraseña, fotodelegadourl) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  db_connection.query(sql, [nombre, apellido1, apellido2, dni, usuario, contrasena, foto], (error, results) => {
+  db_connection.query(sql, [nombre, apellido1, apellido2, dni, usuario, contrasena, foto.filename], (error, results) => {
     if (error) {
       console.error('Error al insertar el delegado:', error);
       return res.status(500).json({ error: 'Error al insertar el delegado' });
@@ -25,8 +42,9 @@ router.post('/nuevo_delegado', (req, res) => {
   });
 });
 
-router.post('/nuevo_equipo', (req, res) => {
-  const { nombre, color_camiseta, color_segunda_camiseta, direccion_campo, escudo } = req.body;
+router.post('/nuevo_equipo', upload.single('escudo'), (req, res) => {
+  const { nombre, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
+  const escudo = req.file;
 
   // Validar campos vacíos del formulario de equipo
   if (!nombre || !color_camiseta || !color_segunda_camiseta || !direccion_campo || !escudo) {
@@ -36,8 +54,8 @@ router.post('/nuevo_equipo', (req, res) => {
   // Realizar validaciones adicionales si es necesario
 
   // Ejemplo de inserción en la base de datos
-  const sql = 'INSERT INTO equipo (nombre, color_camiseta, color_segunda_camiseta, direccion_campo, escudo) VALUES (?, ?, ?, ?, ?)';
-  db_connection.query(sql, [nombre, color_camiseta, color_segunda_camiseta, direccion_campo, escudo], (error, results) => {
+  const sql = 'INSERT INTO equipo (nombre, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoescudourl) VALUES (?, ?, ?, ?, ?)';
+  db_connection.query(sql, [nombre, color_camiseta, color_segunda_camiseta, direccion_campo, escudo.filename], (error, results) => {
     if (error) {
       console.error('Error al insertar el equipo:', error);
       return res.status(500).json({ error: 'Error al insertar el equipo' });
@@ -48,8 +66,9 @@ router.post('/nuevo_equipo', (req, res) => {
   });
 });
 
-router.post('/nuevo_jugador', (req, res) => {
-  const { nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal, foto } = req.body;
+router.post('/nuevo_jugador', upload.single('foto'), (req, res) => {
+  const { nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal } = req.body;
+  const foto = req.file;
   
   // Validar campos vacíos del formulario de jugador
   if (!nombre || !apellido1 || !apellido2 || !dni || !fecha_nacimiento || !dorsal || !foto) {
@@ -59,8 +78,8 @@ router.post('/nuevo_jugador', (req, res) => {
   // Realizar validaciones adicionales si es necesario
   
   // Ejemplo de inserción en la base de datos
-  const sql = 'INSERT INTO jugador (nombre, apellido1, apellido2, dni, fechaNacimiento, dorsal, foto) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  db_connection.query(sql, [nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal, foto], (error, results) => {
+  const sql = 'INSERT INTO jugador (nombre, apellido1, apellido2, dni, fechaNacimiento, dorsal, fotojugadorurl) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  db_connection.query(sql, [nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal, foto.filename], (error, results) => {
     if (error) {
       console.error('Error al insertar el jugador:', error);
       return res.status(500).json({ error: 'Error al insertar el jugador' });
