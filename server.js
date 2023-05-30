@@ -1,9 +1,6 @@
-// server.js
 const express = require('express');
-const fileUpload = require('express-fileupload');
 const db_connection = require('./database/connection.js');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const fileUpload = require('express-fileupload');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -14,7 +11,6 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
-app.use(upload.any());
 app.use(fileUpload());
 
 // Rutas
@@ -22,7 +18,9 @@ const indexRoutes = require('./routes/index.routes');
 const viewRoutes = require('./routes/view.routes');
 const inscripcionesRoutes = require('./routes/inscripciones.routes');
 
-app.use(indexRoutes, viewRoutes, inscripcionesRoutes);
+app.use(indexRoutes);
+app.use(viewRoutes);
+app.use(inscripcionesRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;
