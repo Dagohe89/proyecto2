@@ -8,9 +8,9 @@ router.post('/nuevo_delegado', (req, res) => {
   const foto = req.files ? req.files.foto : null;
 
   // Validar campos vacíos del formulario de delegado
-  if (!nombre || !apellido1 || !apellido2 || !dni || !usuario || !contrasena || !repetir_contrasena || !foto) {
+  /*if (!nombre || !apellido1 || !apellido2 || !dni || !usuario || !contrasena || !repetir_contrasena || !foto) {
     return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
-  }
+  }*/
 
   // Realizar validaciones adicionales si es necesario
 
