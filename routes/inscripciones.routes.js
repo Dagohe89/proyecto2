@@ -13,11 +13,18 @@ router.post('/nuevo_delegado', (req, res) => {
     return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
   }
 
-  // Realizar validaciones adicionales si es necesario
+  foto.mv(`uploads/${foto.name}`, error => {
+    if (error) {
+      return res.status(500).json({
+        ok: false,
+        message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
+      });
+    }
 
   // Ejemplo de inserción en la base de datos
+  const fotoURL = `${foto.name}`;
   const sql = 'INSERT INTO delegado VALUES (default, ?, ?, ?, ?, ?, ?, ?)';
-  db_connection.query(sql, [nombre, apellido1, apellido2, dni, usuario, contrasena, foto.name], (error, results) => {
+  db_connection.query(sql, [nombre, apellido1, apellido2, dni, usuario, contrasena, fotoURL], (error, results) => {
     if (error) {
       console.error('Error al insertar el delegado:', error);
       return res.status(500).json({ error: 'Error al insertar el delegado' });
