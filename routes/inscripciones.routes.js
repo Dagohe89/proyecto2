@@ -5,17 +5,18 @@ const db_connection = require('../database/connection.js');
 
 router.post('/nuevo_delegado', (req, res) => {
   const { nombre, apellido1, apellido2, dni, usuario, contrasena, repetir_contrasena } = req.body;
-  const foto = req.files ? req.files.foto : null;
+  const foto = req.files.foto;
+  
 
   // Validar campos vacíos del formulario de delegado
-  /*if (!nombre || !apellido1 || !apellido2 || !dni || !usuario || !contrasena || !repetir_contrasena || !foto) {
+  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || usuario === null || contrasena === null || repetir_contrasena === null || foto === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
-  }*/
+  }
 
   // Realizar validaciones adicionales si es necesario
 
   // Ejemplo de inserción en la base de datos
-  const sql = 'INSERT INTO delegado (nombre, apellido1, apellido2, dni, nickname, contraseña, fotodelegadourl) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO delegado VALUES (default, ?, ?, ?, ?, ?, ?, ?)';
   db_connection.query(sql, [nombre, apellido1, apellido2, dni, usuario, contrasena, foto.name], (error, results) => {
     if (error) {
       console.error('Error al insertar el delegado:', error);
@@ -29,10 +30,10 @@ router.post('/nuevo_delegado', (req, res) => {
 
 router.post('/nuevo_equipo', (req, res) => {
   const { nombre, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
-  const escudo = req.files ? req.files.escudo : null;
+  const escudo = req.files.foto;
 
   // Validar campos vacíos del formulario de equipo
-  if (!nombre || !color_camiseta || !color_segunda_camiseta || !direccion_campo || !escudo) {
+  if ( nombre === null || color_camiseta === null || color_segunda_camiseta === null || direccion_campo === null || escudo === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de equipo son obligatorios' });
   }
 
@@ -53,10 +54,10 @@ router.post('/nuevo_equipo', (req, res) => {
 
 router.post('/nuevo_jugador', (req, res) => {
   const { nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal } = req.body;
-  const foto = req.files ? req.files.foto : null;
+  const foto = req.files.foto;
 
   // Validar campos vacíos del formulario de jugador
-  if (!nombre || !apellido1 || !apellido2 || !dni || !fecha_nacimiento || !dorsal || !foto) {
+  if ( nombre === null || apellido1 === null || apellido2 === null || dni === null || fecha_nacimiento === null || dorsal === null || foto === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de jugador son obligatorios' });
   }
 

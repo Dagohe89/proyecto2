@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema faf
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `faf` ;
@@ -14,6 +17,24 @@ DROP SCHEMA IF EXISTS `faf` ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `faf` DEFAULT CHARACTER SET utf8 ;
 USE `faf` ;
+
+-- -----------------------------------------------------
+-- Table `faf`.`delegado`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `faf`.`delegado` (
+  `iddelegado` INT(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(255) NOT NULL,
+  `Apellido1` VARCHAR(255) NOT NULL,
+  `Apellido2` VARCHAR(255) NOT NULL,
+  `dni` VARCHAR(255) NOT NULL,
+  `nickname` VARCHAR(255) NOT NULL,
+  `contraseña` VARCHAR(255) NOT NULL,
+  `fotodelegadourl` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`iddelegado`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
+
 
 -- -----------------------------------------------------
 -- Table `faf`.`equipo`
@@ -30,28 +51,11 @@ CREATE TABLE IF NOT EXISTS `faf`.`equipo` (
   `perdidos` INT(2) NOT NULL,
   `golesFavor` INT(2) NOT NULL,
   `golesContra` INT(2) NOT NULL,
-  PRIMARY KEY (`idequipo`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `faf`.`delegado`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `faf`.`delegado` (
-  `iddelegado` INT(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(255) NOT NULL,
-  `Apellido1` VARCHAR(255) NOT NULL,
-  `Apellido2` VARCHAR(255) NOT NULL,
-  `dni` VARCHAR(255) NOT NULL,
-  `nickname` VARCHAR(255) NOT NULL,
-  `contraseña` VARCHAR(255) NOT NULL,
-  `fotodelegadourl` VARCHAR(255) NOT NULL,
-  `equipo_idequipo` INT(11) NOT NULL,
-  PRIMARY KEY (`iddelegado`),
-  CONSTRAINT `fk_delegado_equipo1`
-    FOREIGN KEY (`equipo_idequipo`)
-    REFERENCES `faf`.`equipo` (`idequipo`)
+  `delegado_iddelegado` INT(11) NOT NULL,
+  PRIMARY KEY (`idequipo`, `delegado_iddelegado`),
+  CONSTRAINT `fk_equipo_delegado1`
+    FOREIGN KEY (`delegado_iddelegado`)
+    REFERENCES `faf`.`delegado` (`iddelegado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
