@@ -55,7 +55,7 @@ router.post('/nuevo_equipo', (req, res) => {
 
     // Ejemplo de inserción en la base de datos
     const fotoescudoDBURL = `${fotoescudo.name}`;
-    const sql = 'INSERT INTO equipo (nombre, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoescudourl) VALUES (?, ?, ?, ?, ?)';
+    const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, default, default, default, default, default, 3)';
     db_connection.query(sql, [nombre, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL], (error, results) => {
       if (error) {
         console.error('Error al insertar el equipo:', error);
