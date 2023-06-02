@@ -24,72 +24,76 @@
                         equipo y tus jugadores</p>
                     <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
                         <div class="accordion-body, form-box">
-                            <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate
-                                enctype="multipart/form-data">
+                            <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                  <label for="nombre">Nombre</label>
+                                  <input type="text" class="form-control" id="nombre" name="nombre" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apellido1">Primer apellido</label>
-                                    <input type="text" class="form-control" id="apellido1" name="apellido1" required>
+                                  <label for="apellido1">Primer apellido</label>
+                                  <input type="text" class="form-control" id="apellido1" name="apellido1" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="apellido2">Segundo apellido</label>
-                                    <input type="text" class="form-control" id="apellido2" name="apellido2" required>
+                                  <label for="apellido2">Segundo apellido</label>
+                                  <input type="text" class="form-control" id="apellido2" name="apellido2" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="dni">DNI</label>
-                                    <input type="text" class="form-control" id="dni" name="dni" required>
+                                  <label for="dni">DNI</label>
+                                  <input type="text" class="form-control" id="dni" name="dni" required>
+                                  <div class="invalid-feedback" id="dniError"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="usuario">Elige un nombre de usuario</label>
-                                    <input type="text" class="form-control" id="usuario" name="usuario" required>
+                                  <label for="telefono">Número de teléfono</label>
+                                  <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                                  <div class="invalid-feedback" id="telefonoError"></div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="contrasena">Contraseña</label>
-                                    <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                                  <label for="email">Correo electrónico</label>
+                                  <input type="text" class="form-control" id="email" name="email" required>
+                                  <div class="invalid-feedback" id="emailError"></div>
                                 </div>
-
                                 <div class="mb-3">
-                                    <label for="confirmarContrasena">Repetir Contraseña</label>
-                                    <input type="password" class="form-control" id="confirmarContrasena"
-                                        name="confirmarContrasena" required>
-                                    <div class="valid-feedback">
-                                        <i class="fas fa-check"></i>
+                                  <label for="usuario">Elige un nombre de usuario</label>
+                                  <input type="text" class="form-control" id="usuario" name="usuario" required>
+                                  <div class="invalid-feedback" id="usuarioError"></div>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="contrasena">Contraseña</label>
+                                  <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="confirmarContrasena">Repetir Contraseña</label>
+                                  <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena" required>
+                                  <div class="valid-feedback">
+                                    <i class="fas fa-check"></i>
+                                  </div>
+                                  <div class="invalid-feedback">Las contraseñas no coinciden</div>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="fotodelegado">Foto tipo carnet</label>
+                                  <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado" accept="image/*" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#successModal">Enviar</button>
+                                <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="successModalLabel">¡Éxito!</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>Recuerda tu nombre de usuario y contraseña. Los necesitarás para logearte y poder inscribir tu equipo y jugadores.</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                      </div>
                                     </div>
-                                    <div class="invalid-feedback">Las contraseñas no coinciden</div>
+                                  </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="fotodelegado">Foto tipo carnet</label>
-                                    <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado"
-                                        accept="image/*" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#successModal">Enviar</button>
-                                <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="successModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="successModalLabel">¡Éxito!</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Cerrar">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Recuerda tu nombre de usuario y contraseña. Los necesitarás para
-                                                    logearte y poder inscribir tu equipo y jugadores.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                              </form>
+                              
 
 
                         </div>
@@ -248,6 +252,16 @@
                     });
                 });
             </script>
+            <script>
+                var input = document.querySelector("#telefono");
+                window.intlTelInput(input, {
+                    preferredCountries: ["us", "mx", "es"], // Agrega los códigos de país que deseas mostrar primero
+                    separateDialCode: true,
+                    formatOnDisplay: true,
+                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+                });
+            </script>
+            
 
             <script src="../js/inscripciones.js"></script>
 </body>

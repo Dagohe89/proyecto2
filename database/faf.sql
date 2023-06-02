@@ -27,12 +27,14 @@ CREATE TABLE IF NOT EXISTS `faf`.`delegado` (
   `Apellido1` VARCHAR(255) NOT NULL,
   `Apellido2` VARCHAR(255) NOT NULL,
   `dni` VARCHAR(255) NOT NULL,
+  `telefono` VARCHAR(255) NOT NULL,
+  `correo` VARCHAR(255) NOT NULL,
   `nickname` VARCHAR(255) NOT NULL,
   `contraseña` VARCHAR(255) NOT NULL,
   `fotodelegadourl` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`iddelegado`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -44,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `faf`.`equipo` (
   `nombreEquipo` VARCHAR(255) NOT NULL,
   `colorCamiseta` VARCHAR(255) NOT NULL,
   `colorCamiseta2` VARCHAR(255) NOT NULL,
-  `direccionCampo` VARCHAR(255) NOT NULL,
+  `direciónCampo` VARCHAR(255) NOT NULL,
   `fotoescudourl` VARCHAR(255) NOT NULL,
   `ganados` INT(2) NOT NULL,
   `empatados` INT(2) NOT NULL,
@@ -52,17 +54,16 @@ CREATE TABLE IF NOT EXISTS `faf`.`equipo` (
   `golesFavor` INT(2) NOT NULL,
   `golesContra` INT(2) NOT NULL,
   `delegado_iddelegado` INT(11) NOT NULL,
-  PRIMARY KEY (`idequipo`, `delegado_iddelegado`),
-  CONSTRAINT `uk_equipo_delegado_iddelegado`
-    UNIQUE (`delegado_iddelegado`),
+  PRIMARY KEY (`idequipo`),
   CONSTRAINT `fk_equipo_delegado1`
     FOREIGN KEY (`delegado_iddelegado`)
     REFERENCES `faf`.`delegado` (`iddelegado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-)
+    ON UPDATE NO ACTION,
+     CONSTRAINT `unique_delegado_iddelegado`
+    UNIQUE (`delegado_iddelegado`)
+    )
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -94,9 +95,9 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
+select * from delegado;

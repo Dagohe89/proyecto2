@@ -2,14 +2,15 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const router = express.Router();
 const db_connection = require('../database/connection.js');
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Número de rondas de hashing (mayor es más seguro pero más lento)
 
-// Delegado
 router.post('/nuevo_delegado', (req, res) => {
-  const { nombre, apellido1, apellido2, dni, usuario, contrasena, confirmarContrasena } = req.body;
+  const { nombre, apellido1, apellido2, dni, telefono, email, usuario, contrasena, confirmarContrasena } = req.body;
   const fotodelegado = req.files.fotodelegado;
 
   // Validar campos vacíos del formulario de delegado
-  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || usuario === null || contrasena === null || confirmarContrasena === null || fotodelegado === null ) {
+  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || telefono === null || email === null || usuario === null || contrasena === null || confirmarContrasena === null || fotodelegado === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
   }
 
@@ -17,28 +18,96 @@ router.post('/nuevo_delegado', (req, res) => {
     return res.status(400).json({ error: 'Las contraseñas no coinciden' });
   }
 
-  fotodelegado.mv(`uploads/${fotodelegado.name}`, (error) => {
+  const errors = {};
+
+  // Verificar si el DNI ya está registrado
+  const sqlDNI = 'SELECT * FROM delegado WHERE dni = ?';
+  db_connection.query(sqlDNI, [dni], (error, resultsDNI) => {
     if (error) {
-      return res.status(500).json({
-        ok: false,
-        message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error,
-      });
+      console.error('Error al verificar el DNI:', error);
+      return res.status(500).json({ error: 'Error al verificar el DNI' });
     }
 
-    // Ejemplo de inserción en la base de datos
-    const fotodelegadoDBURL = `${fotodelegado.name}`;
-    const sql = 'INSERT INTO delegado VALUES (default, ?, ?, ?, ?, ?, ?, ?)';
-    db_connection.query(sql, [nombre, apellido1, apellido2, dni, usuario, contrasena, fotodelegadoDBURL], (error, results) => {
+    if (resultsDNI.length > 0) {
+      errors.dni = 'El DNI ya está registrado';
+    }
+
+    // Verificar si el teléfono ya está registrado
+    const sqlTelefono = 'SELECT * FROM delegado WHERE telefono = ?';
+    db_connection.query(sqlTelefono, [telefono], (error, resultsTelefono) => {
       if (error) {
-        console.error('Error al insertar el delegado:', error);
-        return res.status(500).json({ error: 'Error al insertar el delegado' });
+        console.error('Error al verificar el teléfono:', error);
+        return res.status(500).json({ error: 'Error al verificar el teléfono' });
       }
 
-      // Delegado insertado exitosamente
-      return res.status(200).json({ message: 'Delegado insertado correctamente' });
+      if (resultsTelefono.length > 0) {
+        errors.telefono = 'El teléfono ya está registrado';
+      }
+
+      // Verificar si el correo electrónico ya está registrado
+      const sqlEmail = 'SELECT * FROM delegado WHERE correo = ?';
+      db_connection.query(sqlEmail, [email], (error, resultsEmail) => {
+        if (error) {
+          console.error('Error al verificar el correo electrónico:', error);
+          return res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+        }
+
+        if (resultsEmail.length > 0) {
+          errors.email = 'El correo electrónico ya está registrado';
+        }
+
+        // Verificar si el usuario ya está registrado
+        const sqlUsuario = 'SELECT * FROM delegado WHERE nickname = ?';
+        db_connection.query(sqlUsuario, [usuario], (error, resultsUsuario) => {
+          if (error) {
+            console.error('Error al verificar el usuario:', error);
+            return res.status(500).json({ error: 'Error al verificar el usuario' });
+          }
+
+          if (resultsUsuario.length > 0) {
+            errors.usuario = 'El usuario ya está registrado';
+          }
+
+          if (Object.keys(errors).length > 0) {
+            return res.status(400).json({ errors });
+          }
+
+          fotodelegado.mv(`uploads/${fotodelegado.name}`, (error) => {
+            if (error) {
+              console.error('Error en la subida de la imagen:', error);
+              return res.status(500).json({
+                ok: false,
+                message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error,
+              });
+            }
+
+            // Ejemplo de encriptación de la contraseña
+            bcrypt.hash(contrasena, saltRounds, (err, hashedPassword) => {
+              if (err) {
+                console.error('Error al encriptar la contraseña:', err);
+                return res.status(500).json({ error: 'Error al encriptar la contraseña' });
+              }
+
+              // Ejemplo de inserción en la base de datos con la contraseña encriptada
+              const fotodelegadoDBURL = `${fotodelegado.name}`;
+              const sql = 'INSERT INTO delegado VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+              db_connection.query(sql, [nombre, apellido1, apellido2, dni, telefono, email, usuario, hashedPassword, fotodelegadoDBURL], (error, results) => {
+                if (error) {
+                  console.error('Error al insertar el delegado:', error);
+                  return res.status(500).json({ error: 'Error al insertar el delegado' });
+                }
+
+                // Delegado insertado exitosamente
+                return res.status(200).json({ message: 'Delegado insertado correctamente' });
+              });
+            });
+          });
+        });
+      });
     });
   });
 });
+
 // Equipo
 router.post('/nuevo_equipo', (req, res) => {
   const { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
@@ -59,7 +128,7 @@ router.post('/nuevo_equipo', (req, res) => {
 
     // Ejemplo de inserción en la base de datos
     const fotoescudoDBURL = `${fotoescudo.name}`;
-    const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 4)';
+    const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 3)';
     db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL], (error, results) => {
       if (error) {
         console.error('Error al insertar el equipo:', error);
