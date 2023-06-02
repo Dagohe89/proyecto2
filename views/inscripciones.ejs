@@ -1,141 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAF-Inscripciones</title>
     <%- include('partials/headLinks.ejs') %>
-    <link rel="stylesheet" href="css/inscripciones.css">
+        <link rel="stylesheet" href="css/inscripciones.css">
 </head>
+
 <body>
     <%- include('partials/header.ejs') %>
-    <main class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h1 class="accordion-header" id="delegado-heading">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#delegado-collapse" aria-expanded="false" aria-controls="delegado-collapse">Delegado</button>
-                </h1>
-                <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y tus jugadores</p>
-                <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
-                    <div class="accordion-body, form-box">
-                        <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido1">Apellido1</label>
-                                <input type="text" class="form-control" id="apellido1" name="apellido1" placeholder="Apellido1" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido2">Apellido2</label>
-                                <input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="Apellido2" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="dni">DNI</label>
-                                <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="usuario">Nombre de Usuario</label>
-                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de Usuario" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="contrasena">Contraseña</label>
-                                <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="repetir-contrasena">Repetir Contraseña</label>
-                                <input type="password" class="form-control" id="repetir-contrasena" name="repetir-contrasena" placeholder="Repetir Contraseña" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fotodelegado">Foto tipo carnet</label>
-                                <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado" accept="image/*">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h1 class="accordion-header" id="delegado-heading">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#delegado-collapse" aria-expanded="false"
+                            aria-controls="delegado-collapse">Delegado</button>
+                    </h1>
+                    <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu
+                        equipo y tus jugadores</p>
+                    <div id="delegado-collapse" class="accordion-collapse collapse" aria-labelledby="delegado-heading">
+                        <div class="accordion-body, form-box">
+                            <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate
+                                enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido1">Primer apellido</label>
+                                    <input type="text" class="form-control" id="apellido1" name="apellido1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido2">Segundo apellido</label>
+                                    <input type="text" class="form-control" id="apellido2" name="apellido2" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dni">DNI</label>
+                                    <input type="text" class="form-control" id="dni" name="dni" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="usuario">Elige un nombre de usuario</label>
+                                    <input type="text" class="form-control" id="usuario" name="usuario" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contrasena">Contraseña</label>
+                                    <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="confirmarContrasena">Repetir Contraseña</label>
+                                    <input type="password" class="form-control" id="confirmarContrasena"
+                                        name="confirmarContrasena" required>
+                                    <div class="valid-feedback">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="invalid-feedback">Las contraseñas no coinciden</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fotodelegado">Foto tipo carnet</label>
+                                    <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado"
+                                        accept="image/*" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#successModal">Enviar</button>
+                                <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="successModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="successModalLabel">¡Éxito!</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Cerrar">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Recuerda tu nombre de usuario y contraseña. Los necesitarás para
+                                                    logearte y poder inscribir tu equipo y jugadores.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h1 class="accordion-header" id="equipo-heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#equipo-collapse" aria-expanded="false"
+                            aria-controls="equipo-collapse">Equipo</button>
+                    </h1>
+                    <p>Inscribe aquí tu equipo</p>
+                    <div id="equipo-collapse" class="accordion-collapse collapse" aria-labelledby="equipo-heading">
+                        <div class="accordion-body, form-box">
+                            <form id="myFormEquipo" action="/nuevo_equipo" method="POST" class="needs-validation"
+                                novalidate enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="nombreEquipo">Nombre</label>
+                                    <input type="text" class="form-control" id="nombreEquipo" name="nombreEquipo"
+                                        placeholder="Nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="color-camiseta">Color de la camiseta</label>
+                                    <input type="text" class="form-control" id="color-camiseta" name="color_camiseta"
+                                        placeholder="Color de la camiseta" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
+                                    <input type="text" class="form-control" id="color-segunda-camiseta"
+                                        name="color_segunda_camiseta" placeholder="Color de la segunda camiseta"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="direccion-campo">Dirección del campo</label>
+                                    <textarea class="form-control" id="direccion-campo" name="direccion_campo" rows="3"
+                                        required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fotoescudo">Escudo del equipo</label>
+                                    <input type="file" class="form-control-file" id="fotoescudo" name="fotoescudo"
+                                        accept="image/*" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h1 class="accordion-header" id="jugador-heading">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#jugador-collapse" aria-expanded="false"
+                            aria-controls="jugador-collapse">Jugador</button>
+                    </h1>
+                    <p>Inscribe aquí los jugadores de tu equipo</p>
+                    <div id="jugador-collapse" class="accordion-collapse collapse" aria-labelledby="jugador-heading">
+                        <div class="accordion-body, form-box">
+                            <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate
+                                enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="nombre-jugador">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre-jugador" name="nombre"
+                                        placeholder="Nombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido1-jugador">Apellido1</label>
+                                    <input type="text" class="form-control" id="apellido1-jugador" name="apellido1"
+                                        placeholder="Apellido1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido2-jugador">Apellido2</label>
+                                    <input type="text" class="form-control" id="apellido2-jugador" name="apellido2"
+                                        placeholder="Apellido2">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dni-jugador">DNI</label>
+                                    <input type="text" class="form-control" id="dni-jugador" name="dni"
+                                        placeholder="DNI">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha-nacimiento-jugador">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fecha-nacimiento-jugador"
+                                        name="fecha-nacimiento" placeholder="Fecha de Nacimiento">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dorsal-jugador">Dorsal</label>
+                                    <input type="text" class="form-control" id="dorsal-jugador" name="dorsal"
+                                        placeholder="Dorsal">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fotojugador">Foto tipo carnet</label>
+                                    <input type="file" class="form-control-file" id="fotojugador" name="fotojugador"
+                                        accept="image/*">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <h1 class="accordion-header" id="equipo-heading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#equipo-collapse" aria-expanded="false" aria-controls="equipo-collapse">Equipo</button>
-                </h1>
-                <p>Inscribe aquí tu equipo</p>
-                <div id="equipo-collapse" class="accordion-collapse collapse" aria-labelledby="equipo-heading">
-                    <div class="accordion-body, form-box">
-                        <form id="myFormEquipo" action="/nuevo_equipo" class="needs-validation" novalidate enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="nombre-equipo">Nombre</label>
-                                <input type="text" class="form-control" id="nombre-equipo" name="nombre" placeholder="Nombre">
-                            </div>
-                            <div class="mb-3">
-                                <label for="color-camiseta">Color de la camiseta</label>
-                                <input type="text" class="form-control" id="color-camiseta" name="color-camiseta" placeholder="Color de la camiseta">
-                            </div>
-                            <div class="mb-3">
-                                <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
-                                <input type="text" class="form-control" id="color-segunda-camiseta" name="color-segunda-camiseta" placeholder="Color de la segunda camiseta">
-                            </div>
-                            <div class="mb-3">
-                                <label for="direccion-campo">Dirección del campo</label>
-                                <textarea class="form-control" id="direccion-campo" name="direccion-campo" rows="3"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fotoescudo">Escudo del equipo</label>
-                                <input type="file" class="form-control-file" id="fotoescudo" name="fotoescudo" accept="image/*">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>
-                    </div>
-                </div>                
-            </div>
-            <div class="col-md-3">
-                <h1 class="accordion-header" id="jugador-heading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jugador-collapse" aria-expanded="false" aria-controls="jugador-collapse">Jugador</button>
-                </h1>
-                <p>Inscribe aquí los jugadores de tu equipo</p>
-                <div id="jugador-collapse" class="accordion-collapse collapse" aria-labelledby="jugador-heading">
-                    <div class="accordion-body, form-box">
-                        <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="nombre-jugador">Nombre</label>
-                                <input type="text" class="form-control" id="nombre-jugador" name="nombre" placeholder="Nombre">
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido1-jugador">Apellido1</label>
-                                <input type="text" class="form-control" id="apellido1-jugador" name="apellido1" placeholder="Apellido1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="apellido2-jugador">Apellido2</label>
-                                <input type="text" class="form-control" id="apellido2-jugador" name="apellido2" placeholder="Apellido2">
-                            </div>
-                            <div class="mb-3">
-                                <label for="dni-jugador">DNI</label>
-                                <input type="text" class="form-control" id="dni-jugador" name="dni" placeholder="DNI">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fecha-nacimiento-jugador">Fecha de Nacimiento</label>
-                                <input type="date" class="form-control" id="fecha-nacimiento-jugador" name="fecha-nacimiento" placeholder="Fecha de Nacimiento">
-                            </div>
-                            <div class="mb-3">
-                                <label for="dorsal-jugador">Dorsal</label>
-                                <input type="text" class="form-control" id="dorsal-jugador" name="dorsal" placeholder="Dorsal">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fotojugador">Foto tipo carnet</label>
-                                <input type="file" class="form-control-file" id="fotojugador" name="fotojugador" accept="image/*">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <%- include('partials/footer.ejs') %>
-    <script src="../js/inscripciones.js"></script>
+        </main>
+        <%- include('partials/footer.ejs') %>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const contrasenaInput = document.getElementById('contrasena');
+                    const confirmarContrasenaInput = document.getElementById('confirmarContrasena');
+                    const checkIcon = confirmarContrasenaInput.nextElementSibling;
+
+                    const updateValidation = () => {
+                        if (confirmarContrasenaInput.value !== contrasenaInput.value) {
+                            confirmarContrasenaInput.classList.add('is-invalid');
+                            checkIcon.classList.remove('text-success');
+                            checkIcon.classList.add('text-danger');
+                        } else {
+                            confirmarContrasenaInput.classList.remove('is-invalid');
+                            checkIcon.classList.remove('text-danger');
+                            checkIcon.classList.add('text-success');
+                        }
+                    };
+
+                    const inputsWithValidation = [contrasenaInput, confirmarContrasenaInput];
+
+                    inputsWithValidation.forEach((input) => {
+                        input.addEventListener('input', updateValidation);
+                    });
+                });
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var form = document.getElementById('myFormDelegado');
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault(); // Evita que el formulario se envíe de inmediato
+
+                        // Realiza cualquier validación adicional que necesites aquí
+                        // ...
+
+                        // Verifica si el formulario es válido antes de mostrar el modal
+                        if (form.checkValidity()) {
+                            // Muestra el modal si el formulario es válido
+                            var modal = document.getElementById('successModal');
+                            modal.classList.add('show');
+                            modal.style.display = 'block';
+
+                            // Cierra el modal al hacer clic en la "x"
+                            var closeButton = modal.querySelector('.close');
+                            closeButton.addEventListener('click', function () {
+                                modal.style.display = 'none';
+                            });
+
+                            // Cierra el modal al hacer clic en el botón de cerrar
+                            var closeModalButton = modal.querySelector('.btn-secondary');
+                            closeModalButton.addEventListener('click', function () {
+                                modal.style.display = 'none';
+                            });
+                        }
+                    });
+                });
+            </script>
+
+            <script src="../js/inscripciones.js"></script>
 </body>
+
 </html>
-
-
