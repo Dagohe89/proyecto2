@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `faf`.`delegado` (
   `telefono` VARCHAR(255) NOT NULL,
   `correo` VARCHAR(255) NOT NULL,
   `nickname` VARCHAR(255) NOT NULL,
-  `contraseña` VARCHAR(255) NOT NULL,
+  `contrasena` VARCHAR(255) NOT NULL,
   `fotodelegadourl` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`iddelegado`))
 ENGINE = InnoDB
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `faf`.`equipo` (
   `nombreEquipo` VARCHAR(255) NOT NULL,
   `colorCamiseta` VARCHAR(255) NOT NULL,
   `colorCamiseta2` VARCHAR(255) NOT NULL,
-  `direciónCampo` VARCHAR(255) NOT NULL,
+  `direcionCampo` VARCHAR(255) NOT NULL,
   `fotoescudourl` VARCHAR(255) NOT NULL,
   `ganados` INT(2) NOT NULL,
   `empatados` INT(2) NOT NULL,
@@ -101,3 +101,5 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 select * from delegado;
+select * from equipo;
+select * from jugador;

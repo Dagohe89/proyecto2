@@ -5,7 +5,13 @@ const db_connection = require('../database/connection.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // Número de rondas de hashing (mayor es más seguro pero más lento)
 
+let isRegistered = false; // Variable para verificar si el primer registro se ha completado
+
 router.post('/nuevo_delegado', (req, res) => {
+  if (isRegistered) {
+    return res.status(400).json({ error: 'El formulario de registro solo es válido para el primer registro' });
+  }
+
   const { nombre, apellido1, apellido2, dni, telefono, email, usuario, contrasena, confirmarContrasena } = req.body;
   const fotodelegado = req.files.fotodelegado;
 
@@ -82,7 +88,7 @@ router.post('/nuevo_delegado', (req, res) => {
             }
 
             // Ejemplo de encriptación de la contraseña
-            bcrypt.hash(contrasena, saltRounds, (err, hashedPassword) => {
+            bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
               if (err) {
                 console.error('Error al encriptar la contraseña:', err);
                 return res.status(500).json({ error: 'Error al encriptar la contraseña' });
@@ -90,7 +96,7 @@ router.post('/nuevo_delegado', (req, res) => {
 
               // Ejemplo de inserción en la base de datos con la contraseña encriptada
               const fotodelegadoDBURL = `${fotodelegado.name}`;
-              const sql = 'INSERT INTO delegado VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+              const sql = 'INSERT INTO delegado (nombre, apellido1, apellido2, dni, telefono, correo, nickname, contrasena, fotodelegadourl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
               db_connection.query(sql, [nombre, apellido1, apellido2, dni, telefono, email, usuario, hashedPassword, fotodelegadoDBURL], (error, results) => {
                 if (error) {
                   console.error('Error al insertar el delegado:', error);
@@ -98,6 +104,7 @@ router.post('/nuevo_delegado', (req, res) => {
                 }
 
                 // Delegado insertado exitosamente
+                isRegistered = true; // Actualizar el estado de registro a true
                 return res.status(200).json({ message: 'Delegado insertado correctamente' });
               });
             });
@@ -143,12 +150,29 @@ router.post('/nuevo_equipo', (req, res) => {
 
 //Jugador
 router.post('/nuevo_jugador', (req, res) => {
-  const { nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal } = req.body;
+  const { nombre, apellido1, apellido2, dni, fechanacimiento, dorsal } = req.body;
   const fotojugador = req.files.fotojugador;
 
   // Validar campos vacíos del formulario de jugador
-  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || fecha_nacimiento === null || dorsal === null || fotojugador === null) {
+  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || fechanacimiento === null || dorsal === null || fotojugador === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de jugador son obligatorios' });
+  }
+
+  // Validar la fecha de nacimiento del jugador
+  const fechaNacimiento = new Date(fechanacimiento);
+  const fechaActual = new Date();
+
+  // Comparar las fechas
+  if (fechaNacimiento > fechaActual) {
+    return res.status(400).json({ error: 'La fecha de nacimiento no puede ser mayor que la fecha actual' });
+  }
+
+  // Calcular la diferencia en años
+  const edadJugador = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+
+  // Verificar si el jugador es mayor de 18 años
+  if (edadJugador < 18) {
+    return res.status(400).json({ error: 'El jugador debe ser mayor de edad' });
   }
 
   fotojugador.mv(`uploads/${fotojugador.name}`, error => {
@@ -161,8 +185,8 @@ router.post('/nuevo_jugador', (req, res) => {
 
     // Ejemplo de inserción en la base de datos
     const fotojugadorDBURL = `${fotojugador.name}`;
-    const sql = 'INSERT INTO jugador (idjugador, nombre, apellido1, apellido2, dni, fechaNacimiento, dorsal, fotojugadorurl) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    db_connection.query(sql, [nombre, apellido1, apellido2, dni, fecha_nacimiento, dorsal, fotojugadorDBURL], (error, results) => {
+    const sql = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0, 0, 0)';
+    db_connection.query(sql, [nombre, apellido1, apellido2, dni, fechanacimiento, dorsal, fotojugadorDBURL], (error, results) => {
       if (error) {
         console.error('Error al insertar el jugador:', error);
         return res.status(500).json({ error: 'Error al insertar el jugador' });

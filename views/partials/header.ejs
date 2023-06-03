@@ -32,21 +32,26 @@
                 </div>
             </div>
             <div>
-                <button  id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
                 <div id="modal" class="modal">
-                    <div class="modal-content">
-                      <span class="close">&times;</span>
-                      <h2>Login</h2>
-                      <form>
-                        <input type="text" placeholder="nombreusuario">
-                        <input type="text" placeholder="contraseña">
+                  <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Login</h2>
+                    <form id="loginForm" action="/login" method="post">
+                        <input id="nicknae" type="text" name="nickname" placeholder="nombreusuario" required>
+                        <input id="password" type="password" name="password" placeholder="contraseña" required>
                         <h1>No tienes cuenta?</h1>
-                        <a href="inscripciones">Inscribete aquí</a>
-                    </form>
+                        <a href="inscripciones">Inscríbete aquí</a>
+                        <button type="submit">Iniciar sesión</button>
+                      </form>
+                      
                   </div>
-            </div>
+                </div>
+              </div>
+              
         </div>
     </nav>
     <script src="/js/header.js"></script>
+    <script src="/js/inscripciones.js"></script>
     <link rel="icon" type="image/jpg" href="/img/favicoonFAF.ico"/>
 </header>

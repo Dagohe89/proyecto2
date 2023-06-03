@@ -1,7 +1,9 @@
 const express = require('express');
-const db_connection = require('./database/connection.js');
 const fileUpload = require('express-fileupload');
-const app = express();
+const session = require('express-session');
+const db_connection = require('./database/connection.js');
+
+const app = new express();
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -12,15 +14,22 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
 app.use(fileUpload());
+app.use(express.urlencoded({ extended: true }));
+
+// Configuración de express-session
+app.use(session({
+  secret: 'my-secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
 
 // Rutas
 const indexRoutes = require('./routes/index.routes');
 const viewRoutes = require('./routes/view.routes');
 const inscripcionesRoutes = require('./routes/inscripciones.routes');
+const authRoutes = require('./routes/auth.routes');
 
-app.use(indexRoutes);
-app.use(viewRoutes);
-app.use(inscripcionesRoutes);
+app.use(indexRoutes, viewRoutes, inscripcionesRoutes, authRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;
@@ -30,3 +39,5 @@ db_connection.getConnection(err => {
 app.listen(port, () => {
   console.log(`Servidor local http://localhost:${port}`);
 });
+
+module.exports = db_connection;
