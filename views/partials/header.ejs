@@ -32,19 +32,24 @@
                 </div>
             </div>
             <div>
-                <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <% if (user) { %>
+                  <form id="logoutForm" action="/logout" method="post">
+                    <button id="BtnCierra" type="submit" class="btn btn-primary">Cerrar sesión</button>
+                  </form>
+                <% } else { %>
+                  <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                <% } %>
                 <div id="modal" class="modal">
                   <div class="modal-content">
                     <span class="close">&times;</span>
                     <h2>Login</h2>
                     <form id="loginForm" action="/login" method="post">
-                        <input id="nicknae" type="text" name="nickname" placeholder="nombreusuario" required>
-                        <input id="password" type="password" name="password" placeholder="contraseña" required>
-                        <h1>No tienes cuenta?</h1>
-                        <a href="inscripciones">Inscríbete aquí</a>
-                        <button type="submit">Iniciar sesión</button>
-                      </form>
-                      
+                      <input id="nickname" type="text" name="nickname" placeholder="nombreusuario" required>
+                      <input id="password" type="password" name="password" placeholder="contraseña" required>
+                      <h1>No tienes cuenta?</h1>
+                      <a href="inscripciones">Inscríbete aquí</a>
+                      <button type="submit">Iniciar sesión</button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -52,6 +57,5 @@
         </div>
     </nav>
     <script src="/js/header.js"></script>
-    <script src="/js/inscripciones.js"></script>
-    <link rel="icon" type="image/jpg" href="/img/favicoonFAF.ico"/>
+    <link rel="icon" type="image/jpg" href="/img/favicoonFAF.ico" />
 </header>

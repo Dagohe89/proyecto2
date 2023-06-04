@@ -4,24 +4,28 @@ const router = express.Router();
 
 // Ruta de competicion
 router.get('/competicion', (req, res) => {
-  res.render('competicion');
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('competicion', { user });
 });
 
 // Ruta de contacto
 router.get('/contacto', (req, res) => {
-    res.render('contacto');
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('contacto', { user });
   });
 
 
 // Ruta de Inscripciones
 router.get('/inscripciones', (req, res) => {
-    res.render('inscripciones');
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('inscripciones', { user });
 });
 
 
 // Ruta de Actualidad
 router.get('/actualidad', (req, res) => {
-    res.render('actualidad');
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('actualidad', { user });
 });
 
 module.exports = router;

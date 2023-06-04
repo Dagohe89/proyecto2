@@ -3,7 +3,8 @@ const router = express.Router();
 
 // Ruta para la página de inicio
 router.get('/', (req, res) => {
-  res.render('index');
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('index', { user });
 });
 
 module.exports = router;

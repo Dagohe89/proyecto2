@@ -5,12 +5,7 @@ const db_connection = require('../database/connection.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // Número de rondas de hashing (mayor es más seguro pero más lento)
 
-let isRegistered = false; // Variable para verificar si el primer registro se ha completado
-
 router.post('/nuevo_delegado', (req, res) => {
-  if (isRegistered) {
-    return res.status(400).json({ error: 'El formulario de registro solo es válido para el primer registro' });
-  }
 
   const { nombre, apellido1, apellido2, dni, telefono, email, usuario, contrasena, confirmarContrasena } = req.body;
   const fotodelegado = req.files.fotodelegado;
@@ -88,7 +83,7 @@ router.post('/nuevo_delegado', (req, res) => {
             }
 
             // Ejemplo de encriptación de la contraseña
-            bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
+            bcrypt.hash(contrasena, saltRounds, (err, hashedPassword) => {
               if (err) {
                 console.error('Error al encriptar la contraseña:', err);
                 return res.status(500).json({ error: 'Error al encriptar la contraseña' });
@@ -104,7 +99,6 @@ router.post('/nuevo_delegado', (req, res) => {
                 }
 
                 // Delegado insertado exitosamente
-                isRegistered = true; // Actualizar el estado de registro a true
                 return res.status(200).json({ message: 'Delegado insertado correctamente' });
               });
             });
@@ -117,33 +111,51 @@ router.post('/nuevo_delegado', (req, res) => {
 
 // Equipo
 router.post('/nuevo_equipo', (req, res) => {
+
+  // Obtener los datos del formulario de equipo
   const { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
   const fotoescudo = req.files.fotoescudo;
-
+  const userId = req.session.UserId;
+  
   // Validar campos vacíos del formulario de equipo
   if (nombreEquipo === null || color_camiseta === null || color_segunda_camiseta === null || direccion_campo === null || fotoescudo === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de equipo son obligatorios' });
   }
 
-  fotoescudo.mv(`uploads/${fotoescudo.name}`, error => {
+  // Comprobación de existencia del equipo para el delegado actual
+  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [req.session.userId], (error, results) => {
     if (error) {
-      return res.status(500).json({
-        ok: false,
-        message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
-      });
+      console.error('Error al consultar la tabla equipo:', error);
+      return res.status(500).json({ error: 'Error al consultar la tabla equipo' });
     }
 
-    // Ejemplo de inserción en la base de datos
-    const fotoescudoDBURL = `${fotoescudo.name}`;
-    const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 3)';
-    db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL], (error, results) => {
+    const equipoExists = results.length > 0;
+
+    if (equipoExists) {
+      return res.status(400).json({ error: 'Ya existe un equipo registrado para este delegado' });
+    }
+
+    // Resto de comprobaciones y código de inserción del equipo
+    fotoescudo.mv(`uploads/${fotoescudo.name}`, (error) => {
       if (error) {
-        console.error('Error al insertar el equipo:', error);
-        return res.status(500).json({ error: 'Error al insertar el equipo' });
+        return res.status(500).json({
+          ok: false,
+          message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error,
+        });
       }
 
-      // Equipo insertado exitosamente
-      return res.status(200).json({ message: 'Equipo insertado correctamente' });
+      // Ejemplo de inserción en la base de datos
+      const fotoescudoDBURL = `${fotoescudo.name}`;
+      const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, ?)';
+      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, results) => {
+        if (error) {
+          console.error('Error al insertar el equipo:', error);
+          return res.status(500).json({ error: 'Error al insertar el equipo' });
+        }
+
+        // Equipo insertado exitosamente
+        return res.status(200).json({ message: 'Equipo insertado correctamente' });
+      });
     });
   });
 });
@@ -197,6 +209,5 @@ router.post('/nuevo_jugador', (req, res) => {
     });
   });
 });
-
 
 module.exports = router;

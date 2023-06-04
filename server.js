@@ -20,14 +20,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: 'my-secret-key',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true
 }));
 
 // Rutas
-const indexRoutes = require('./routes/index.routes');
-const viewRoutes = require('./routes/view.routes');
-const inscripcionesRoutes = require('./routes/inscripciones.routes');
-const authRoutes = require('./routes/auth.routes');
+const indexRoutes = require('./routes/index.routes.js');
+const viewRoutes = require('./routes/view.routes.js');
+const inscripcionesRoutes = require('./routes/inscripciones.routes.js');
+const authRoutes = require('./routes/auth.routes.js');
 
 app.use(indexRoutes, viewRoutes, inscripcionesRoutes, authRoutes);
 
