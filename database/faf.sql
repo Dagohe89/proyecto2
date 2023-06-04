@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `faf`.`equipo` (
   `nombreEquipo` VARCHAR(255) NOT NULL,
   `colorCamiseta` VARCHAR(255) NOT NULL,
   `colorCamiseta2` VARCHAR(255) NOT NULL,
-  `direcionCampo` VARCHAR(255) NOT NULL,
+  `direccionCampo` VARCHAR(255) NOT NULL,
   `fotoescudourl` VARCHAR(255) NOT NULL,
   `ganados` INT(2) NOT NULL,
   `empatados` INT(2) NOT NULL,
