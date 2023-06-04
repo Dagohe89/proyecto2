@@ -115,8 +115,8 @@ router.post('/nuevo_equipo', (req, res) => {
   // Obtener los datos del formulario de equipo
   const { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
   const fotoescudo = req.files.fotoescudo;
-  const userId = req.session.UserId;
-  
+  const userId = req.session.userId;
+
   // Validar campos vacíos del formulario de equipo
   if (nombreEquipo === null || color_camiseta === null || color_segunda_camiseta === null || direccion_campo === null || fotoescudo === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de equipo son obligatorios' });
@@ -164,6 +164,7 @@ router.post('/nuevo_equipo', (req, res) => {
 router.post('/nuevo_jugador', (req, res) => {
   const { nombre, apellido1, apellido2, dni, fechanacimiento, dorsal } = req.body;
   const fotojugador = req.files.fotojugador;
+  const userId = req.session.userId
 
   // Validar campos vacíos del formulario de jugador
   if (nombre === null || apellido1 === null || apellido2 === null || dni === null || fechanacimiento === null || dorsal === null || fotojugador === null) {
@@ -187,25 +188,36 @@ router.post('/nuevo_jugador', (req, res) => {
     return res.status(400).json({ error: 'El jugador debe ser mayor de edad' });
   }
 
-  fotojugador.mv(`uploads/${fotojugador.name}`, error => {
+  // Consultar el idequipo del delegado actual
+  const sqlConsulta = 'SELECT idequipo FROM equipo WHERE delegado_iddelegado = ?';
+  db_connection.query(sqlConsulta, [userId], (error, resultsConsulta) => {
     if (error) {
-      return res.status(500).json({
-        ok: false,
-        message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
-      });
+      console.error('Error al realizar la consulta:', error);
+      return res.status(500).json({ error: 'Error al realizar la consulta' });
     }
 
-    // Ejemplo de inserción en la base de datos
-    const fotojugadorDBURL = `${fotojugador.name}`;
-    const sql = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, 1, 0, 0, 0, 0)';
-    db_connection.query(sql, [nombre, apellido1, apellido2, dni, fechanacimiento, dorsal, fotojugadorDBURL], (error, results) => {
+    const idequipo = resultsConsulta[0].idequipo;
+
+    fotojugador.mv(`uploads/${fotojugador.name}`, error => {
       if (error) {
-        console.error('Error al insertar el jugador:', error);
-        return res.status(500).json({ error: 'Error al insertar el jugador' });
+        return res.status(500).json({
+          ok: false,
+          message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
+        });
       }
 
-      // Jugador insertado exitosamente
-      return res.status(200).json({ message: 'Jugador insertado correctamente' });
+      // Ejemplo de inserción en la base de datos
+      const fotojugadorDBURL = `${fotojugador.name}`;
+      const sql = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0)';
+      db_connection.query(sql, [nombre, apellido1, apellido2, dni, fechanacimiento, dorsal, fotojugadorDBURL, idequipo], (error, results) => {
+        if (error) {
+          console.error('Error al insertar el jugador:', error);
+          return res.status(500).json({ error: 'Error al insertar el jugador' });
+        }
+
+        // Jugador insertado exitosamente
+        return res.status(200).json({ message: 'Jugador insertado correctamente' });
+      });
     });
   });
 });
