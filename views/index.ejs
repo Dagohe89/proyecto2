@@ -23,7 +23,7 @@
                         que aún siente las ganas y la pasión por este deporte.</p>
                 </div>
                 <div class="col-md-6">
-                    <div id="carouselExampleCaptions" class="carousel slide">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                       <div class="carousel-indicators">
                         <% for (let i = 0; i < images.length; i++) { %>
                           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= i %>"
@@ -59,6 +59,16 @@
     </main>
         <%- include('partials/footer.ejs') %>
         <script src="../js/index.js"></script>
+        <script>
+            $(document).ready(function() {
+              // Inicializa el carrusel
+              $('#carouselExampleCaptions').carousel({
+                interval: 3000, // Intervalo de tiempo en milisegundos (3 segundos en este ejemplo)
+                pause: 'hover' // Pausar el carrusel al pasar el mouse sobre él
+              });
+            });
+          </script>
+          
 </body>
 
 </html>

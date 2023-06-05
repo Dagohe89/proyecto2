@@ -5,4 +5,11 @@
 
 #carouselExampleCaptions {
     background-color: blueviolet;
+    border: 2px black solid;
+    border-radius: 5%;
 }
+
+.carousel-inner {
+    border-radius: 5%;
+}
+

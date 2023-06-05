@@ -9,7 +9,8 @@ body {
 }
 
 main {
-  margin: 10px;
+  padding: 20px;
+  background-color: #f1f1f1;
 }
 
 .bg-light {
@@ -18,7 +19,7 @@ main {
 }
 
 footer {
-  background-color: #f0a122 !important;
+  background-color: #f89f11eb !important;
   padding: 15px;
 }
 

@@ -124,7 +124,7 @@ router.post('/nuevo_equipo', (req, res) => {
   }
 
   // Comprobación de existencia del equipo para el delegado actual
-  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [req.session.userId], (error, results) => {
+  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [userId], (error, results) => {
     if (error) {
       console.error('Error al consultar la tabla equipo:', error);
       return res.status(500).json({ error: 'Error al consultar la tabla equipo' });

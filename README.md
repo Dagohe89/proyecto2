@@ -10,3 +10,4 @@ problemas a solucionar:
 5- diferentes problemas en consola del navegador, y ocultar errores de las cosas que no se cargan porque segun si estas logueado o no encuentra unos forms o otros
 6-no consigo que lea bien los formularios cuando ya hay un equipo relacionado al usuario con la sesion iniciada para que la vista enseñe el formulario de equipo o de jugador
 7- agregar en la vista competición una tabla de pichichi con los 3 o 5 primeros goleadros y la de asistencias, asi como la de ta y tr
+8- necesito ayuda con el codigo del calendario

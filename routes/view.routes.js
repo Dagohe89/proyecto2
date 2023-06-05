@@ -50,12 +50,11 @@ router.get('/galeria', (req, res) => {
 // Ruta de Inscripciones
 router.get('/inscripciones', async (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
-
   if (user) {
     try {
       const equipo = await equipo.findOne({
         where: {
-          delegado_iddelegado: user.iddelegado
+          delegado_iddelegado: user.userId
         }
       });
 
