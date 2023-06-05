@@ -7,167 +7,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAF-Competición</title>
     <%- include('partials/headLinks.ejs') %>
-    <link rel="stylesheet" href="css/competicion.css">
-    </head>
+        <link rel="stylesheet" href="css/competicion.css">
+</head>
 
 <body>
     <%- include('partials/header.ejs') %>
-    <main class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1>Calendario</h1>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-7" style="overflow-x:auto;">
+                    <h1>Clasificación</h1>
+                    <table id="tablaEquipos" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Posicion</th>
+                                <th>Equipo</th>
+                                <th>Puntos</th>
+                                <th>Jugados</th>
+                                <th>Ganados</th>
+                                <th>Empatados</th>
+                                <th>Perdidos</th>
+                                <th>GF</th>
+                                <th>GC</th>
+                                <th>DG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% equipos.forEach(function(equipo) { %>
+                                <tr>
+                                    <td>
+                                        <%= equipo.idequipo %>
+                                    </td>
+                                    <td>
+                                        <img src="/<%= equipo.fotoescudourl %>" alt="Escudo del equipo" width="25" height="25">
+                                        <%= equipo.nombreEquipo %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.totalPuntos %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.jugados %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.ganados %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.empatados %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.perdidos %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.golesFavor %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.golesContra %>
+                                    </td>
+                                    <td>
+                                        <%= equipo.diferenciaGoles %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-5">
+                    <h1>Calendario</h1>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12" style="overflow-x:auto;">
-                <h1>Clasificación</h1>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Posicion</th>
-                            <th>Equipo</th>
-                            <th>Puntos</th>
-                            <th>Jugados</th>
-                            <th>Ganados</th>
-                            <th>Empatados</th>
-                            <th>Perdidos</th>
-                            <th>GF</th>
-                            <th>GC</th>
-                            <th>DG</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h1>Equipos</h1>
-            </div>
-        </div>
-    </main>
-    <%- include('partials/footer.ejs') %>
+
+        </main>
+        <%- include('partials/footer.ejs') %>
+            <script src="../js/competicion.js"></script>
+
 </body>
 
 </html>

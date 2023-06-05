@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
 
     // Autenticación exitosa, establecer la sesión
     req.session.userId = user.iddelegado;
-
+    console.log(user);
     res.status(200).json({ message: 'Inicio de sesión exitoso' });
   });
 });
