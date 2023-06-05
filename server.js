@@ -28,9 +28,9 @@ const indexRoutes = require('./routes/index.routes.js');
 const viewRoutes = require('./routes/view.routes.js');
 const inscripcionesRoutes = require('./routes/inscripciones.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
-const imgRoutes = require('./routes/img.routes.js');
+const imagenesRoutes = require('./routes/imagenes.routes.js');
 
-app.use(indexRoutes, viewRoutes, inscripcionesRoutes, authRoutes, imgRoutes);
+app.use(indexRoutes, viewRoutes, inscripcionesRoutes, authRoutes, imagenesRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;

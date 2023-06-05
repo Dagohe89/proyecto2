@@ -3,6 +3,6 @@
     height: 100px;
 }
 
-main {
-    background-color: black;
+#carouselExampleCaptions {
+    background-color: blueviolet;
 }
