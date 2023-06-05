@@ -23,11 +23,18 @@ router.get('/competicion', (req, res) => {
     res.render('competicion', { user, equipos: results }); // Enviar user, equipos y vista como JSON
   });
 });
-// Ruta de contacto
-router.get('/contacto', (req, res) => {
+
+// Ruta de Actualidad
+router.get('/actualidad', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
-  res.render('contacto', { user });
-  });
+  res.render('actualidad', { user });
+});
+
+// Ruta de Galeria
+router.get('/galeria', (req, res) => {
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('galeria', { user });
+});
 
 
 // Ruta de Inscripciones
@@ -59,11 +66,13 @@ router.get('/inscripciones', async (req, res) => {
   }
 });
 
-
-// Ruta de Actualidad
-router.get('/actualidad', (req, res) => {
+// Ruta de contacto
+router.get('/contacto', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
-  res.render('actualidad', { user });
-});
+  res.render('contacto', { user });
+  });
+
+
+
 
 module.exports = router;
