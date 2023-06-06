@@ -26,6 +26,12 @@ router.get('/competicion', (req, res) => {
   });
 });
 
+//Ruta de equipos
+router.get('/equipos', (req, res) => {
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('equipos', { user });
+});
+
 // Ruta de Actualidad
 router.get('/actualidad', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
@@ -63,7 +69,7 @@ router.get('/inscripciones', async (req, res) => {
         res.render('inscripciones', { user, equipo });
       } else {
         // Si no hay un equipo asociado al usuario
-        res.render('inscripciones', { user, equipo: null});
+        res.render('inscripciones', { user, equipo: null });
       }
     } catch (error) {
       console.error('Error al obtener el equipo:', error);
@@ -71,7 +77,7 @@ router.get('/inscripciones', async (req, res) => {
     }
   } else {
     // Si no hay un usuario con sesión iniciada
-    res.render('inscripciones', { user, equipo: null });
+    res.render('inscripciones', { user: null, equipo: null });
   }
 });
 
@@ -79,7 +85,20 @@ router.get('/inscripciones', async (req, res) => {
 router.get('/contacto', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
   res.render('contacto', { user });
-  });
+});
+
+//Ruta de equipos
+router.get('/equipos', (req, res) => {
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('equipos', { user });
+});
+
+//Ruta de miequipo
+router.get('/miequipo', (req, res) => {
+  const user = req.session.userId ? { id: req.session.userId } : null;
+  res.render('miequipo', { user });
+});
+
 
 
 

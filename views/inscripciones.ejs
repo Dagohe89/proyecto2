@@ -19,6 +19,7 @@
                 <h1>Delegado</h1>
                 <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y
                     tus jugadores</p>
+                    <p>Requisitos: </p>
                 <div class="form-box">
                         <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate
                             enctype="multipart/form-data" method="post">
@@ -105,6 +106,7 @@
         <div class="col-md-12">
             <h1>Equipo</h1>
             <p>Inscribe aquí tu equipo</p>
+            <p>Requisitos: tener un campo contratado, tener una equipacion valida y una segunda camiseta, etc.</p>
                 <div class="form-box">
                     <form id="myFormEquipo" action="/nuevo_equipo" method="POST" class="needs-validation" novalidate
                         enctype="multipart/form-data">
@@ -138,10 +140,11 @@
                 </div>
             </div>
         </div>
-        <% } else { %>
+        <% } else if (user && equipo) { %>
             <div class="col-md-12">
                 <h1>Jugador</h1>
                 <p>Inscribe aquí los jugadores de tu equipo</p>
+                <p>Requisitos</p>
                 <div class="form-box">
                     <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate
                         enctype="multipart/form-data" method="post">

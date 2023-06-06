@@ -48,3 +48,9 @@ function logout() {
       // Mostrar un mensaje de error si es necesario
     });
 }
+
+/*const form = document.querySelector('form');
+
+form.addEventListener('submit', (e) => {
+e.preventDefault();
+})*/

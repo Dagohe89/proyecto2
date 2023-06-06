@@ -73,7 +73,8 @@ const validateAndSubmitForm = (form) => {
 
 window.addEventListener('beforeunload', () => {
   formDelegado.reset();
-  formEquipo.reset();
+  if (formEquipo) {
+  formEquipo.reset();};
   formJugador.reset();
 });
 
