@@ -20,7 +20,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: 'my-secret-key',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    secure: true,
+    sameSite: 'none'
+  }
 }));
 
 // Rutas

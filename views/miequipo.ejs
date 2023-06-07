@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAF-Actualidad</title>
+    <title>FAF-Mi equipo</title>
     <%- include('partials/headLinks.ejs') %>
 </head>
 <body>
     <%- include('partials/header.ejs') %>
     <main>
-        
+        <h5><img src="/<%= equipo.fotoescudourl %>" alt="Escudo">Mi equipo</h5>
+        <h3>Mis Datos</h3>
+        <h6><% user.Nombre %></h6>
+        <h3>Mi equipo</h3>
+        <h3>Mis jugadores</h3>
     </main>
     <%- include('partials/footer.ejs') %>
 </body>

@@ -5,6 +5,15 @@ const db_connection = require('../database/connection.js');
 
 const router = express.Router();
 
+router.get('/login', (req, res) => {
+  // Verificar si hay un usuario con sesión iniciada
+  if (req.session.userId) {
+    return res.status(200).json({ isLoggedIn: true });
+  }
+  
+  return res.status(200).json({ isLoggedIn: false });
+});
+
 // Ruta de inicio de sesión
 router.post('/login', (req, res) => {
   const { nickname, password } = req.body;
@@ -31,7 +40,7 @@ router.post('/login', (req, res) => {
 
     // Autenticación exitosa, establecer la sesión
     req.session.userId = user.iddelegado;
-    res.status(200).json({ message: 'Inicio de sesión exitoso' });
+    res.render('index' , { user, images: results });
   });
 });
 

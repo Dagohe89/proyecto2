@@ -22,15 +22,6 @@ closeButton.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-window.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-});
-
-closeSpan.addEventListener('click', () => {
-  modal.style.display = 'none';
-});
 
 function logout() {
   fetch('/logout', {
@@ -49,8 +40,8 @@ function logout() {
     });
 }
 
-/*const form = document.querySelector('form');
+//const form = document.querySelector('form');
 
 form.addEventListener('submit', (e) => {
 e.preventDefault();
-})*/
+})

@@ -33,10 +33,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% let posicion = 1; %>
                                 <% equipos.forEach(function(equipo) { %>
                                     <tr>
                                         <td>
-                                            <%= equipo.idequipo %>
+                                            <%= posicion %>
                                         </td>
                                         <td>
                                             <img src="/<%= equipo.fotoescudourl %>" alt="Escudo del equipo" width="25"
@@ -68,6 +69,7 @@
                                             <%= equipo.diferenciaGoles %>
                                         </td>
                                     </tr>
+                                    <% posicion++; %>
                                     <% }); %>
                             </tbody>
                         </table>
@@ -82,7 +84,7 @@
                                     <div class="col-md-3">
                                         <h4>Goles</h4>
                                         <table class="table">
-                                            <thead>
+                                            <thead class="table-dark">
                                                 <tr>
                                                     <th>Pos</th>
                                                     <th>Nombre</th>
@@ -109,7 +111,7 @@
                                         </table>
                                         <h4>Asistencias</h4>
                                         <table class="table">
-                                            <thead>
+                                            <thead class="table-dark">
                                                 <tr>
                                                     <th>Pos</th>
                                                     <th>Nombre</th>
@@ -138,7 +140,7 @@
                                     <div class="col-md-3">
                                         <h4>Tarj. Amarillas</h4>
                                         <table class="table">
-                                            <thead>
+                                            <thead class="table-dark">
                                                 <tr>
                                                     <th>Pos</th>
                                                     <th>Nombre</th>
@@ -165,7 +167,7 @@
                                         </table>
                                         <h4>Tarj. Rojas</h4>
                                         <table class="table">
-                                            <thead>
+                                            <thead class="table-dark">
                                                 <tr>
                                                     <th>Pos</th>
                                                     <th>Nombre</th>

@@ -100,7 +100,7 @@ router.post('/nuevo_delegado', (req, res) => {
                 }
 
                 // Delegado insertado exitosamente
-                return res.status(200).render('/inscripciones', { user, message: 'Delegado insertado correctamente' });
+                return res.render('inscripciones', { user, message: 'Delegado insertado correctamente' });
               });
             });
           });
@@ -155,7 +155,7 @@ router.post('/nuevo_equipo', (req, res) => {
         }
 
         // Equipo insertado exitosamente
-        return res.status(200).render('/inscripciones', { message: 'Equipo insertado correctamente' });
+        return res.render('inscripciones', { user, equipo});
       });
     });
   });

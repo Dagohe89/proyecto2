@@ -12,15 +12,15 @@
 
 <body>
     <%- include('partials/header.ejs') %>
-    <main class="container">
-        <% if (!user) { %>
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Delegado</h1>
-                <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu equipo y
-                    tus jugadores</p>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h1>Delegado</h1>
+                    <p>Inscríbete aquí como nuevo delegado para recibir tus datos con los que podrás inscribir a tu
+                        equipo y
+                        tus jugadores</p>
                     <p>Requisitos: </p>
-                <div class="form-box">
+                    <div class="form-box">
                         <form id="myFormDelegado" action="/nuevo_delegado" class="needs-validation" novalidate
                             enctype="multipart/form-data" method="post">
                             <div class="mb-3">
@@ -73,7 +73,8 @@
                                 <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado"
                                     accept="image/*" required>
                             </div>
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#successModal">
+                            <button type="submit" class="btn btn-primary" data-toggle="modal"
+                                data-target="#successModal">
                                 Enviar
                             </button>
                             <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
@@ -82,12 +83,14 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="successModalLabel">¡Éxito!</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Cerrar">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Recuerda tu nombre de usuario y contraseña. Los necesitarás para logearte y
+                                            <p>Recuerda tu nombre de usuario y contraseña. Los necesitarás para
+                                                logearte y
                                                 poder inscribir tu equipo y jugadores.</p>
                                         </div>
                                         <div class="modal-footer">
@@ -100,93 +103,88 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-        <% } else if (user && !equipo) { %>
-        <div class="col-md-12">
-            <h1>Equipo</h1>
-            <p>Inscribe aquí tu equipo</p>
-            <p>Requisitos: tener un campo contratado, tener una equipacion valida y una segunda camiseta, etc.</p>
-                <div class="form-box">
-                    <form id="myFormEquipo" action="/nuevo_equipo" method="POST" class="needs-validation" novalidate
-                        enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="nombreEquipo">Nombre</label>
-                            <input type="text" class="form-control" id="nombreEquipo" name="nombreEquipo"
-                                placeholder="Nombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="color-camiseta">Color de la camiseta</label>
-                            <input type="text" class="form-control" id="color-camiseta" name="color_camiseta"
-                                placeholder="Color de la camiseta" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
-                            <input type="text" class="form-control" id="color-segunda-camiseta"
-                                name="color_segunda_camiseta" placeholder="Color de la segunda camiseta" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="direccion-campo">Dirección del campo</label>
-                            <textarea class="form-control" id="direccion-campo" name="direccion_campo" rows="3"
-                                required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fotoescudo">Escudo del equipo</label>
-                            <input type="file" class="form-control-file" id="fotoescudo" name="fotoescudo" accept="image/*"
-                                required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </form>
+                <div class="col-md-4">
+                    <h1>Equipo</h1>
+                    <p>Inscribe aquí tu equipo</p>
+                    <p>Requisitos: tener un campo contratado, tener una equipacion valida y una segunda camiseta,
+                        etc.</p>
+                    <div class="form-box">
+                        <form id="myFormEquipo" action="/nuevo_equipo" method="POST" class="needs-validation" novalidate
+                            enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="nombreEquipo">Nombre</label>
+                                <input type="text" class="form-control" id="nombreEquipo" name="nombreEquipo"
+                                    placeholder="Nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="color-camiseta">Color de la camiseta</label>
+                                <input type="text" class="form-control" id="color-camiseta" name="color_camiseta"
+                                    placeholder="Color de la camiseta" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
+                                <input type="text" class="form-control" id="color-segunda-camiseta"
+                                    name="color_segunda_camiseta" placeholder="Color de la segunda camiseta" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="direccion-campo">Dirección del campo</label>
+                                <textarea class="form-control" id="direccion-campo" name="direccion_campo" rows="3"
+                                    required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fotoescudo">Escudo del equipo</label>
+                                <input type="file" class="form-control-file" id="fotoescudo" name="fotoescudo"
+                                    accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <% } else if (user && equipo) { %>
-            <div class="col-md-12">
-                <h1>Jugador</h1>
-                <p>Inscribe aquí los jugadores de tu equipo</p>
-                <p>Requisitos</p>
-                <div class="form-box">
-                    <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate
-                        enctype="multipart/form-data" method="post">
-                        <div class="mb-3">
-                            <label for="nombre-jugador">Nombre</label>
-                            <input type="text" class="form-control" id="nombre-jugador" name="nombre"
-                                placeholder="Nombre">
-                        </div>
-                        <div class="mb-3">
-                            <label for="apellido1-jugador">Primer apellido</label>
-                            <input type="text" class="form-control" id="apellido1-jugador" name="apellido1"
-                                placeholder="Apellido1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="apellido2-jugador">Segundo apellido</label>
-                            <input type="text" class="form-control" id="apellido2-jugador" name="apellido2"
-                                placeholder="Apellido2">
-                        </div>
-                        <div class="mb-3">
-                            <label for="dni-jugador">DNI</label>
-                            <input type="text" class="form-control" id="dni-jugador" name="dni" placeholder="DNI">
-                        </div>
-                        <div class="mb-3">
-                            <label for="fechanacimiento">Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" id="fechanacimiento" name="fechanacimiento">
-                        </div>
-                        <div class="mb-3">
-                            <label for="dorsal-jugador">Dorsal</label>
-                            <input type="text" class="form-control" id="dorsal-jugador" name="dorsal"
-                                placeholder="Dorsal">
-                        </div>
-                        <div class="mb-3">
-                            <label for="fotojugador">Foto tipo carnet</label>
-                            <input type="file" class="form-control-file" id="fotojugador" name="fotojugador" accept="image/*">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </form>
+                <div class="col-md-4">
+                    <h1>Jugador</h1>
+                    <p>Inscribe aquí los jugadores de tu equipo</p>
+                    <p>Requisitos</p>
+                    <div class="form-box">
+                        <form id="myFormJugador" action="/nuevo_jugador" class="needs-validation" novalidate
+                            enctype="multipart/form-data" method="post">
+                            <div class="mb-3">
+                                <label for="nombre-jugador">Nombre</label>
+                                <input type="text" class="form-control" id="nombre-jugador" name="nombre"
+                                    placeholder="Nombre">
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido1-jugador">Primer apellido</label>
+                                <input type="text" class="form-control" id="apellido1-jugador" name="apellido1"
+                                    placeholder="Apellido1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido2-jugador">Segundo apellido</label>
+                                <input type="text" class="form-control" id="apellido2-jugador" name="apellido2"
+                                    placeholder="Apellido2">
+                            </div>
+                            <div class="mb-3">
+                                <label for="dni-jugador">DNI</label>
+                                <input type="text" class="form-control" id="dni-jugador" name="dni" placeholder="DNI">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechanacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="fechanacimiento" name="fechanacimiento">
+                            </div>
+                            <div class="mb-3">
+                                <label for="dorsal-jugador">Dorsal</label>
+                                <input type="text" class="form-control" id="dorsal-jugador" name="dorsal"
+                                    placeholder="Dorsal">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fotojugador">Foto tipo carnet</label>
+                                <input type="file" class="form-control-file" id="fotojugador" name="fotojugador"
+                                    accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <% } %>
-    </main>
+        </main>
         <%- include('partials/footer.ejs') %>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
