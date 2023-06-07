@@ -33,31 +33,31 @@
                   <% } %>
               </div>
               <a href="/galeria">
-              <div class="carousel-inner">
-                <% randomizedImages.forEach((image, index)=> { %>
-                  <div class="carousel-item <% if (index === 0) { %> active <% } %>">
-                    <img src="<%= image %>" class="d-block w-100" alt="Image <%= index + 1 %>">
-                    <div class="carousel-caption d-none d-md-block">
-                      <h5>Slide <%= index + 1 %> label</h5>
-                      <p>Some representative placeholder content for slide <%= index + 1 %>
-                      </p>
+                <div class="carousel-inner">
+                  <% randomizedImages.forEach((image, index)=> { %>
+                    <div class="carousel-item <% if (index === 0) { %> active <% } %>">
+                      <img src="<%= image %>" class="d-block w-100" alt="Image <%= index + 1 %>">
+                      <div class="carousel-caption d-none d-md-block">
+                        <h5>Slide <%= index + 1 %> label</h5>
+                        <p>Some representative placeholder content for slide <%= index + 1 %>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <% }) %>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+                    <% }) %>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
             </div>
           </div>
-        </a>
+          </a>
 
 
 

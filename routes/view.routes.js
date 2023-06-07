@@ -5,26 +5,25 @@ const fileUpload = require('express-fileupload');
 const router = express.Router();
 const db_connection = require('../database/connection.js');
 
-// Ruta de competicion
 router.get('/competicion', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
 
   const sql = 'SELECT * FROM equipo';
-  db_connection.query(sql, (error, results) => {
+  db_connection.query(sql, (error, equipos) => {
     if (error) {
       console.error('Error al obtener los datos de la tabla "equipo":', error);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
 
     // Realizar cálculos adicionales
-    results.forEach(equipo => {
+    equipos.forEach(equipo => {
       equipo.totalPuntos = equipo.ganados * 3 + equipo.empatados;
       equipo.jugados = equipo.ganados + equipo.empatados + equipo.perdidos;
       equipo.diferenciaGoles = equipo.golesFavor - equipo.golesContra;
     });
 
-    // Ordenar los resultados por puntos y diferencia de goles
-    results.sort((a, b) => {
+    // Ordenar los equipos por puntos y diferencia de goles
+    equipos.sort((a, b) => {
       if (b.totalPuntos !== a.totalPuntos) {
         return b.totalPuntos - a.totalPuntos; // Ordenar por puntos de forma descendente
       } else if (b.ganados !== a.ganados) {
@@ -35,7 +34,36 @@ router.get('/competicion', (req, res) => {
         return b.diferenciaGoles - a.diferenciaGoles; // Ordenar por diferencia de goles de forma descendente
       }
     });
-    res.render('competicion', { user, equipos: results });
+
+    const sql2 = 'SELECT nombre, goles, asistencias, ta, tr FROM jugador';
+    db_connection.query(sql2, (error, jugadores) => {
+      if (error) {
+        console.error('Error al obtener los datos de la tabla "jugador":', error);
+        return res.status(500).json({ error: 'Error interno del servidor' });
+      }
+      jugadores.sort((a, b) => {
+        if (b.goles !== a.goles) {
+          return b.goles - a.goles; // Ordenar por goles de forma descendente
+        }
+      });
+      jugadores.sort((a, b) => {
+        if (b.asistencias !== a.asistencias) {
+          return b.asistencias - a.asistencias; // Ordenar por goles de forma descendente
+        }
+      });
+      jugadores.sort((a, b) => {
+        if (b.ta !== a.ta) {
+          return b.ta - a.ta; // Ordenar por goles de forma descendente
+        }
+      });
+      jugadores.sort((a, b) => {
+        if (b.tr !== a.tr) {
+          return b.tr - a.tr; // Ordenar por goles de forma descendente
+        }
+      });
+
+      res.render('competicion', { user, equipos, jugadores });
+    });
   });
 });
 

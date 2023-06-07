@@ -116,8 +116,8 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-UPDATE equipo SET empatados = 1 WHERE delegado_iddelegado = 14;
-UPDATE equipo SET golesFavor = 2 WHERE delegado_iddelegado = 14;
+update equipo set ganados = 2 where idequipo = 6;
+update jugador set tr = 1 where idjugador = 6;
 select * from imagen;
 select * from delegado;
 select * from equipo;

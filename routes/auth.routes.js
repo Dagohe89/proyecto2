@@ -5,6 +5,14 @@ const db_connection = require('../database/connection.js');
 
 const router = express.Router();
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 router.get('/login', (req, res) => {
   // Verificar si hay un usuario con sesión iniciada
   if (req.session.userId) {
@@ -17,6 +25,7 @@ router.get('/login', (req, res) => {
 // Ruta de inicio de sesión
 router.post('/login', (req, res) => {
   const { nickname, password } = req.body;
+  const user = req.session.userId ? { id: req.session.userId } : null;
 
   // Consulta SQL para buscar el usuario en la base de datos
   const sql = `SELECT * FROM delegado WHERE nickname = ?`;
@@ -40,19 +49,31 @@ router.post('/login', (req, res) => {
 
     // Autenticación exitosa, establecer la sesión
     req.session.userId = user.iddelegado;
-    res.render('index' , { user, images: results });
+    const images = results.map(result => result.imagenurl);
+    const randomizedImages = shuffleArray(images);
+
+    res.render('index' , { user, images: results, randomizedImages});
   });
 });
 
-// Ruta de cierre de sesión
 router.post('/logout', (req, res) => {
+  const user = req.session.userId ? { id: req.session.userId } : null;
   req.session.destroy((error) => {
     if (error) {
       console.error('Error al cerrar la sesión:', error);
       return res.status(500).json({ error: 'Error al cerrar la sesión' });
     }
+
+    // Obtén los datos necesarios antes de renderizar la vista
+    // Reemplaza 'obtenerResultados' con tu lógica para obtener los datos
+
+    // Verificar si 'user' está definido y proporcionar un valor predeterminado si no lo está
+
+    const images = results.map(result => result.imagenurl);
+    const randomizedImages = shuffleArray(images);
+
     res.clearCookie('connect.sid');
-    res.status(200).json({ message: 'Sesión cerrada exitosamente' });
+    res.render('index', { user, images, randomizedImages });
   });
 });
 

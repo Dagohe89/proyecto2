@@ -91,8 +91,17 @@
                                                 <th>G</th>
                                               </tr>
                                             </thead>
-                                            <tbody id="tabla-body"></tbody>
+                                            <tbody id="tabla-body">
+                                              <% jugadores.forEach((jugador, index) => { %>
+                                                <tr>
+                                                  <td><%= index + 1 %></td>
+                                                  <td><%= jugador.nombre %></td>
+                                                  <td><%= jugador.goles %></td>
+                                                </tr>
+                                              <% }) %>
+                                            </tbody>
                                           </table>
+                                          
                                           
                                         <h4>Asistencias</h4>
                                         <table class="table">
@@ -103,23 +112,15 @@
                                                     <th>Ass</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody id="tabla-body">
+                                                <% jugadores.forEach((jugador, index) => { %>
+                                                  <tr>
+                                                    <td><%= index + 1 %></td>
+                                                    <td><%= jugador.nombre %></td>
+                                                    <td><%= jugador.asistencias %></td>
+                                                  </tr>
+                                                <% }) %>
+                                              </tbody>
                                         </table>
                                     </div>
                                     <div class="col-md-3">
@@ -132,23 +133,15 @@
                                                     <th>TA</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody id="tabla-body">
+                                                <% jugadores.forEach((jugador, index) => { %>
+                                                  <tr>
+                                                    <td><%= index + 1 %></td>
+                                                    <td><%= jugador.nombre %></td>
+                                                    <td><%= jugador.ta %></td>
+                                                  </tr>
+                                                <% }) %>
+                                              </tbody>
                                         </table>
                                         <h4>Tarj. Rojas</h4>
                                         <table class="table">
@@ -159,23 +152,15 @@
                                                     <th>TR</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody id="tabla-body">
+                                                <% jugadores.forEach((jugador, index) => { %>
+                                                  <tr>
+                                                    <td><%= index + 1 %></td>
+                                                    <td><%= jugador.nombre %></td>
+                                                    <td><%= jugador.tr %></td>
+                                                  </tr>
+                                                <% }) %>
+                                              </tbody>
                                         </table>
                                     </div>
                                 </div>
