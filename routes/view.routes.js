@@ -35,7 +35,6 @@ router.get('/competicion', (req, res) => {
         return b.diferenciaGoles - a.diferenciaGoles; // Ordenar por diferencia de goles de forma descendente
       }
     });
-
     res.render('competicion', { user, equipos: results });
   });
 });
