@@ -10,7 +10,7 @@ router.post('/nuevo_delegado', (req, res) => {
 
   const { nombre, apellido1, apellido2, dni, telefono, email, usuario, contrasena, confirmarContrasena } = req.body;
   const fotodelegado = req.files.fotodelegado;
-
+  const user = req.session.userId ? { id: req.session.userId } : null;
   // Validar campos vacíos del formulario de delegado
   if (nombre === null || apellido1 === null || apellido2 === null || dni === null || telefono === null || email === null || usuario === null || contrasena === null || confirmarContrasena === null || fotodelegado === null) {
     return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
@@ -98,7 +98,9 @@ router.post('/nuevo_delegado', (req, res) => {
                   console.error('Error al insertar el delegado:', error);
                   return res.status(500).json({ error: 'Error al insertar el delegado' });
                 }
-
+                if (user) {
+                  req.session.userId = user.iddelegado;
+                }
                 // Delegado insertado exitosamente
                 return res.render('inscripciones', { user, message: 'Delegado insertado correctamente' });
               });
@@ -114,9 +116,9 @@ router.post('/nuevo_delegado', (req, res) => {
 router.post('/nuevo_equipo', (req, res) => {
 
   // Obtener los datos del formulario de equipo
-  const { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
+  const  { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
   const fotoescudo = req.files.fotoescudo;
-  const userId = req.session.userId;
+  const user = req.session.userId ? { id: req.session.userId } : null;
 
   // Validar campos vacíos del formulario de equipo
   if (nombreEquipo === null || color_camiseta === null || color_segunda_camiseta === null || direccion_campo === null || fotoescudo === null) {
@@ -124,7 +126,7 @@ router.post('/nuevo_equipo', (req, res) => {
   }
 
   // Comprobación de existencia del equipo para el delegado actual
-  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [userId], (error, results) => {
+  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [user.id], (error, results) => {
     if (error) {
       console.error('Error al consultar la tabla equipo:', error);
       return res.status(500).json({ error: 'Error al consultar la tabla equipo' });
@@ -148,14 +150,14 @@ router.post('/nuevo_equipo', (req, res) => {
       // Ejemplo de inserción en la base de datos
       const fotoescudoDBURL = `${fotoescudo.name}`;
       const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, ?)';
-      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, results) => {
+      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, user.id], (error, results) => {
         if (error) {
           console.error('Error al insertar el equipo:', error);
           return res.status(500).json({ error: 'Error al insertar el equipo' });
         }
 
         // Equipo insertado exitosamente
-        return res.render('inscripciones', { user, equipo});
+        return res.render('inscripciones', { user});
       });
     });
   });

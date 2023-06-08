@@ -20,8 +20,8 @@ router.post('/subeimagen', (req, res) => {
     }
 
     // Insertar la información de la imagen en la base de datos
-    const sql = 'INSERT INTO imagen VALUES (default, ?, ?)';
-    db_connection.query(sql, [image.name, userId], (error, result) => {
+    const sql = 'INSERT INTO imagen VALUES (default, ?, ?, ?)';
+    db_connection.query(sql, [req.body.titulo, image.name, userId], (error, result) => {
       if (error) {
         console.error('Error al insertar la imagen en la base de datos:', error);
         return res.status(500).send('Error interno del servidor al insertar la imagen en la base de datos.');

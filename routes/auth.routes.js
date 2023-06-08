@@ -61,17 +61,16 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get('/logout', (req, res) => {
+/*router.get('/logout', (req, res) => {
   // Verificar si hay un usuario con sesión iniciada
   if (req.session.userId) {
     return res.status(200).json({ isLoggedIn: false });
   }
 
   return res.status(200).json({ isLoggedIn: true });
-});
+});*/
 
 router.post('/logout', (req, res) => {
-  const user = req.session.userId ? { id: req.session.userId } : null;
   const sql = 'SELECT imagenurl FROM imagen';
   db_connection.query(sql, (error, imagenes) => {
     if (error) {
@@ -88,7 +87,7 @@ router.post('/logout', (req, res) => {
       // Reemplaza 'obtenerResultados' con tu lógica para obtener los datos
 
       // Verificar si 'user' está definido y proporcionar un valor predeterminado si no lo está
-
+const user = false;
       const images = imagenes.map(result => result.imagenurl);
       const randomizedImages = shuffleArray(images);
 

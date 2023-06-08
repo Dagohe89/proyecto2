@@ -101,6 +101,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `faf`.`imagen` (
   `idimagen` INT NOT NULL AUTO_INCREMENT,
+  `titulo`VARCHAR(255) NOT NULL,
   `imagenurl` VARCHAR(255) NOT NULL,
   `delegado_iddelegado` INT(11) NOT NULL,
   PRIMARY KEY (`idimagen`),

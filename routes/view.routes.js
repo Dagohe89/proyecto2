@@ -86,7 +86,7 @@ router.get('/actualidad', (req, res) => {
 router.get('/galeria', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
 
-  const sql = 'SELECT imagenurl FROM imagen';
+  const sql = 'SELECT titulo, imagenurl FROM imagen';
   db_connection.query(sql, (error, results) => {
     if (error) {
       console.error('Error al obtener los datos de la tabla "imagen":', error);
