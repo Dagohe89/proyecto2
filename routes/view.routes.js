@@ -41,33 +41,24 @@ router.get('/competicion', (req, res) => {
         console.error('Error al obtener los datos de la tabla "jugador":', error);
         return res.status(500).json({ error: 'Error interno del servidor' });
       }
-      jugadores.sort((a, b) => {
-        if (b.goles !== a.goles) {
-          return b.goles - a.goles; // Ordenar por goles de forma descendente
-        }
-      });
-      jugadores.sort((a, b) => {
-        if (b.asistencias !== a.asistencias) {
-          return b.asistencias - a.asistencias; // Ordenar por goles de forma descendente
-        }
-      });
-      jugadores.sort((a, b) => {
-        if (b.ta !== a.ta) {
-          return b.ta - a.ta; // Ordenar por goles de forma descendente
-        }
-      });
-      jugadores.sort((a, b) => {
-        if (b.tr !== a.tr) {
-          return b.tr - a.tr; // Ordenar por goles de forma descendente
-        }
-      });
 
-      res.render('competicion', { user, equipos, jugadores });
+      // Ordenar por goles de forma descendente
+      const jugadoresGoles = [...jugadores].sort((a, b) => b.goles - a.goles);
+
+      // Ordenar por asistencias de forma descendente
+      const jugadoresAsistencias = [...jugadores].sort((a, b) => b.asistencias - a.asistencias);
+
+      // Ordenar por tarjetas amarillas de forma descendente
+      const jugadoresTa = [...jugadores].sort((a, b) => b.ta - a.ta);
+
+      // Ordenar por tarjetas rojas de forma descendente
+      const jugadoresTr = [...jugadores].sort((a, b) => b.tr - a.tr);
+
+      res.render('competicion', { user, equipos, jugadores, jugadoresGoles, jugadoresAsistencias, jugadoresTa, jugadoresTr });
     });
   });
 });
 
-//Ruta de equipos
 //Ruta de equipos
 router.get('/equipos', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
@@ -80,7 +71,6 @@ router.get('/equipos', (req, res) => {
       console.error('Error al obtener la información de la base de datos:', error);
       return;
     }
-
     // Renderizar el HTML utilizando el motor de plantillas EJS y pasar los resultados de la consulta como datos
     res.render('equipos', { user, equipos: results });
   });

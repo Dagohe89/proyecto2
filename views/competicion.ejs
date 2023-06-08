@@ -92,7 +92,7 @@
                                               </tr>
                                             </thead>
                                             <tbody id="tabla-body">
-                                              <% jugadores.forEach((jugador, index) => { %>
+                                              <% jugadoresGoles.slice(0, 3).forEach((jugador, index) => { %>
                                                 <tr>
                                                   <td><%= index + 1 %></td>
                                                   <td><%= jugador.nombre %></td>
@@ -113,7 +113,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla-body">
-                                                <% jugadores.forEach((jugador, index) => { %>
+                                                <% jugadoresAsistencias.slice(0, 3).forEach((jugador, index) => { %>
                                                   <tr>
                                                     <td><%= index + 1 %></td>
                                                     <td><%= jugador.nombre %></td>
@@ -134,7 +134,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla-body">
-                                                <% jugadores.forEach((jugador, index) => { %>
+                                                <% jugadoresTa.slice(0, 3).forEach((jugador, index) => { %>
                                                   <tr>
                                                     <td><%= index + 1 %></td>
                                                     <td><%= jugador.nombre %></td>
@@ -153,7 +153,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="tabla-body">
-                                                <% jugadores.forEach((jugador, index) => { %>
+                                                <% jugadoresTr.slice(0, 3).forEach((jugador, index) => { %>
                                                   <tr>
                                                     <td><%= index + 1 %></td>
                                                     <td><%= jugador.nombre %></td>
