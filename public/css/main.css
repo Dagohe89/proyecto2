@@ -78,9 +78,9 @@ header img {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 300px;
+  padding: 15px;
+  border: 1px solid black;
+  width: 250px;
 }
 
 .close {

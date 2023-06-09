@@ -32,43 +32,48 @@
                             <a class="nav-link" href="/inscripciones">Inscripciones</a>
                         </li>
                         <% if (user) { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/miequipo">Mi equipo</a>
-                        </li>
-                        <% } %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/contacto">Contacto</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/miequipo">Mi equipo</a>
+                            </li>
+                            <% } %>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/contacto">Contacto</a>
+                                </li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-2 d-flex justify-content-center">
                 <% if (user) { %>
-                <form id="logoutForm" action="/logout" method="post">
-                    <button id="BtnCierra" type="submit" class="btn btn-primary">Cerrar sesión</button>
-                </form>
-                <% } else { %>
-                <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">Iniciar sesión</button>
-                <% } %>
-                <div id="modal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Login</h2>
-                        <form id="loginForm" action="/login" method="post">
-                            <input id="nickname" type="text" name="nickname" placeholder="nombreusuario" required>
-                            <input id="password" type="password" name="password" placeholder="contraseña" required>
-                            <h1>No tienes cuenta?</h1>
-                            <a href="inscripciones">Inscríbete aquí</a>
-                            <button type="submit">Iniciar sesión</button>
-                        </form>
-                    </div>
-                </div>
+                    <form id="logoutForm" action="/logout" method="post">
+                        <button id="BtnCierra" type="submit" class="btn btn-primary">Cerrar sesión</button>
+                    </form>
+                    <% } else { %>
+                        <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">Iniciar sesión</button>
+                        <% } %>
+                            <div id="modal" class="modal">
+                                <div class="modal-content">
+                                    <div class="close-box">
+                                        <span class="close">&times;</span>
+                                    </div>
+                                    <h2 class="text-center">Login</h2>
+                                    <form id="loginForm" action="/login" method="post" class="text-center">
+                                        <input id="nickname" type="text" name="nickname" placeholder="Nombre de usuario" style="margin-top: 15px;"
+                                            required>
+                                        <input id="password" type="password" name="password" placeholder="Contraseña" style="margin-top: 15px;"
+                                            required>
+                                        <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Iniciar sesión</button>
+                                        <p class="text-center" style="margin-top: 20px;">¿No tienes cuenta?</p>
+                                        <a href="inscripciones" class="text-center">Regístrate aquí</a>
+                                    </form>
+                                </div>
+                            </div>
+
             </div>
         </div>
     </nav>
-    
-    
+
+
     <script src="/js/header.js"></script>
     <link rel="icon" type="image/jpg" href="/img/favicoonFAF.ico" />
 </header>

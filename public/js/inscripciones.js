@@ -1,4 +1,4 @@
-const contrasenaInput = document.getElementById('contrasena');
+/*const contrasenaInput = document.getElementById('contrasena');
 const confirmarContrasenaInput = document.getElementById('confirmarContrasena');
 const checkIcon = confirmarContrasenaInput.nextElementSibling;
 
@@ -44,10 +44,14 @@ const validateAndSubmitForm = (form) => {
     body: formData,
   })
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
+    .then(() => {
       form.reset();
       form.classList.remove('was-validated');
+
+      const inputs = form.querySelectorAll('.form-control');
+    inputs.forEach((input) => {
+      input.value = '';
+    });
 
       // Mostrar el modal de éxito
       const modal = document.getElementById('successModal');
@@ -95,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     validateAndSubmitForm(formJugador);
   });
-});
+});*/
 
 const input = document.querySelector("#telefono");
 window.intlTelInput(input, {
@@ -103,4 +107,128 @@ window.intlTelInput(input, {
   separateDialCode: true,
   formatOnDisplay: true,
   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+});
+
+// Obtener los formularios por su ID
+const delegadoForm = document.getElementById('myFormDelegado');
+const equipoForm = document.getElementById('myFormEquipo');
+const jugadorForm = document.getElementById('myFormJugador');
+
+// Agregar un controlador de eventos para el envío del formulario de delegado
+delegadoForm.addEventListener('submit', function(event) {
+  event.preventDefault(); // Evitar el envío del formulario
+
+  // Recoger los datos del formulario de delegado
+  const nombre = document.getElementById('nombre').value;
+  const apellido1 = document.getElementById('apellido1').value;
+  const apellido2 = document.getElementById('apellido2').value;
+  const dni = document.getElementById('dni').value;
+  const telefono = document.getElementById('telefono').value;
+  const email = document.getElementById('email').value;
+  const usuario = document.getElementById('usuario').value;
+  const contrasena = document.getElementById('contrasena').value;
+  const confirmarContrasena = document.getElementById('confirmarContrasena').value;
+  const fotodelegado = document.getElementById('fotodelegado').value;
+
+  if (
+    nombre === '' ||
+    apellido1 === '' ||
+    apellido2 === '' ||
+    dni === '' ||
+    telefono === '' ||
+    email === '' ||
+    usuario === '' ||
+    contrasena === '' ||
+    confirmarContrasena === '' ||
+    fotodelegado === ''
+  ) {
+    // Mostrar un mensaje de error o realizar alguna acción apropiada
+    alert('Por favor, completa todos los campos del formulario.');
+    return; // Evitar el envío del formulario
+  }
+  // Reiniciar el formulario
+  delegadoForm.reset();
+
+  // Realizar cualquier otra acción con los datos recogidos del formulario
+  // ...
+
+  // Mostrar un mensaje de éxito o redirigir a otra página
+  res.render('inscripciones');
+});
+
+// Agregar un controlador de eventos para el envío del formulario de equipo
+equipoForm.addEventListener('submit', function(event) {
+  event.preventDefault(); // Evitar el envío del formulario
+
+  // Recoger los datos del formulario de equipo
+  const nombreEquipo = document.getElementById('nombreEquipo').value;
+  const colorCamiseta = document.getElementById('color-camiseta').value;
+  const colorSegundaCamiseta = document.getElementById('color-segunda-camiseta').value;
+  const direccionCampo = document.getElementById('direccion-campo').value;
+  const fotoescudo = document.getElementById('fotoescudo').value;
+
+
+  if (
+    nombre === '' ||
+    apellido1 === '' ||
+    apellido2 === '' ||
+    dni === '' ||
+    telefono === '' ||
+    email === '' ||
+    usuario === '' ||
+    contrasena === '' ||
+    confirmarContrasena === '' ||
+    fotodelegado === ''
+  ) {
+    // Mostrar un mensaje de error o realizar alguna acción apropiada
+    alert('Por favor, completa todos los campos del formulario.');
+    return; // Evitar el envío del formulario
+  }
+  // Reiniciar el formulario
+  equipoForm.reset();
+
+  // Realizar cualquier otra acción con los datos recogidos del formulario
+  // ...
+
+  // Mostrar un mensaje de éxito o redirigir a otra página
+  res.render('inscripciones');
+});
+
+// Agregar un controlador de eventos para el envío del formulario de jugador
+jugadorForm.addEventListener('submit', function(event) {
+  event.preventDefault(); // Evitar el envío del formulario
+
+  // Recoger los datos del formulario de jugador
+  const nombreJugador = document.getElementById('nombre-jugador').value;
+  const apellido1Jugador = document.getElementById('apellido1-jugador').value;
+  const apellido2Jugador = document.getElementById('apellido2-jugador').value;
+  const dniJugador = document.getElementById('dni-jugador').value;
+  const fechaNacimiento = document.getElementById('fechanacimiento').value;
+  const dorsalJugador = document.getElementById('dorsal-jugador').value;
+  const fotojugador = document.getElementById('fotojugador').value;
+
+  if (
+    nombre === '' ||
+    apellido1 === '' ||
+    apellido2 === '' ||
+    dni === '' ||
+    telefono === '' ||
+    email === '' ||
+    usuario === '' ||
+    contrasena === '' ||
+    confirmarContrasena === '' ||
+    fotodelegado === ''
+  ) {
+    // Mostrar un mensaje de error o realizar alguna acción apropiada
+    alert('Por favor, completa todos los campos del formulario.');
+    return; // Evitar el envío del formulario
+  }
+  // Reiniciar el formulario
+  jugadorForm.reset();
+
+  // Realizar cualquier otra acción con los datos recogidos del formulario
+  // ...
+
+  // Mostrar un mensaje de éxito o redirigir a otra página
+  res.render('inscripciones');
 });
