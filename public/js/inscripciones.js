@@ -197,13 +197,13 @@ equipoForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
   // Recoger los datos del formulario de equipo
-  const nombreEquipo = document.getElementById('nombreEquipo').value;
-  const colorCamiseta = document.getElementById('color-camiseta').value;
-  const colorSegundaCamiseta = document.getElementById('color-segunda-camiseta').value;
-  const direccionCampo = document.getElementById('direccion-campo').value;
-  const fotoescudo = document.getElementById('fotoescudo').value;
+  const nombreEquipoInput = document.getElementById('nombreEquipo').value;
+  const colorCamisetaInput = document.getElementById('color-camiseta').value;
+  const colorSegundaCamisetaInput = document.getElementById('color-segunda-camiseta').value;
+  const direccionCampoInput = document.getElementById('direccion-campo').value;
+  const fotoescudoInput = document.getElementById('fotoescudo').value;
 
-  const inputs = [nombreEquipo, colorCamiseta, colorSegundaCamiseta, direccionCampo, fotoescudo];
+  const inputs = [nombreEquipoInput, colorCamisetaInput, colorSegundaCamisetaInput, direccionCampoInput, fotoescudoInput];
   inputs.forEach(input => {
     input.classList.remove('is-invalid');
   });
