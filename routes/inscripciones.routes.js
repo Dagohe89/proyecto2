@@ -101,8 +101,9 @@ router.post('/nuevo_delegado', (req, res) => {
                 if (user) {
                   req.session.userId = user.iddelegado;
                 }
+                 // Restablecer los campos del formulario
                 // Delegado insertado exitosamente
-                return res.render('inscripciones', { user, message: 'Delegado insertado correctamente' });
+                /*return*/ res.render('inscripciones', { user});
               });
             });
           });
@@ -155,7 +156,6 @@ router.post('/nuevo_equipo', (req, res) => {
           console.error('Error al insertar el equipo:', error);
           return res.status(500).json({ error: 'Error al insertar el equipo' });
         }
-
         // Equipo insertado exitosamente
         return res.render('inscripciones', { user});
       });
@@ -217,7 +217,6 @@ router.post('/nuevo_jugador', (req, res) => {
           console.error('Error al insertar el jugador:', error);
           return res.status(500).json({ error: 'Error al insertar el jugador' });
         }
-
         // Jugador insertado exitosamente
         return res.status(200).render('/inscripciones'
         , { message: 'Jugador insertado correctamente' });

@@ -15,13 +15,13 @@ function shuffleArray(array) {
 // Ruta de Galeria
 router.get('/', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
-  const sql = 'SELECT imagenurl FROM imagen';
+  const sql = 'SELECT titulo, imagenurl FROM imagen';
   db_connection.query(sql, (error, results) => {
     if (error) {
       console.error('Error al obtener los datos de la tabla "imagen":', error);
       return res.status(500).json({ error: 'Error interno del servidor' });
     }
-    const images = results.map((result) => result.imagenurl);
+    const images = results.map((result) => ({ titulo: result.titulo, imagenurl: result.imagenurl }));
     const randomizedImages = shuffleArray(images);
     res.render('index', { user, images, randomizedImages });
   });

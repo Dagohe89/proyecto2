@@ -17,12 +17,9 @@
         <div class="row">
           <div class="col-md-6">
             <h1>¿Quiénes somos?</h1>
-            <p>Las siglas FAF de nuestro logo hace referencia al nombre de "Federación de los Amigos del
-              Futbol",
-              creada para veteranos y gente no acostumbrada a la alta competición pero
-              que aún siente las ganas y la pasión por este deporte.</p>
-            <p>Que necesitas: insertar aqui lista que ponga la edad, ganas de jugar al futbol, ganas de hacer amigos y
-              resirse, etc</p>
+            <p>Somos una federación creada para recoger a todos aquellos que por cualquier motivo desean jugar a futbol sin la exigencia de las otras federaciones, pero con la seguridad de tener una liga organizada y regulada, y todas las ventajas que conlleva estar federado.</p>
+            <p>Que necesitas: No importa tu edad, tu físico ni tu calidad, nos vale con las ganas de jugar y divertirse con amigos!</p>
+              <p>Y de ahí nuestras siglas, Federación de Amigos del Futbol!</p>
           </div>
           <div class="col-md-6">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -34,13 +31,12 @@
               </div>
               <a href="/galeria">
                 <div class="carousel-inner">
-                  <% randomizedImages.forEach((image, index)=> { %>
+                  <% randomizedImages.forEach((images, index)=> { %>
                     <div class="carousel-item <% if (index === 0) { %> active <% } %>">
-                      <img src="<%= image %>" class="d-block w-100" alt="Image <%= index + 1 %>">
+                      <img src="<%= images.imagenurl %>" class="d-block w-100" alt="Image <%= index + 1 %>">
                       <div class="carousel-caption d-none d-md-block">
-                        <h5>Slide <%= index + 1 %> label</h5>
-                        <p>Some representative placeholder content for slide <%= index + 1 %>
-                        </p>
+                      <h3><%= images.titulo %><%= index + 1 %>
+                      </h3>
                       </div>
                     </div>
                     <% }) %>

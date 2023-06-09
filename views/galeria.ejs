@@ -27,16 +27,18 @@
                     <button type="submit" class="btn btn-primary">Cargar</button>
                 </form>
                 <% } %>
-                <h2>Galería de Imágenes</h2>
-                <div class="image-gallery">
-                  <% images.forEach(image => { %>
-                    <div>
-                        <h3><%= image.titulo %></h3>
-                        <img src="<%= image.imagenurl %>" alt="<%= image.titulo %>">
+                    <h2>Galería de Imágenes</h2>
+                    <div class="image-gallery">
+                        <% images.forEach(image=> { %>
+                            <div>
+                                <h3>
+                                    <%= image.titulo %>
+                                </h3>
+                                <img src="<%= image.imagenurl %>" alt="<%= image.titulo %>">
+                            </div>
+
+                            <% }) %>
                     </div>
-                    
-                  <% }) %>
-                  </div>
 
         </main>
         <%- include('partials/footer.ejs') %>

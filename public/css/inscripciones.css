@@ -50,3 +50,7 @@
   .form-box textarea {
     resize: vertical;
   }
+
+  #gris {
+    background-color: grey;
+  }
