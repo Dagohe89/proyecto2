@@ -81,9 +81,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="fotodelegado">Foto tipo carnet</label>
-                                            <input type="file" class="form-control-file" id="fotodelegado"
-                                                name="fotodelegado" accept="image/*" required>
-                                        </div>
+                                            <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado" accept="image/*" required>
+                                            <small id="fotodelegado-error" class="invalid-feedback">Por favor, selecciona una foto.</small>
+                                          </div>
+                                          
                                         <button type="submit" class="btn btn-primary" data-toggle="modal"
                                             data-target="#successModal">
                                             Enviar
@@ -128,17 +129,17 @@
                                         <div class="mb-3">
                                             <label for="nombreEquipo">Nombre</label>
                                             <input type="text" class="form-control" id="nombreEquipo"
-                                                name="nombreEquipo" placeholder="Nombre" required>
+                                                name="nombreEquipo" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="color-camiseta">Color de la camiseta</label>
                                             <input type="text" class="form-control" id="color-camiseta"
-                                                name="color_camiseta" placeholder="Color de la camiseta" required>
+                                                name="color_camiseta" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
                                             <input type="text" class="form-control" id="color-segunda-camiseta"
-                                                name="color_segunda_camiseta" placeholder="Color de la segunda camiseta"
+                                                name="color_segunda_camiseta"
                                                 required>
                                         </div>
                                         <div class="mb-3">
@@ -164,23 +165,21 @@
                                         enctype="multipart/form-data" method="post">
                                         <div class="mb-3">
                                             <label for="nombre-jugador">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre-jugador" name="nombre"
-                                                placeholder="Nombre">
+                                            <input type="text" class="form-control" id="nombre-jugador" name="nombre">
                                         </div>
                                         <div class="mb-3">
                                             <label for="apellido1-jugador">Primer apellido</label>
                                             <input type="text" class="form-control" id="apellido1-jugador"
-                                                name="apellido1" placeholder="Apellido1">
+                                                name="apellido1">
                                         </div>
                                         <div class="mb-3">
                                             <label for="apellido2-jugador">Segundo apellido</label>
                                             <input type="text" class="form-control" id="apellido2-jugador"
-                                                name="apellido2" placeholder="Apellido2">
+                                                name="apellido2">
                                         </div>
                                         <div class="mb-3">
                                             <label for="dni-jugador">DNI</label>
-                                            <input type="text" class="form-control" id="dni-jugador" name="dni"
-                                                placeholder="DNI">
+                                            <input type="text" class="form-control" id="dni-jugador" name="dni">
                                         </div>
                                         <div class="mb-3">
                                             <label for="fechanacimiento">Fecha de Nacimiento</label>
@@ -189,8 +188,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="dorsal-jugador">Dorsal</label>
-                                            <input type="text" class="form-control" id="dorsal-jugador" name="dorsal"
-                                                placeholder="Dorsal">
+                                            <input type="text" class="form-control" id="dorsal-jugador" name="dorsal">
                                         </div>
                                         <div class="mb-3">
                                             <label for="fotojugador">Foto tipo carnet</label>

@@ -101,52 +101,88 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });*/
 
-const input = document.querySelector("#telefono");
-window.intlTelInput(input, {
-  preferredCountries: ["es"], // Agrega los códigos de país que deseas mostrar primero
-  separateDialCode: true,
-  formatOnDisplay: true,
-  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-});
 
 // Obtener los formularios por su ID
 const delegadoForm = document.getElementById('myFormDelegado');
 const equipoForm = document.getElementById('myFormEquipo');
 const jugadorForm = document.getElementById('myFormJugador');
 
-// Agregar un controlador de eventos para el envío del formulario de delegado
-delegadoForm.addEventListener('submit', function(event) {
+
+delegadoForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
-  // Recoger los datos del formulario de delegado
-  const nombre = document.getElementById('nombre').value;
-  const apellido1 = document.getElementById('apellido1').value;
-  const apellido2 = document.getElementById('apellido2').value;
-  const dni = document.getElementById('dni').value;
-  const telefono = document.getElementById('telefono').value;
-  const email = document.getElementById('email').value;
-  const usuario = document.getElementById('usuario').value;
-  const contrasena = document.getElementById('contrasena').value;
-  const confirmarContrasena = document.getElementById('confirmarContrasena').value;
-  const fotodelegado = document.getElementById('fotodelegado').value;
+  const nombreInput = document.getElementById('nombre');
+  const apellido1Input = document.getElementById('apellido1');
+  const apellido2Input = document.getElementById('apellido2');
+  const dniInput = document.getElementById('dni');
+  const telefonoInput = document.getElementById('telefono');
+  const emailInput = document.getElementById('email');
+  const usuarioInput = document.getElementById('usuario');
+  const contrasenaInput = document.getElementById('contrasena');
+  const confirmarContrasenaInput = document.getElementById('confirmarContrasena');
+  const fotodelegadoInput = document.getElementById('fotodelegado');
 
-  if (
-    nombre === '' ||
-    apellido1 === '' ||
-    apellido2 === '' ||
-    dni === '' ||
-    telefono === '' ||
-    email === '' ||
-    usuario === '' ||
-    contrasena === '' ||
-    confirmarContrasena === '' ||
-    fotodelegado === ''
-  ) {
-    // Mostrar un mensaje de error o realizar alguna acción apropiada
+  const inputs = [nombreInput, apellido1Input, apellido2Input, dniInput, telefonoInput, emailInput, usuarioInput, contrasenaInput, confirmarContrasenaInput, fotodelegadoInput];
+  inputs.forEach(input => {
+    input.classList.remove('is-invalid');
+  });
+
+
+  // Validar campos vacíos
+  const validateRequiredFields = () => {
+    let hasEmptyFields = false;
+    inputs.forEach(input => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
+        hasEmptyFields = true;
+      }
+    });
+    return hasEmptyFields;
+  };
+
+  const validatePasswordMatch = () => {
+    const confirmarContrasena = confirmarContrasenaInput.value;
+    const contrasena = contrasenaInput.value;
+    const checkIcon = confirmarContrasenaInput.nextElementSibling;
+
+    if (confirmarContrasena !== contrasena) {
+      confirmarContrasenaInput.classList.add('is-invalid');
+      contrasenaInput.classList.add('is-invalid');
+      checkIcon.classList.remove('text-success');
+      checkIcon.classList.add('text-danger');
+    } else {
+      confirmarContrasenaInput.classList.remove('is-invalid');
+      contrasenaInput.classList.remove('is-invalid');
+      checkIcon.classList.remove('text-danger');
+      checkIcon.classList.add('text-success');
+    }
+  };
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+  });
+
+  // Validar contraseñas coincidentes al escribir
+  contrasenaInput.addEventListener('input', validatePasswordMatch);
+  confirmarContrasenaInput.addEventListener('input', validatePasswordMatch);
+
+
+  if (validateRequiredFields()) {
     alert('Por favor, completa todos los campos del formulario.');
-    return; // Evitar el envío del formulario
+    return;
   }
-  // Reiniciar el formulario
+
+  validatePasswordMatch();
+
+  if (confirmarContrasenaInput.classList.contains('is-invalid')) {
+    return;
+  }
+
   delegadoForm.reset();
 
   // Realizar cualquier otra acción con los datos recogidos del formulario
@@ -157,7 +193,7 @@ delegadoForm.addEventListener('submit', function(event) {
 });
 
 // Agregar un controlador de eventos para el envío del formulario de equipo
-equipoForm.addEventListener('submit', function(event) {
+equipoForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
   // Recoger los datos del formulario de equipo
@@ -167,22 +203,35 @@ equipoForm.addEventListener('submit', function(event) {
   const direccionCampo = document.getElementById('direccion-campo').value;
   const fotoescudo = document.getElementById('fotoescudo').value;
 
+  const inputs = [nombreEquipo, colorCamiseta, colorSegundaCamiseta, direccionCampo, fotoescudo];
+  inputs.forEach(input => {
+    input.classList.remove('is-invalid');
+  });
 
-  if (
-    nombre === '' ||
-    apellido1 === '' ||
-    apellido2 === '' ||
-    dni === '' ||
-    telefono === '' ||
-    email === '' ||
-    usuario === '' ||
-    contrasena === '' ||
-    confirmarContrasena === '' ||
-    fotodelegado === ''
-  ) {
-    // Mostrar un mensaje de error o realizar alguna acción apropiada
+  const validateRequiredFields = () => {
+    let hasEmptyFields = false;
+    inputs.forEach(input => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
+        hasEmptyFields = true;
+      }
+    });
+    return hasEmptyFields;
+  };
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+  });
+
+  if (validateRequiredFields()) {
     alert('Por favor, completa todos los campos del formulario.');
-    return; // Evitar el envío del formulario
+    return;
   }
   // Reiniciar el formulario
   equipoForm.reset();
@@ -195,7 +244,7 @@ equipoForm.addEventListener('submit', function(event) {
 });
 
 // Agregar un controlador de eventos para el envío del formulario de jugador
-jugadorForm.addEventListener('submit', function(event) {
+jugadorForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
   // Recoger los datos del formulario de jugador
@@ -231,4 +280,12 @@ jugadorForm.addEventListener('submit', function(event) {
 
   // Mostrar un mensaje de éxito o redirigir a otra página
   res.render('inscripciones');
+});
+
+const input = document.querySelector("#telefono");
+window.intlTelInput(input, {
+  preferredCountries: ["es"], // Agrega los códigos de país que deseas mostrar primero
+  separateDialCode: true,
+  formatOnDisplay: true,
+  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
 });
