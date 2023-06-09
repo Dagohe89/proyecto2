@@ -183,13 +183,44 @@ delegadoForm.addEventListener('submit', function (event) {
     return;
   }
 
-  delegadoForm.reset();
+  const formData = new FormData(delegadoForm);
 
-  // Realizar cualquier otra acción con los datos recogidos del formulario
-  // ...
+  // Realizar la solicitud HTTP utilizando Fetch y el método POST
+  fetch('/nuevo_delegado', {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        // Error al verificar la existencia del delegado
+        console.error('Error:', data.error);
+        return;
+      }
 
-  // Mostrar un mensaje de éxito o redirigir a otra página
-  res.render('inscripciones');
+      if (data.exists) {
+        // Existen duplicados en la base de datos
+        if (data.dniExists) {
+          return alert('El DNI ya está registrado');
+        } else if (data.emailExists) {
+          return alert('El correo electrónico ya está registrado');
+        } else if (data.usuarioExists) {
+          return alert('El nombre de usuario ya está registrado');
+        } else if (data.telefonoExists) {
+          return alert('El teléfono ya está registrado');
+        }
+      }
+
+      // Restablecer los campos del formulario
+      delegadoForm.reset();
+      alert("ya te has dado de alta y puedes iniciar sesion. Recuerda tu nombre de usuario y contraseña, te servirá para iniciar sesión.")
+      // Redirigir a otra página
+      window.location.href = 'inscripciones';
+    })
+    .catch(error => {
+      // Manejar el error en caso de que ocurra
+      console.error('Error:', error);
+    });
 });
 
 // Agregar un controlador de eventos para el envío del formulario de equipo
@@ -197,11 +228,11 @@ equipoForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
   // Recoger los datos del formulario de equipo
-  const nombreEquipoInput = document.getElementById('nombreEquipo').value;
-  const colorCamisetaInput = document.getElementById('color-camiseta').value;
-  const colorSegundaCamisetaInput = document.getElementById('color-segunda-camiseta').value;
-  const direccionCampoInput = document.getElementById('direccion-campo').value;
-  const fotoescudoInput = document.getElementById('fotoescudo').value;
+  const nombreEquipoInput = document.getElementById('nombreEquipo');
+  const colorCamisetaInput = document.getElementById('color-camiseta');
+  const colorSegundaCamisetaInput = document.getElementById('color-segunda-camiseta');
+  const direccionCampoInput = document.getElementById('direccion-campo');
+  const fotoescudoInput = document.getElementById('fotoescudo');
 
   const inputs = [nombreEquipoInput, colorCamisetaInput, colorSegundaCamisetaInput, direccionCampoInput, fotoescudoInput];
   inputs.forEach(input => {
@@ -233,14 +264,38 @@ equipoForm.addEventListener('submit', function (event) {
     alert('Por favor, completa todos los campos del formulario.');
     return;
   }
-  // Reiniciar el formulario
-  equipoForm.reset();
 
-  // Realizar cualquier otra acción con los datos recogidos del formulario
-  // ...
+  const formData = new FormData(equipoForm);
 
-  // Mostrar un mensaje de éxito o redirigir a otra página
-  res.render('inscripciones');
+  fetch('/nuevo_equipo', {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        // Error al verificar la existencia del equipo
+        console.error('Error:', data.error);
+        return;
+      }
+
+      if (data.exists) {
+        // Existen duplicados en la base de datos
+        if (data.iddelegadoExists) {
+          return alert('Ya hay un equipo registrado para este delegado');
+        }
+      }
+
+      // Restablecer los campos del formulario
+      equipoForm.reset();
+      alert("Equipo registrado correctamente, ahora podras gestionar tus jugadores.")
+      // Redirigir a otra página
+      window.location.href = 'inscripciones';
+    })
+    .catch(error => {
+      // Manejar el error en caso de que ocurra
+      console.error('Error:', error);
+    });
 });
 
 // Agregar un controlador de eventos para el envío del formulario de jugador
@@ -248,30 +303,68 @@ jugadorForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
   // Recoger los datos del formulario de jugador
-  const nombreJugador = document.getElementById('nombre-jugador').value;
-  const apellido1Jugador = document.getElementById('apellido1-jugador').value;
-  const apellido2Jugador = document.getElementById('apellido2-jugador').value;
-  const dniJugador = document.getElementById('dni-jugador').value;
-  const fechaNacimiento = document.getElementById('fechanacimiento').value;
-  const dorsalJugador = document.getElementById('dorsal-jugador').value;
-  const fotojugador = document.getElementById('fotojugador').value;
+  const nombreJugadorInput = document.getElementById('nombre-jugador');
+  const apellido1JugadorInput = document.getElementById('apellido1-jugador');
+  const apellido2JugadorInput = document.getElementById('apellido2-jugador');
+  const dniJugadorInput = document.getElementById('dni-jugador');
+  const fechaNacimientoInput = document.getElementById('fechanacimiento');
+  const dorsalJugadorInput = document.getElementById('dorsal-jugador');
+  const fotojugadorInput = document.getElementById('fotojugador');
 
-  if (
-    nombre === '' ||
-    apellido1 === '' ||
-    apellido2 === '' ||
-    dni === '' ||
-    telefono === '' ||
-    email === '' ||
-    usuario === '' ||
-    contrasena === '' ||
-    confirmarContrasena === '' ||
-    fotodelegado === ''
-  ) {
-    // Mostrar un mensaje de error o realizar alguna acción apropiada
-    alert('Por favor, completa todos los campos del formulario.');
-    return; // Evitar el envío del formulario
+  const inputs = [nombreJugadorInput, apellido1JugadorInput, apellido2JugadorInput, dniJugadorInput, fechaNacimientoInput, dorsalJugadorInput, fotojugadorInput];
+  inputs.forEach(input => {
+    input.classList.remove('is-invalid');
+  });
+
+  const validateRequiredFields = () => {
+    let hasEmptyFields = false;
+    inputs.forEach(input => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
+        hasEmptyFields = true;
+      }
+    });
+    return hasEmptyFields;
+  };
+
+  const validateAge = () => {
+    const fechaNacimiento = new Date(fechaNacimientoInput.value);
+    const hoy = new Date();
+    const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+
+    if (edad < 18) {
+      fechaNacimientoInput.classList.add('is-invalid');
+      return false;
+    }
+
+    return true;
+  };
+
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      if (input.value === '') {
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+  });
+
+  if (!validateAge()) {
+    alert('El jugador debe ser mayor de 18 años.');
+    return;
   }
+
+  if (validateRequiredFields()) {
+    alert('Por favor, completa todos los campos del formulario.');
+    return;
+  }
+
+  /*if (!validateAge()) {
+    alert('El jugador debe ser mayor de 18 años.');
+    return;
+  }*/
+
   // Reiniciar el formulario
   jugadorForm.reset();
 
@@ -289,3 +382,17 @@ window.intlTelInput(input, {
   formatOnDisplay: true,
   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
 });
+
+// Obtener el elemento select
+var selectNumero = document.getElementById("dorsal-jugador");
+
+// Generar opciones numéricas del 1 al 99
+for (var i = 1; i <= 99; i++) {
+  // Crear un nuevo elemento option
+  var option = document.createElement("option");
+  option.value = i;
+  option.text = i;
+
+  // Agregar la opción al select
+  selectNumero.appendChild(option);
+}

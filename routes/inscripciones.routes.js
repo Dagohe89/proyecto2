@@ -8,105 +8,58 @@ const saltRounds = 10; // Número de rondas de hashing (mayor es más seguro per
 
 router.post('/nuevo_delegado', (req, res) => {
 
-  const { nombre, apellido1, apellido2, dni, telefono, email, usuario, contrasena, confirmarContrasena } = req.body;
+  const { nombre, apellido1, apellido2, dni, telefono, email, usuario, contrasena } = req.body;
   const fotodelegado = req.files.fotodelegado;
-  const user = req.session.userId ? { id: req.session.userId } : null;
-  // Validar campos vacíos del formulario de delegado
-  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || telefono === null || email === null || usuario === null || contrasena === null || confirmarContrasena === null || fotodelegado === null) {
-    return res.status(400).json({ error: 'Todos los campos del formulario de delegado son obligatorios' });
-  }
 
-  if (contrasena !== confirmarContrasena) {
-    return res.status(400).json({ error: 'Las contraseñas no coinciden' });
-  }
-
-  const errors = {};
-
-  // Verificar si el DNI ya está registrado
-  const sqlDNI = 'SELECT * FROM delegado WHERE dni = ?';
-  db_connection.query(sqlDNI, [dni], (error, resultsDNI) => {
+  db_connection.query('SELECT * FROM delegado WHERE dni = ? OR correo = ? OR nickname = ? OR telefono = ?', [dni, email, usuario, telefono], (error, results) => {
     if (error) {
-      console.error('Error al verificar el DNI:', error);
-      return res.status(500).json({ error: 'Error al verificar el DNI' });
+      console.error('Error al verificar la existencia del delegado:', error);
+      return res.status(500).json({ error: 'Error al verificar la existencia del delegado' });
     }
 
-    if (resultsDNI.length > 0) {
-      errors.dni = 'El DNI ya está registrado';
+    const dniExists = results.some(row => row.dni === dni);
+    const emailExists = results.some(row => row.correo === email);
+    const usuarioExists = results.some(row => row.nickname === usuario);
+    const telefonoExists = results.some(row => row.telefono === telefono);
+
+    if (dniExists || emailExists || usuarioExists || telefonoExists) {
+      // Existen duplicados en la base de datos
+      return res.status(409).json({
+        exists: true,
+        dniExists,
+        emailExists,
+        usuarioExists,
+        telefonoExists
+      });
     }
 
-    // Verificar si el teléfono ya está registrado
-    const sqlTelefono = 'SELECT * FROM delegado WHERE telefono = ?';
-    db_connection.query(sqlTelefono, [telefono], (error, resultsTelefono) => {
+    fotodelegado.mv(`uploads/${fotodelegado.name}`, (error) => {
       if (error) {
-        console.error('Error al verificar el teléfono:', error);
-        return res.status(500).json({ error: 'Error al verificar el teléfono' });
+        console.error('Error en la subida de la imagen:', error);
+        return res.status(500).json({
+          ok: false,
+          message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error,
+        });
       }
 
-      if (resultsTelefono.length > 0) {
-        errors.telefono = 'El teléfono ya está registrado';
-      }
-
-      // Verificar si el correo electrónico ya está registrado
-      const sqlEmail = 'SELECT * FROM delegado WHERE correo = ?';
-      db_connection.query(sqlEmail, [email], (error, resultsEmail) => {
-        if (error) {
-          console.error('Error al verificar el correo electrónico:', error);
-          return res.status(500).json({ error: 'Error al verificar el correo electrónico' });
+      // Ejemplo de encriptación de la contraseña
+      bcrypt.hash(contrasena, saltRounds, (err, hashedPassword) => {
+        if (err) {
+          console.error('Error al encriptar la contraseña:', err);
+          return res.status(500).json({ error: 'Error al encriptar la contraseña' });
         }
 
-        if (resultsEmail.length > 0) {
-          errors.email = 'El correo electrónico ya está registrado';
-        }
-
-        // Verificar si el usuario ya está registrado
-        const sqlUsuario = 'SELECT * FROM delegado WHERE nickname = ?';
-        db_connection.query(sqlUsuario, [usuario], (error, resultsUsuario) => {
+        // Ejemplo de inserción en la base de datos con la contraseña encriptada
+        const fotodelegadoDBURL = `${fotodelegado.name}`;
+        const sql = 'INSERT INTO delegado VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db_connection.query(sql, [nombre, apellido1, apellido2, dni, telefono, email, usuario, hashedPassword, fotodelegadoDBURL], (error, results) => {
           if (error) {
-            console.error('Error al verificar el usuario:', error);
-            return res.status(500).json({ error: 'Error al verificar el usuario' });
+            console.error('Error al insertar el delegado:', error);
+            return res.status(500).json({ error: 'Error al insertar el delegado' });
           }
-
-          if (resultsUsuario.length > 0) {
-            errors.usuario = 'El usuario ya está registrado';
-          }
-
-          if (Object.keys(errors).length > 0) {
-            return res.status(400).json({ errors });
-          }
-
-          fotodelegado.mv(`uploads/${fotodelegado.name}`, (error) => {
-            if (error) {
-              console.error('Error en la subida de la imagen:', error);
-              return res.status(500).json({
-                ok: false,
-                message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error,
-              });
-            }
-
-            // Ejemplo de encriptación de la contraseña
-            bcrypt.hash(contrasena, saltRounds, (err, hashedPassword) => {
-              if (err) {
-                console.error('Error al encriptar la contraseña:', err);
-                return res.status(500).json({ error: 'Error al encriptar la contraseña' });
-              }
-
-              // Ejemplo de inserción en la base de datos con la contraseña encriptada
-              const fotodelegadoDBURL = `${fotodelegado.name}`;
-              const sql = 'INSERT INTO delegado (nombre, apellido1, apellido2, dni, telefono, correo, nickname, contrasena, fotodelegadourl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-              db_connection.query(sql, [nombre, apellido1, apellido2, dni, telefono, email, usuario, hashedPassword, fotodelegadoDBURL], (error, results) => {
-                if (error) {
-                  console.error('Error al insertar el delegado:', error);
-                  return res.status(500).json({ error: 'Error al insertar el delegado' });
-                }
-                if (user) {
-                  req.session.userId = user.iddelegado;
-                }
                  // Restablecer los campos del formulario
                 // Delegado insertado exitosamente
-                /*return*/ res.render('inscripciones', { user});
-              });
-            });
-          });
+                /*return*/ return res.status(200).json({ success: true });
         });
       });
     });
@@ -117,27 +70,29 @@ router.post('/nuevo_delegado', (req, res) => {
 router.post('/nuevo_equipo', (req, res) => {
 
   // Obtener los datos del formulario de equipo
-  const  { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
+  const { nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo } = req.body;
   const fotoescudo = req.files.fotoescudo;
-  const user = req.session.userId ? { id: req.session.userId } : null;
-
-  // Validar campos vacíos del formulario de equipo
-  if (nombreEquipo === null || color_camiseta === null || color_segunda_camiseta === null || direccion_campo === null || fotoescudo === null) {
-    return res.status(400).json({ error: 'Todos los campos del formulario de equipo son obligatorios' });
-  }
-
+  const userId = req.session.userId;
   // Comprobación de existencia del equipo para el delegado actual
-  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [user.id], (error, results) => {
+  db_connection.query('SELECT * FROM equipo WHERE delegado_iddelegado = ?', [userId], (error, results) => {
     if (error) {
       console.error('Error al consultar la tabla equipo:', error);
       return res.status(500).json({ error: 'Error al consultar la tabla equipo' });
     }
+    const iddelegadoExists = results.some(row => row.delegado_iddelegado === userId);
+    
+    if (iddelegadoExists) {
+      // Existen duplicados en la base de datos
+      return res.status(409).json({
+        exists: true,
+        iddelegadoExists
+      });
+    }
 
-    const equipoExists = results.length > 0;
-
+/*
     if (equipoExists) {
       return res.status(400).json({ error: 'Ya existe un equipo registrado para este delegado' });
-    }
+    }*/
 
     // Resto de comprobaciones y código de inserción del equipo
     fotoescudo.mv(`uploads/${fotoescudo.name}`, (error) => {
@@ -151,13 +106,13 @@ router.post('/nuevo_equipo', (req, res) => {
       // Ejemplo de inserción en la base de datos
       const fotoescudoDBURL = `${fotoescudo.name}`;
       const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, ?)';
-      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, user.id], (error, results) => {
+      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, results) => {
         if (error) {
           console.error('Error al insertar el equipo:', error);
           return res.status(500).json({ error: 'Error al insertar el equipo' });
         }
         // Equipo insertado exitosamente
-        return res.render('inscripciones', { user});
+        return res.status(200).json({ success: true });
       });
     });
   });
@@ -218,8 +173,7 @@ router.post('/nuevo_jugador', (req, res) => {
           return res.status(500).json({ error: 'Error al insertar el jugador' });
         }
         // Jugador insertado exitosamente
-        return res.status(200).render('/inscripciones'
-        , { message: 'Jugador insertado correctamente' });
+        return res.redirect('inscripciones');
       });
     });
   });

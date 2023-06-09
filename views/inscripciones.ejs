@@ -81,15 +81,16 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="fotodelegado">Foto tipo carnet</label>
-                                            <input type="file" class="form-control-file" id="fotodelegado" name="fotodelegado" accept="image/*" required>
-                                            <small id="fotodelegado-error" class="invalid-feedback">Por favor, selecciona una foto.</small>
-                                          </div>
-                                          
-                                        <button type="submit" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#successModal">
+                                            <input type="file" class="form-control-file" id="fotodelegado"
+                                                name="fotodelegado" accept="image/*" required>
+                                            <small id="fotodelegado-error" class="invalid-feedback">Por favor,
+                                                selecciona una foto.</small>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">
                                             Enviar
                                         </button>
-                                        <div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+                                        <!--<div class="modal fade" id="successModal" tabindex="-1" role="dialog"
                                             aria-labelledby="successModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -113,7 +114,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </form>
                                 </div>
                             </div>
@@ -139,8 +140,7 @@
                                         <div class="mb-3">
                                             <label for="color-segunda-camiseta">Color de la segunda camiseta</label>
                                             <input type="text" class="form-control" id="color-segunda-camiseta"
-                                                name="color_segunda_camiseta"
-                                                required>
+                                                name="color_segunda_camiseta" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="direccion-campo">Dirección del campo</label>
@@ -151,6 +151,8 @@
                                             <label for="fotoescudo">Escudo del equipo</label>
                                             <input type="file" class="form-control-file" id="fotoescudo"
                                                 name="fotoescudo" accept="image/*" required>
+                                            <small id="fotoescudo-error" class="invalid-feedback">Por favor, selecciona
+                                                una foto.</small>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </form>
@@ -185,15 +187,20 @@
                                             <label for="fechanacimiento">Fecha de Nacimiento</label>
                                             <input type="date" class="form-control" id="fechanacimiento"
                                                 name="fechanacimiento">
+                                            <small id="fechanacimiento-error" class="invalid-feedback">El jugador debe
+                                                ser mayor de edad.</small>
                                         </div>
                                         <div class="mb-3">
                                             <label for="dorsal-jugador">Dorsal</label>
-                                            <input type="text" class="form-control" id="dorsal-jugador" name="dorsal">
+                                            <select class="form-control" id="dorsal-jugador" name="dorsal-jugador">
+                                                <option value=""></option>
                                         </div>
                                         <div class="mb-3">
                                             <label for="fotojugador">Foto tipo carnet</label>
                                             <input type="file" class="form-control-file" id="fotojugador"
                                                 name="fotojugador" accept="image/*">
+                                            <small id="fotojugador-error" class="invalid-feedback">Por favor, selecciona
+                                                una foto.</small>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </form>
