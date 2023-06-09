@@ -123,3 +123,4 @@ select * from imagen;
 select * from delegado;
 select * from equipo;
 select * from jugador;
+delete from delegado where iddelegado between 16 and 31;
