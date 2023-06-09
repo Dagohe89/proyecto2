@@ -2,7 +2,7 @@
 var carousel = document.getElementById('carouselExampleCaptions');
 
 // Define la velocidad de cambio de las imágenes en milisegundos
-var interval = 5000;
+var interval = 6000;
 
 // Función para cambiar automáticamente las imágenes
 function autoChangeSlide() {

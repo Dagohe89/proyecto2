@@ -26,12 +26,6 @@
           </div>
           <div class="col-md-6">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-              <div class="carousel-indicators">
-                <% for (let i=0; i < images.length; i++) { %>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<%= i %>" <% if
-                    (i===0) { %> class="active" aria-current="true" <% } %> aria-label="Slide <%= i + 1 %>"></button>
-                  <% } %>
-              </div>
               <a href="/galeria">
                 <div class="carousel-inner">
                   <% randomizedImages.forEach((images, index)=> { %>
