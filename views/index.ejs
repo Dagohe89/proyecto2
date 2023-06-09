@@ -17,9 +17,12 @@
         <div class="row">
           <div class="col-md-6">
             <h1>¿Quiénes somos?</h1>
-            <p>Somos una federación creada para recoger a todos aquellos que por cualquier motivo desean jugar a futbol sin la exigencia de las otras federaciones, pero con la seguridad de tener una liga organizada y regulada, y todas las ventajas que conlleva estar federado.</p>
-            <p>Que necesitas: No importa tu edad, tu físico ni tu calidad, nos vale con las ganas de jugar y divertirse con amigos!</p>
-              <p>Y de ahí nuestras siglas, Federación de Amigos del Futbol!</p>
+            <p>Somos una federación creada para recoger a todos aquellos que por cualquier motivo desean jugar a futbol
+              sin la exigencia de las otras federaciones, pero con la seguridad de tener una liga organizada y regulada,
+              y todas las ventajas que conlleva estar federado.</p>
+            <p>Que necesitas: No importa tu edad, tu físico ni tu calidad, nos vale con las ganas de jugar y divertirse
+              con amigos!</p>
+            <p>Y de ahí nuestras siglas, Federación de Amigos del Futbol!</p>
           </div>
           <div class="col-md-6">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -35,8 +38,9 @@
                     <div class="carousel-item <% if (index === 0) { %> active <% } %>">
                       <img src="<%= images.imagenurl %>" class="d-block w-100" alt="Image <%= index + 1 %>">
                       <div class="carousel-caption d-none d-md-block">
-                      <h3><%= images.titulo %><%= index + 1 %>
-                      </h3>
+                        <h3>
+                          <%= images.titulo %>
+                        </h3>
                       </div>
                     </div>
                     <% }) %>

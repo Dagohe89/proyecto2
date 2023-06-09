@@ -25,8 +25,8 @@ router.get('/login', (req, res) => {
 // Ruta de inicio de sesión
 router.post('/login', (req, res) => {
   const { nickname, password } = req.body;
-  const sql = 'SELECT imagenurl FROM imagen';
-  db_connection.query(sql, (error, imagenes) => {
+  const sql = 'SELECT titulo, imagenurl FROM imagen';
+  db_connection.query(sql, (error, imagen) => {
     if (error) {
       console.error('Error al obtener los datos de la tabla "imagen":', error);
       return res.status(500).json({ error: 'Error interno del servidor' });
@@ -53,7 +53,7 @@ router.post('/login', (req, res) => {
 
       // Autenticación exitosa, establecer la sesión
       req.session.userId = user.iddelegado;
-      const images = imagenes.map(result => result.imagenurl);
+      const images = imagen.map((result) => ({ titulo: result.titulo, imagenurl: result.imagenurl }));
       const randomizedImages = shuffleArray(images);
 
       res.render('index', { user, images, randomizedImages });
@@ -71,8 +71,8 @@ router.post('/login', (req, res) => {
 });*/
 
 router.post('/logout', (req, res) => {
-  const sql = 'SELECT imagenurl FROM imagen';
-  db_connection.query(sql, (error, imagenes) => {
+  const sql = 'SELECT titulo, imagenurl FROM imagen';
+  db_connection.query(sql, (error, imagen) => {
     if (error) {
       console.error('Error al obtener los datos de la tabla "imagen":', error);
       return res.status(500).json({ error: 'Error interno del servidor' });
@@ -88,7 +88,7 @@ router.post('/logout', (req, res) => {
 
       // Verificar si 'user' está definido y proporcionar un valor predeterminado si no lo está
 const user = false;
-      const images = imagenes.map(result => result.imagenurl);
+      const images = imagen.map((result) => ({ titulo: result.titulo, imagenurl: result.imagenurl}));
       const randomizedImages = shuffleArray(images);
 
       res.clearCookie('connect.sid');
