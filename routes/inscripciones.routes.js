@@ -80,7 +80,7 @@ router.post('/nuevo_equipo', (req, res) => {
       return res.status(500).json({ error: 'Error al consultar la tabla equipo' });
     }
     const iddelegadoExists = results.some(row => row.delegado_iddelegado === userId);
-    
+
     if (iddelegadoExists) {
       // Existen duplicados en la base de datos
       return res.status(409).json({
@@ -89,10 +89,10 @@ router.post('/nuevo_equipo', (req, res) => {
       });
     }
 
-/*
-    if (equipoExists) {
-      return res.status(400).json({ error: 'Ya existe un equipo registrado para este delegado' });
-    }*/
+    /*
+        if (equipoExists) {
+          return res.status(400).json({ error: 'Ya existe un equipo registrado para este delegado' });
+        }*/
 
     // Resto de comprobaciones y código de inserción del equipo
     fotoescudo.mv(`uploads/${fotoescudo.name}`, (error) => {
@@ -106,7 +106,7 @@ router.post('/nuevo_equipo', (req, res) => {
       // Ejemplo de inserción en la base de datos
       const fotoescudoDBURL = `${fotoescudo.name}`;
       const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, ?)';
-      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, results) => {
+      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, cosas) => {
         if (error) {
           console.error('Error al insertar el equipo:', error);
           return res.status(500).json({ error: 'Error al insertar el equipo' });
@@ -120,60 +120,56 @@ router.post('/nuevo_equipo', (req, res) => {
 
 //Jugador
 router.post('/nuevo_jugador', (req, res) => {
-  const { nombre, apellido1, apellido2, dni, fechanacimiento, dorsal } = req.body;
+  const { nombre, apellido1, apellido2, dnijugador, fechanacimiento } = req.body;
+  const dorsal = parseInt(req.body.dorsal);
   const fotojugador = req.files.fotojugador;
-  const userId = req.session.userId
-
-  // Validar campos vacíos del formulario de jugador
-  if (nombre === null || apellido1 === null || apellido2 === null || dni === null || fechanacimiento === null || dorsal === null || fotojugador === null) {
-    return res.status(400).json({ error: 'Todos los campos del formulario de jugador son obligatorios' });
-  }
-
-  // Validar la fecha de nacimiento del jugador
-  const fechaNacimiento = new Date(fechanacimiento);
-  const fechaActual = new Date();
-
-  // Comparar las fechas
-  if (fechaNacimiento > fechaActual) {
-    return res.status(400).json({ error: 'La fecha de nacimiento no puede ser mayor que la fecha actual' });
-  }
-
-  // Calcular la diferencia en años
-  const edadJugador = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
-
-  // Verificar si el jugador es mayor de 18 años
-  if (edadJugador < 18) {
-    return res.status(400).json({ error: 'El jugador debe ser mayor de edad' });
-  }
-
-  // Consultar el idequipo del delegado actual
-  const sqlConsulta = 'SELECT idequipo FROM equipo WHERE delegado_iddelegado = ?';
-  db_connection.query(sqlConsulta, [userId], (error, resultsConsulta) => {
+  const userId = req.session.userId;
+  let equipoid;
+  const sql = 'SELECT equipo.idequipo AS equipo_idequipo FROM equipo JOIN delegado ON equipo.delegado_iddelegado = delegado.iddelegado WHERE equipo.delegado_iddelegado = ?';
+  db_connection.query(sql, [userId], (error, equipo) => {
     if (error) {
-      console.error('Error al realizar la consulta:', error);
-      return res.status(500).json({ error: 'Error al realizar la consulta' });
+      console.error('Error al consultar la tabla equipo o delegado:', error);
+      return res.status(500).json({ error: 'Error al consultar la tabla equipo o delegado' });
+    } else {
+      equipoid = equipo[0].equipo_idequipo;
     }
 
-    const idequipo = resultsConsulta[0].idequipo;
 
-    fotojugador.mv(`uploads/${fotojugador.name}`, error => {
+    db_connection.query('SELECT * FROM jugador WHERE equipo_idequipo = ? AND (DNI = ? OR dorsal = ?)', [equipoid, dnijugador, dorsal], (error, results) => {
       if (error) {
-        return res.status(500).json({
-          ok: false,
-          message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
+        console.error('Error al consultar la tabla jugador:', error);
+        return res.status(500).json({ error: 'Error al consultar la tabla jugador' });
+      }
+      const dnijugadorExists = results.some(row => row.DNI === dnijugador);
+      const dorsalExists = results.some(row => row.dorsal === dorsal);
+      if (dnijugadorExists || dorsalExists) {
+        // Existen duplicados en la base de datos
+        return res.status(409).json({
+          exists: true,
+          dnijugadorExists,
+          dorsalExists
         });
       }
 
-      // Ejemplo de inserción en la base de datos
-      const fotojugadorDBURL = `${fotojugador.name}`;
-      const sql = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0)';
-      db_connection.query(sql, [nombre, apellido1, apellido2, dni, fechanacimiento, dorsal, fotojugadorDBURL, idequipo], (error, results) => {
+      fotojugador.mv(`uploads/${fotojugador.name}`, error => {
         if (error) {
-          console.error('Error al insertar el jugador:', error);
-          return res.status(500).json({ error: 'Error al insertar el jugador' });
+          return res.status(500).json({
+            ok: false,
+            message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
+          });
         }
-        // Jugador insertado exitosamente
-        return res.redirect('inscripciones');
+
+        // Ejemplo de inserción en la base de datos
+        const fotojugadorDBURL = `${fotojugador.name}`;
+        const sql2 = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0)';
+        db_connection.query(sql2, [nombre, apellido1, apellido2, dnijugador, fechanacimiento, dorsal, fotojugadorDBURL, equipoid], (error, results) => {
+          if (error) {
+            console.error('Error al insertar el jugador:', error);
+            return res.status(500).json({ error: 'Error al insertar el jugador' });
+          }
+          // Jugador insertado exitosamente
+          return res.status(200).json({ success: true });
+        });
       });
     });
   });

@@ -1,107 +1,3 @@
-/*const contrasenaInput = document.getElementById('contrasena');
-const confirmarContrasenaInput = document.getElementById('confirmarContrasena');
-const checkIcon = confirmarContrasenaInput.nextElementSibling;
-
-const updateValidation = () => {
-  if (confirmarContrasenaInput.value !== contrasenaInput.value) {
-    confirmarContrasenaInput.classList.add('is-invalid');
-    checkIcon.classList.remove('text-success');
-    checkIcon.classList.add('text-danger');
-  } else {
-    confirmarContrasenaInput.classList.remove('is-invalid');
-    checkIcon.classList.remove('text-danger');
-    checkIcon.classList.add('text-success');
-  }
-};
-
-const validateAndSubmitForm = (form) => {
-  if (!form.checkValidity()) {
-    form.classList.add('was-validated');
-    return;
-  }
-
-  const inputs = form.querySelectorAll('.form-control');
-  let allInputsFilled = true;
-
-  for (let i = 0; i < inputs.length; i++) {
-    if (inputs[i].value.trim() === '') {
-      allInputsFilled = false;
-      inputs[i].classList.add('is-invalid');
-    } else {
-      inputs[i].classList.remove('is-invalid');
-    }
-  }
-
-  if (!allInputsFilled) {
-    return;
-  }
-
-  const formData = new FormData(form);
-  const endpoint = form.getAttribute('action');
-
-  fetch(endpoint, {
-    method: 'POST',
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then(() => {
-      form.reset();
-      form.classList.remove('was-validated');
-
-      const inputs = form.querySelectorAll('.form-control');
-    inputs.forEach((input) => {
-      input.value = '';
-    });
-
-      // Mostrar el modal de éxito
-      const modal = document.getElementById('successModal');
-      modal.classList.add('show');
-      modal.style.display = 'block';
-
-      // Cierra el modal al hacer clic en la "x"
-      const closeButton = modal.querySelector('.close');
-      closeButton.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-
-      // Cierra el modal al hacer clic en el botón de cerrar
-      const closeModalButton = modal.querySelector('.btn-secondary');
-      closeModalButton.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-  const inputsWithValidation = [contrasenaInput, confirmarContrasenaInput];
-
-  inputsWithValidation.forEach((input) => {
-    input.addEventListener('input', updateValidation);
-  });
-
-  const formDelegado = document.getElementById('myFormDelegado');
-  formDelegado.addEventListener('submit', (event) => {
-    event.preventDefault();
-    validateAndSubmitForm(formDelegado);
-  });
-
-  const formEquipo = document.getElementById('myFormEquipo');
-  formEquipo.addEventListener('submit', (event) => {
-    event.preventDefault();
-    validateAndSubmitForm(formEquipo);
-  });
-
-  const formJugador = document.getElementById('myFormJugador');
-  formJugador.addEventListener('submit', (event) => {
-    event.preventDefault();
-    validateAndSubmitForm(formJugador);
-  });
-});*/
-
-
 // Obtener los formularios por su ID
 const delegadoForm = document.getElementById('myFormDelegado');
 const equipoForm = document.getElementById('myFormEquipo');
@@ -306,12 +202,12 @@ jugadorForm.addEventListener('submit', function (event) {
   const nombreJugadorInput = document.getElementById('nombre-jugador');
   const apellido1JugadorInput = document.getElementById('apellido1-jugador');
   const apellido2JugadorInput = document.getElementById('apellido2-jugador');
-  const dniJugadorInput = document.getElementById('dni-jugador');
+  const dniInput = document.getElementById('dnijugador');
   const fechaNacimientoInput = document.getElementById('fechanacimiento');
-  const dorsalJugadorInput = document.getElementById('dorsal-jugador');
+  const dorsalInput = document.getElementById('dorsal');
   const fotojugadorInput = document.getElementById('fotojugador');
 
-  const inputs = [nombreJugadorInput, apellido1JugadorInput, apellido2JugadorInput, dniJugadorInput, fechaNacimientoInput, dorsalJugadorInput, fotojugadorInput];
+  const inputs = [nombreJugadorInput, apellido1JugadorInput, apellido2JugadorInput, dniInput, fechaNacimientoInput, dorsalInput, fotojugadorInput];
   inputs.forEach(input => {
     input.classList.remove('is-invalid');
   });
@@ -360,19 +256,39 @@ jugadorForm.addEventListener('submit', function (event) {
     return;
   }
 
-  /*if (!validateAge()) {
-    alert('El jugador debe ser mayor de 18 años.');
-    return;
-  }*/
+  const formData = new FormData(jugadorForm);
 
-  // Reiniciar el formulario
-  jugadorForm.reset();
+  fetch('/nuevo_jugador', {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        // Error al verificar la existencia del equipo
+        console.error('Error:', data.error);
+        return;
+      }
 
-  // Realizar cualquier otra acción con los datos recogidos del formulario
-  // ...
+      if (data.exists) {
+        // Existen duplicados en la base de datos
+        if (data.dnijugadorExists) {
+          return alert('Ya hay jugador inscrito con este DNI');
+        } else if (data.dorsalExists) {
+          return alert('Ya hay un jugador inscrito con este dorsal');
+        }
+      }
 
-  // Mostrar un mensaje de éxito o redirigir a otra página
-  res.render('inscripciones');
+      // Restablecer los campos del formulario
+      jugadorForm.reset();
+      alert("Jugador registrado correctamente.")
+      // Redirigir a otra página
+      window.location.href = 'inscripciones';
+    })
+    .catch(error => {
+      // Manejar el error en caso de que ocurra
+      console.error('Error:', error);
+    });
 });
 
 const input = document.querySelector("#telefono");
@@ -384,7 +300,7 @@ window.intlTelInput(input, {
 });
 
 // Obtener el elemento select
-var selectNumero = document.getElementById("dorsal-jugador");
+var selectNumero = document.getElementById("dorsal");
 
 // Generar opciones numéricas del 1 al 99
 for (var i = 1; i <= 99; i++) {
