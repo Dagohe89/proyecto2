@@ -117,10 +117,8 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-update equipo set ganados = 2 where idequipo = 6;
-update jugador set tr = 1 where idjugador = 6;
+delete from delegado where iddelegado between 12 and 41;
 select * from imagen;
 select * from delegado;
 select * from equipo;
 select * from jugador;
-delete from delegado where iddelegado between 16 and 31;
