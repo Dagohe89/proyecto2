@@ -106,9 +106,7 @@ delegadoForm.addEventListener('submit', function (event) {
           return alert('El teléfono ya está registrado');
         }
       }
-
       // Restablecer los campos del formulario
-      delegadoForm.reset();
       alert("ya te has dado de alta y puedes iniciar sesion. Recuerda tu nombre de usuario y contraseña, te servirá para iniciar sesión.")
       // Redirigir a otra página
       window.location.href = 'inscripciones';

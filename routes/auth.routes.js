@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const db_connection = require('../database/connection.js');
-
 const router = express.Router();
 
 function shuffleArray(array) {
