@@ -44,19 +44,6 @@ main {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra de texto */
 }
 
-/*.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/img/cesped4.avif');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.4;
-}*/
-
 
 #headimg {
   width: 100px;
@@ -97,3 +84,29 @@ main {
   text-decoration: none;
   cursor: pointer;
 }
+.nav-item {
+  margin: 5px;
+}
+
+
+/* Estilos para pantallas grandes */
+@media screen and (min-width: 992px) {
+  /* Estilos para pantallas grandes */
+
+}
+
+/* Estilos para pantallas medianas */
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  /* Estilos para pantallas medianas */
+  .navchico {
+    font-size: 16px;
+  }
+
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 767px) {
+  /* Estilos para pantallas pequeñas */
+  
+
+  }
