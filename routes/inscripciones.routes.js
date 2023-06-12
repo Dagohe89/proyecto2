@@ -79,7 +79,8 @@ router.post('/nuevo_equipo', (req, res) => {
       console.error('Error al consultar la tabla equipo:', error);
       return res.status(500).json({ error: 'Error al consultar la tabla equipo' });
     }
-    const iddelegadoExists = results.some(row => row.delegado_iddelegado === userId);
+    const iddelegadoExists = results.length > 0;
+    //const iddelegadoExists = results.some(row => row.delegado_iddelegado === userId);
 
     if (iddelegadoExists) {
       // Existen duplicados en la base de datos
@@ -106,13 +107,13 @@ router.post('/nuevo_equipo', (req, res) => {
       // Ejemplo de inserción en la base de datos
       const fotoescudoDBURL = `${fotoescudo.name}`;
       const sql = 'INSERT INTO equipo VALUES (default, ?, ?, ?, ?, ?, 0, 0, 0, 0, 0, ?)';
-      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, cosas) => {
+      db_connection.query(sql, [nombreEquipo, color_camiseta, color_segunda_camiseta, direccion_campo, fotoescudoDBURL, userId], (error, equipo) => {
         if (error) {
           console.error('Error al insertar el equipo:', error);
           return res.status(500).json({ error: 'Error al insertar el equipo' });
         }
         // Equipo insertado exitosamente
-        return res.status(200).json({ success: true });
+        return res.status(200).json({ success: true, equipo: true });
       });
     });
   });

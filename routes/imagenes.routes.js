@@ -6,11 +6,13 @@ const db_connection = require('../database/connection.js');
 
 router.post('/subeimagen', (req, res) => {
   const userId = req.session.userId;
-  if (!req.files || Object.keys(req.files).length === 0) {
+
+  /*if (!req.files || !req.files.image) {
     return res.status(400).send('No se ha seleccionado ninguna imagen.');
-  }
+  }*/
 
   const image = req.files.image;
+  const titulo = req.body.titulo;
 
   // Guardar la imagen en el directorio de uploads
   image.mv(`./uploads/${image.name}`, (err) => {
@@ -21,13 +23,13 @@ router.post('/subeimagen', (req, res) => {
 
     // Insertar la información de la imagen en la base de datos
     const sql = 'INSERT INTO imagen VALUES (default, ?, ?, ?)';
-    db_connection.query(sql, [req.body.titulo, image.name, userId], (error, result) => {
+    db_connection.query(sql, [titulo, image.name, userId], (error, result) => {
       if (error) {
         console.error('Error al insertar la imagen en la base de datos:', error);
         return res.status(500).send('Error interno del servidor al insertar la imagen en la base de datos.');
       }
 
-      res.status(200).send('La imagen se ha cargado correctamente.');
+      return res.status(200).json({ success: true });
     });
   });
 });

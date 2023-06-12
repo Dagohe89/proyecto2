@@ -106,7 +106,7 @@ router.get('/inscripciones', (req, res) => {
       db_connection.query(sql, [user.id], (error, results) => {
         if (error) {
           console.error('Error al obtener el equipo:', error);
-          return res.render('inscripciones', { user, equipo: false });
+          return res.render('inscripciones', { user, equipo: null });
         }
 
         const equipo = results.length > 0;
@@ -115,11 +115,11 @@ router.get('/inscripciones', (req, res) => {
       });
     } catch (error) {
       console.error('Error al obtener el equipo:', error);
-      res.render('inscripciones', { user, equipo: false });
+      res.render('inscripciones', { user, equipo: null });
     }
   } else {
     // Si no hay un usuario con sesión iniciada
-    res.render('inscripciones', { user: null, equipo: false });
+    res.render('inscripciones', { user: null, equipo: null });
   }
 });
 
@@ -136,6 +136,10 @@ router.get('/miequipo', (req, res) => {
     db_connection.query(equiposql, [user.id], (error, equipoResults) => {
       if (error) {
         console.error('Error al obtener el equipo:', error);
+        return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: false, jugador: false });
+      }
+      if (equipoResults.length === 0) {
+        // No se encontró ningún equipo asociado
         return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: false, jugador: false });
       }
       const jugadorsql = 'SELECT *,  DATE_FORMAT(fechaNacimiento, "%D-%M-%Y") AS fecha FROM jugador WHERE equipo_idequipo = ?';
