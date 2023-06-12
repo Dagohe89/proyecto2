@@ -29,166 +29,113 @@
                                     <p>Requisitos: </p>
                                     <div class="form-box">
                                         <form id="myFormDelegado" class="needs-validation" novalidate
-                                            enctype="multipart/form-data" method="post">
+                                            enctype="multipart/form-data">
                                             <label for="nombre">Nombre</label>
                                             <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="apellido1">Primer apellido</label>
-                                        <input type="text" class="form-control" id="apellido1" name="apellido1"
-                                            required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="apellido2">Segundo apellido</label>
-                                        <input type="text" class="form-control" id="apellido2" name="apellido2"
-                                            required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="dni">DNI</label>
-                                        <input type="text" class="form-control" id="dni" name="dni" required>
-                                        <div class="invalid-feedback" id="dniError"></div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="telefono">Número de teléfono</label>
-                                        <input type="tel" class="form-control" id="telefono" name="telefono" required>
-                                        <div class="invalid-feedback" id="telefonoError"></div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="email">Correo electrónico</label>
-                                        <input type="text" class="form-control" id="email" name="email" required>
-                                        <div class="invalid-feedback" id="emailError"></div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="usuario">Elige un nombre de usuario</label>
-                                        <input type="text" class="form-control" id="usuario" name="usuario" required>
-                                        <div class="invalid-feedback" id="usuarioError"></div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="contrasena">Contraseña</label>
-                                        <input type="password" class="form-control" id="contrasena" name="contrasena"
-                                            required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="confirmarContrasena">Repetir Contraseña</label>
-                                        <input type="password" class="form-control" id="confirmarContrasena"
-                                            name="confirmarContrasena" required>
-                                        <div class="valid-feedback">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                        <div class="invalid-feedback">Las contraseñas no coinciden</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="fotodelegado">Foto tipo carnet</label>
-                                        <input type="file" class="form-control-file" id="fotodelegado"
-                                            name="fotodelegado" accept="image/*" required>
-                                        <small id="fotodelegado-error" class="invalid-feedback">Por favor,
-                                            selecciona una foto.</small>
-                                    </div>
 
-                                    <button type="submit" class="btn btn-primary">
-                                        Enviar
-                                    </button>
-                                    </form>
-                                </div>
-                            </div>
-                            <script src="../js/delegadoformulario.js"></script>
-                            <% } else if (user && !equipo) { %>
-                                <div class="row">
+                                            <div class="mb-3">
+                                                <label for="apellido1">Primer apellido</label>
+                                                <input type="text" class="form-control" id="apellido1" name="apellido1"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="apellido2">Segundo apellido</label>
+                                                <input type="text" class="form-control" id="apellido2" name="apellido2"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="dni">DNI</label>
+                                                <input type="text" class="form-control" id="dni" name="dni" required>
+                                                <div class="invalid-feedback" id="dniError"></div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="telefono">Número de teléfono</label>
+                                                <input type="tel" class="form-control" id="telefono" name="telefono"
+                                                    required>
+                                                <div class="invalid-feedback" id="telefonoError"></div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email">Correo electrónico</label>
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    required>
+                                                <div class="invalid-feedback" id="emailError"></div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="usuario">Elige un nombre de usuario</label>
+                                                <input type="text" class="form-control" id="usuario" name="usuario"
+                                                    required>
+                                                <div class="invalid-feedback" id="usuarioError"></div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="contrasena">Contraseña</label>
+                                                <input type="password" class="form-control" id="contrasena"
+                                                    name="contrasena" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="confirmarContrasena">Repetir Contraseña</label>
+                                                <input type="password" class="form-control" id="confirmarContrasena"
+                                                    name="confirmarContrasena" required>
+                                                <div class="valid-feedback">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                                <div class="invalid-feedback">Las contraseñas no coinciden</div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="fotodelegado">Foto tipo carnet</label>
+                                                <input type="file" class="form-control-file" id="fotodelegado"
+                                                    name="fotodelegado" accept="image/*" required>
+                                                <small id="fotodelegado-error" class="invalid-feedback">Por favor,
+                                                    selecciona una foto.</small>
+                                            </div>
 
-                                    <div class="col-md-12">
-                                        <h2 class="text-center">Equipo</h2>
-                                        <p>Inscribe aquí tu equipo</p>
-                                        <p>Requisitos: tener un campo contratado, tener una equipacion valida y una
-                                            segunda
-                                            camiseta,
-                                            etc.</p>
-                                        <div class="form-box">
-                                            <form id="myFormEquipo" class="needs-validation" novalidate
-                                                enctype="multipart/form-data">
-                                                <div class="mb-3">
-                                                    <label for="nombreEquipo">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombreEquipo"
-                                                        name="nombreEquipo" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="color-camiseta">Color de la camiseta</label>
-                                                    <input type="text" class="form-control" id="color-camiseta"
-                                                        name="color_camiseta" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="color-segunda-camiseta">Color de la segunda
-                                                        camiseta</label>
-                                                    <input type="text" class="form-control" id="color-segunda-camiseta"
-                                                        name="color_segunda_camiseta" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="direccion-campo">Dirección del campo</label>
-                                                    <textarea class="form-control" id="direccion-campo"
-                                                        name="direccion_campo" rows="3" required></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="fotoescudo">Escudo del equipo</label>
-                                                    <input type="file" class="form-control-file" id="fotoescudo"
-                                                        name="fotoescudo" accept="image/*" required>
-                                                    <small id="fotoescudo-error" class="invalid-feedback">Por favor,
-                                                        selecciona
-                                                        una foto.</small>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Enviar</button>
-                                            </form>
-                                        </div>
+                                            <button type="submit" class="btn btn-primary">
+                                                Enviar
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
-                                <script src="../js/jugadorformulario.js"></script>
-                                <% } else if (user && equipo) { %>
+                                <script src="js/delegadoForm.js"></script>
+                                <% } else if (user && !equipo) { %>
                                     <div class="row">
+
                                         <div class="col-md-12">
-                                            <h2 class="text-center">Jugador</h2>
-                                            <p>Inscribe aquí los jugadores de tu equipo</p>
-                                            <p>Requisitos</p>
+                                            <h2 class="text-center">Equipo</h2>
+                                            <p>Inscribe aquí tu equipo</p>
+                                            <p>Requisitos: tener un campo contratado, tener una equipacion valida y una
+                                                segunda
+                                                camiseta,
+                                                etc.</p>
                                             <div class="form-box">
-                                                <form id="myFormJugador" class="needs-validation" novalidate
-                                                    enctype="multipart/form-data" method="post">
+                                                <form id="myFormEquipo" class="needs-validation" novalidate
+                                                    enctype="multipart/form-data">
                                                     <div class="mb-3">
-                                                        <label for="nombre-jugador">Nombre</label>
-                                                        <input type="text" class="form-control" id="nombre-jugador"
-                                                            name="nombre">
+                                                        <label for="nombreEquipo">Nombre</label>
+                                                        <input type="text" class="form-control" id="nombreEquipo"
+                                                            name="nombreEquipo" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="apellido1-jugador">Primer apellido</label>
-                                                        <input type="text" class="form-control" id="apellido1-jugador"
-                                                            name="apellido1">
+                                                        <label for="color-camiseta">Color de la camiseta</label>
+                                                        <input type="text" class="form-control" id="color-camiseta"
+                                                            name="color_camiseta" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="apellido2-jugador">Segundo apellido</label>
-                                                        <input type="text" class="form-control" id="apellido2-jugador"
-                                                            name="apellido2">
+                                                        <label for="color-segunda-camiseta">Color de la segunda
+                                                            camiseta</label>
+                                                        <input type="text" class="form-control"
+                                                            id="color-segunda-camiseta" name="color_segunda_camiseta"
+                                                            required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="dnijugador">DNI</label>
-                                                        <input type="text" class="form-control" id="dnijugador"
-                                                            name="dnijugador">
+                                                        <label for="direccion-campo">Dirección del campo</label>
+                                                        <textarea class="form-control" id="direccion-campo"
+                                                            name="direccion_campo" rows="3" required></textarea>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="fechanacimiento">Fecha de Nacimiento</label>
-                                                        <input type="date" class="form-control" id="fechanacimiento"
-                                                            name="fechanacimiento">
-                                                        <small id="fechanacimiento-error" class="invalid-feedback">El
-                                                            jugador debe
-                                                            ser mayor de edad.</small>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="dorsal">Dorsal</label>
-                                                        <select class="form-control" id="dorsal" name="dorsal">
-                                                            <option value=""></option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="fotojugador">Foto tipo carnet</label>
-                                                        <input type="file" class="form-control-file" id="fotojugador"
-                                                            name="fotojugador" accept="image/*">
-                                                        <small id="fotojugador-error" class="invalid-feedback">Por
-                                                            favor, selecciona
+                                                        <label for="fotoescudo">Escudo del equipo</label>
+                                                        <input type="file" class="form-control-file" id="fotoescudo"
+                                                            name="fotoescudo" accept="image/*" required>
+                                                        <small id="fotoescudo-error" class="invalid-feedback">Por favor,
+                                                            selecciona
                                                             una foto.</small>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Enviar</button>
@@ -196,18 +143,76 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <script src="../js/equipoformulario.js"></script>
-                                    <% } %>
+                                    <script src="js/equipoForm.js"></script>
+                                    <% } else if (user && equipo) { %>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h2 class="text-center">Jugador</h2>
+                                                <p>Inscribe aquí los jugadores de tu equipo</p>
+                                                <p>Requisitos</p>
+                                                <div class="form-box">
+                                                    <form id="myFormJugador" class="needs-validation" novalidate
+                                                        enctype="multipart/form-data" method="post">
+                                                        <div class="mb-3">
+                                                            <label for="nombre-jugador">Nombre</label>
+                                                            <input type="text" class="form-control" id="nombre-jugador"
+                                                                name="nombre">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="apellido1-jugador">Primer apellido</label>
+                                                            <input type="text" class="form-control"
+                                                                id="apellido1-jugador" name="apellido1">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="apellido2-jugador">Segundo apellido</label>
+                                                            <input type="text" class="form-control"
+                                                                id="apellido2-jugador" name="apellido2">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="dnijugador">DNI</label>
+                                                            <input type="text" class="form-control" id="dnijugador"
+                                                                name="dnijugador">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="fechanacimiento">Fecha de Nacimiento</label>
+                                                            <input type="date" class="form-control" id="fechanacimiento"
+                                                                name="fechanacimiento">
+                                                            <small id="fechanacimiento-error"
+                                                                class="invalid-feedback">El
+                                                                jugador debe
+                                                                ser mayor de edad.</small>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="dorsal">Dorsal</label>
+                                                            <select class="form-control" id="dorsal" name="dorsal">
+                                                                <option value=""></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="fotojugador">Foto tipo carnet</label>
+                                                            <input type="file" class="form-control-file"
+                                                                id="fotojugador" name="fotojugador" accept="image/*">
+                                                            <small id="fotojugador-error" class="invalid-feedback">Por
+                                                                favor, selecciona
+                                                                una foto.</small>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script src="js/jugadorForm.js"></script>
+                                        <% } %>
+                            </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             </div>
         </main>
         <%- include('partials/footer.ejs') %>
 
 
-            <script src="../js/inscripciones.js"></script>
+            <!-- <script src="../js/inscripciones.js"></script> -->
 </body>
 
 </html>

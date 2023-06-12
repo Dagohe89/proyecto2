@@ -138,10 +138,6 @@ router.get('/miequipo', (req, res) => {
         console.error('Error al obtener el equipo:', error);
         return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: false, jugador: false });
       }
-      if (equipoResults.length === 0) {
-        // No se encontró ningún equipo asociado
-        return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: false, jugador: false });
-      }
       const jugadorsql = 'SELECT *,  DATE_FORMAT(fechaNacimiento, "%D-%M-%Y") AS fecha FROM jugador WHERE equipo_idequipo = ?';
       db_connection.query(jugadorsql, [equipoResults[0].idequipo], (error, jugadorResults) => {
         if (error) {

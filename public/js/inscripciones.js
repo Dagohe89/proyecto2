@@ -107,7 +107,7 @@ delegadoForm.addEventListener('submit', function (event) {
         }
       }
       // Restablecer los campos del formulario
-      alert("ya te has dado de alta y puedes iniciar sesion. Recuerda tu nombre de usuario y contraseña, te servirá para iniciar sesión.")
+      alert("Ya te has dado de alta y puedes iniciar sesion. Recuerda tu nombre de usuario y contraseña para iniciar sesión.")
       // Redirigir a otra página
       window.location.href = 'inscripciones';
     })
