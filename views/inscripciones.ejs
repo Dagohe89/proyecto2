@@ -94,7 +94,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <script src="js/delegadoForm.js"></script>
+                                <script src="js/inscripciones/delegadoForm.js"></script>
                                 <% } else if (user && !equipo) { %>
                                     <div class="row">
 
@@ -143,7 +143,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <script src="js/equipoForm.js"></script>
+                                    <script src="js/inscripciones/equipoForm.js"></script>
                                     <% } else if (user && equipo) { %>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -152,7 +152,7 @@
                                                 <p>Requisitos</p>
                                                 <div class="form-box">
                                                     <form id="myFormJugador" class="needs-validation" novalidate
-                                                        enctype="multipart/form-data" method="post">
+                                                        enctype="multipart/form-data">
                                                         <div class="mb-3">
                                                             <label for="nombre-jugador">Nombre</label>
                                                             <input type="text" class="form-control" id="nombre-jugador"
@@ -201,7 +201,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <script src="js/jugadorForm.js"></script>
+                                        <script src="js/inscripciones/jugadorForm.js"></script>
                                         <% } %>
                             </div>
                     </div>
@@ -212,7 +212,7 @@
         <%- include('partials/footer.ejs') %>
 
 
-            <!-- <script src="../js/inscripciones.js"></script> -->
+            <!-- <script src="../js/inscripciones/inscripciones.js"></script> -->
 </body>
 
 </html>
