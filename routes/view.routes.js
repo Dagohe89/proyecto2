@@ -35,7 +35,7 @@ router.get('/competicion', (req, res) => {
       }
     });
 
-    const sql2 = 'SELECT nombre, goles, asistencias, ta, tr FROM jugador';
+    const sql2 = 'SELECT nombre, goles, asistencias, ta, tr, fotojugadorurl FROM jugador';
     db_connection.query(sql2, (error, jugadores) => {
       if (error) {
         console.error('Error al obtener los datos de la tabla "jugador":', error);
@@ -126,13 +126,28 @@ router.get('/inscripciones', (req, res) => {
 //Ruta de miequipo
 router.get('/miequipo', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
-  const sql = 'SELECT * FROM equipo WHERE delegado_iddelegado = ?';
-  db_connection.query(sql, [user.id], (error, results) => {
+  const delegadosql = 'SELECT * FROM delegado WHERE iddelegado = ?';
+  db_connection.query(delegadosql, [user.id], (error, delegadoResults) => {
     if (error) {
-      console.error('Error al obtener el equipo:', error);
-      return res.render('inscripciones', { user, equipo: false });
+      console.error('Error al obtener el delegado: ', error);
+      return res.render('miequipo', { user: false, delegado: false, equipo: false, jugador: false });
     }
-    res.render('miequipo', { user, equipo: results });
+    const equiposql = 'SELECT * FROM equipo WHERE delegado_iddelegado = ?';
+    db_connection.query(equiposql, [user.id], (error, equipoResults) => {
+      if (error) {
+        console.error('Error al obtener el equipo:', error);
+        return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: false, jugador: false });
+      }
+      const jugadorsql = 'SELECT *,  DATE_FORMAT(fechaNacimiento, "%D-%M-%Y") AS fecha FROM jugador WHERE equipo_idequipo = ?';
+      db_connection.query(jugadorsql, [equipoResults[0].idequipo], (error, jugadorResults) => {
+        if (error) {
+          console.error('Error al obtener los jugadores:', error);
+          return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: equipoResults[0], jugador: false, });
+        }
+
+        res.render('miequipo', { user, delegado: delegadoResults[0], equipo: equipoResults[0], jugador: jugadorResults });
+      });
+    });
   });
 });
 

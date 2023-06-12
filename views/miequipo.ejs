@@ -1,21 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAF-Mi equipo</title>
     <%- include('partials/headLinks.ejs') %>
+    <link rel="stylesheet" href="css/miequipo.css">
 </head>
+
 <body>
     <%- include('partials/header.ejs') %>
     <main>
-        <h5><img src="/<%= equipo.fotoescudourl %>" alt="Escudo">Mi equipo</h5>
-        <h3>Mis Datos</h3>
-        <h6><% user.Nombre %></h6>
-        <h3>Mi equipo</h3>
-        <h3>Mis jugadores</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Mis datos</h3>
+                    <div class="row bordext">
+                        <div class="col-md-4 borde fotofondos">
+                            <img src="/<%= delegado.fotodelegadourl %>" alt="Mi foto" class="delegadoimg">
+                        </div>
+                        <div class="col-md-4 borde">
+                            <h5><%= delegado.Nombre %> <%= delegado.Apellido1 %> <%= delegado.Apellido2 %></h5>
+                        </div>
+                        <div class="col-md-4 bordeder">
+                            <h6>DNI: <%= delegado.dni %></h6>
+                            <h6>Teléfono: <%= delegado.telefono %></h6>
+                            <h6>Email: <%= delegado.correo %></h6>
+                            <h6>Usuario: <%= delegado.nickname %></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Mi equipo</h3>
+                    <div class="row bordext">
+                        <div class="col-md-4 borde fotofondos">
+                            <img src="/<%= equipo.fotoescudourl %>" alt="Escudo" class="escudoimg">
+                        </div>
+                        <div class="col-md-4 borde">
+                            <h5><%= equipo.nombreEquipo %></h5>
+                        </div>
+                        <div class="col-md-4 bordeder">
+                            <h6>Camiseta primera equipación: <%= equipo.colorCamiseta %></h6>
+                            <h6>Camiseta segunda equipación: <%= equipo.colorCamiseta2 %></h6>
+                            <h6>Dirección del campo: <%= equipo.direcionCampo %></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Mis jugadores</h3>
+                    <div class="row">
+                        <% jugador.forEach(jugador => { %>
+                        <div class="col-md-5 bordextjug">
+                            <div class="row">
+                                <div class="col-md-4 borde fotofondos">
+                                    <div>
+                                        <h4><%= jugador.dorsal %></h4>
+                                    </div>
+                                    <div>
+                                        <img src="/<%= jugador.fotojugadorurl %>" alt="Foto del jugador"
+                                            class="jugadorimg">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 border">
+                                    <h6><%= jugador.nombre %> <%= jugador.apellido1 %> <%= jugador.apellido2 %></h6>
+                                    <h6><%= jugador.DNI %></h6>
+                                    <h6><%= jugador.fecha %></h6>
+                                </div>
+                                <div class="col-md-4 bordeder">
+                                    <ul>
+                                        <li><h6>G<%= jugador.goles %></h6></li>
+                                        <li><h6>Ass<%= jugador.asistencias %></h6></li>
+                                        <li><h6>TA<%= jugador.ta %></h6></li>
+                                        <li><h6>TR<%= jugador.tr %></h6></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <%- include('partials/footer.ejs') %>
 </body>
+
 </html>

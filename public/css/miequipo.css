@@ -1,0 +1,95 @@
+.delegadoimg {
+    max-width: 50%;
+}
+
+.escudoimg {
+    max-width: 50%;
+}
+
+.jugadorimg {
+    max-width: 100%;
+}
+
+.borde {
+    border: solid black 0.5px;
+    padding: 15px;
+}
+
+.bordext {
+    border: solid black 0.5px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.bordextjug {
+    border: solid black 0.5px;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.bordeder {
+    border: solid black 0.5px;
+    padding: 15px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.fotofondos {
+    background-color: rgb(184, 191, 217);
+    color: #f0a122;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+/* Estilos para pantallas grandes */
+@media screen and (min-width: 992px) {
+    /* Estilos para pantallas grandes */
+    .fotofondos {
+        background-color: rgb(184, 191, 217);
+        color: #f0a122;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .bordeder {
+        border: solid black 0.5px;
+        padding: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+  }
+  
+  /* Estilos para pantallas medianas */
+  @media screen and (max-width: 991px) and (min-width: 768px) {
+    /* Estilos para pantallas medianas */
+    .fotofondos {
+        background-color: rgb(184, 191, 217);
+        color: #f0a122;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .bordeder {
+        border: solid black 0.5px;
+        padding: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+  }
+  
+  /* Estilos para pantallas pequeñas */
+  @media screen and (max-width: 767px) {
+    /* Estilos para pantallas pequeñas */
+    .fotofondos {
+        background-color: rgb(184, 191, 217);
+        color: #f0a122;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius:0px;
+    }
+    .bordeder {
+        border: solid black 0.5px;
+        padding: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 0px;
+    }
+    }

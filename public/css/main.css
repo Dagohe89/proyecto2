@@ -10,7 +10,7 @@ body {
 }
 
 main {
-  padding: 20px;
+  padding: 30px;
   background-color: #f1f1f1;
 }
 
@@ -58,7 +58,7 @@ main {
 }*/
 
 
-header img {
+#headimg {
   width: 100px;
   border-radius: 50px;
 }
