@@ -15,6 +15,7 @@ function shuffleArray(array) {
 // Ruta de Galeria
 router.get('/', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
+  let activo = 1;
   const sql = 'SELECT titulo, imagenurl FROM imagen';
   db_connection.query(sql, (error, results) => {
     if (error) {

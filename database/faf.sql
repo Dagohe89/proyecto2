@@ -122,3 +122,4 @@ select * from imagen;
 select * from delegado;
 select * from equipo;
 select * from jugador;
+UPDATE jugador SET nombre = 'fabian' WHERE idjugador = 29;

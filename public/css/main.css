@@ -88,6 +88,11 @@ main {
   margin: 5px;
 }
 
+.active {
+  background-color: aqua;
+  border-radius: 5px;
+  font-size: 20px;;
+}
 
 /* Estilos para pantallas grandes */
 @media screen and (min-width: 992px) {
