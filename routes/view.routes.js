@@ -106,20 +106,22 @@ router.get('/inscripciones', (req, res) => {
       db_connection.query(sql, [user.id], (error, results) => {
         if (error) {
           console.error('Error al obtener el equipo:', error);
-          return res.render('inscripciones', { user, equipo: null });
+          return res.render('inscripciones', { user, equipo: null, jugadores: null });
+        } else if () {
+
         }
 
         const equipo = results.length > 0;
 
-        res.render('inscripciones', { user, equipo });
+        res.render('inscripciones', { user, equipo, jugadores: null });
       });
     } catch (error) {
       console.error('Error al obtener el equipo:', error);
-      res.render('inscripciones', { user, equipo: null });
+      res.render('inscripciones', { user, equipo: null, jugadores: null });
     }
   } else {
     // Si no hay un usuario con sesión iniciada
-    res.render('inscripciones', { user: null, equipo: null });
+    res.render('inscripciones', { user: null, equipo: null, jugadores: null });
   }
 });
 
