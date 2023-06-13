@@ -107,21 +107,33 @@ router.get('/inscripciones', (req, res) => {
         if (error) {
           console.error('Error al obtener el equipo:', error);
           return res.render('inscripciones', { user, equipo: null, jugadores: null });
-        } else if () {
-
+        } else if (results.length > 0) {
+          try {
+            const sql2 = 'SELECT * FROM jugador WHERE equipo_idequipo = ?';
+            db_connection.query(sql2, [results[0].idequipo], (error, jugadores) => {
+              if (error) {
+                console.error('Error al obtener los jugadores:', error);
+                return res.render('inscripciones', { user, equipo: results[0], jugadores: null });
+              } else {
+                return res.render('inscripciones', { user, equipo: results[0], jugadores });
+              }
+            });
+          } catch (error) {
+            console.error('Error al obtener los jugadores:', error);
+            return res.render('inscripciones', { user, equipo: results[0], jugadores: null });
+          }
+        } else {
+          console.error('No se encontró ningún equipo para el usuario:', user);
+          return res.render('inscripciones', { user, equipo: null, jugadores: null });
         }
-
-        const equipo = results.length > 0;
-
-        res.render('inscripciones', { user, equipo, jugadores: null });
       });
     } catch (error) {
       console.error('Error al obtener el equipo:', error);
-      res.render('inscripciones', { user, equipo: null, jugadores: null });
+      return res.render('inscripciones', { user, equipo: null, jugadores: null });
     }
   } else {
     // Si no hay un usuario con sesión iniciada
-    res.render('inscripciones', { user: null, equipo: null, jugadores: null });
+    return res.render('inscripciones', { user: null, equipo: null, jugadores: null });
   }
 });
 
