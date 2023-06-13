@@ -126,6 +126,7 @@ router.post('/nuevo_jugador', (req, res) => {
   const fotojugador = req.files.fotojugador;
   const userId = req.session.userId;
   let equipoid;
+  const cantidad = 'SELECT * FROM jugador WHERE equipo_idequipo = ?';
   const sql = 'SELECT equipo.idequipo AS equipo_idequipo FROM equipo JOIN delegado ON equipo.delegado_iddelegado = delegado.iddelegado WHERE equipo.delegado_iddelegado = ?';
   db_connection.query(sql, [userId], (error, equipo) => {
     if (error) {
@@ -134,58 +135,67 @@ router.post('/nuevo_jugador', (req, res) => {
     } else {
       equipoid = equipo[0].equipo_idequipo;
     }
-
-    db_connection.query('SELECT equipo_idequipo FROM jugador WHERE DNI = ? AND equipo_idequipo != ?', [dnijugador, equipoid], (error, federadoResult) => {
+    db_connection.query(cantidad, [equipoid], (error, cuantos) => {
       if (error) {
-        console.error('Error al consultar la tabla jugador:', error);
-        return res.status(500).json({ error: 'Error al consultar la tabla jugador' });
+        console.error('Error al consultar la tabla equipo o jugador:', error);
+        return res.status(500).json({ error: 'Error al consultar la tabla equipo o jugador' });
+      } else if (cuantos.length == 25) {
+        console.error('Ya hay 25 jugadores', error);
+        return res.status(500).json({ error: 'Ya hay 25 jugadores' });
       }
-
-      if (federadoResult.length > 0) {
-        // El DNI del jugador ya está federado en otro equipo
-        const equipoFederadoId = federadoResult[0].equipo_idequipo;
-        return res.status(409).json({
-          exists: true,
-          dnijugadorExists: true,
-          dorsalExists: false,
-          equipoFederadoId
-        });
-      }
-
-      db_connection.query('SELECT * FROM jugador WHERE equipo_idequipo = ? AND (DNI = ? OR dorsal = ?)', [equipoid, dnijugador, dorsal], (error, results) => {
+      db_connection.query('SELECT equipo_idequipo FROM jugador WHERE DNI = ? AND equipo_idequipo != ?', [dnijugador, equipoid], (error, federadoResult) => {
         if (error) {
           console.error('Error al consultar la tabla jugador:', error);
           return res.status(500).json({ error: 'Error al consultar la tabla jugador' });
         }
-        const dnijugadorExists = results.some(row => row.DNI === dnijugador);
-        const dorsalExists = results.some(row => row.dorsal === dorsal);
-        if (dnijugadorExists || dorsalExists) {
-          // Existen duplicados en la base de datos
+
+        if (federadoResult.length > 0) {
+          // El DNI del jugador ya está federado en otro equipo
+          const equipoFederadoId = federadoResult[0].equipo_idequipo;
           return res.status(409).json({
             exists: true,
-            dnijugadorExists,
-            dorsalExists
+            dnijugadorExists: true,
+            dorsalExists: false,
+            equipoFederadoId
           });
         }
 
-        fotojugador.mv(`uploads/${fotojugador.name}`, error => {
+        db_connection.query('SELECT * FROM jugador WHERE equipo_idequipo = ? AND (DNI = ? OR dorsal = ?)', [equipoid, dnijugador, dorsal], (error, results) => {
           if (error) {
-            return res.status(500).json({
-              ok: false,
-              message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
+            console.error('Error al consultar la tabla jugador:', error);
+            return res.status(500).json({ error: 'Error al consultar la tabla jugador' });
+          }
+          const dnijugadorExists = results.some(row => row.DNI === dnijugador);
+          const dorsalExists = results.some(row => row.dorsal === dorsal);
+          if (dnijugadorExists || dorsalExists) {
+            // Existen duplicados en la base de datos
+            return res.status(409).json({
+              exists: true,
+              dnijugadorExists,
+              dorsalExists
             });
           }
 
-          // Ejemplo de inserción en la base de datos
-          const fotojugadorDBURL = `${fotojugador.name}`;
-          const sql2 = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0)';
-          db_connection.query(sql2, [nombre, apellido1, apellido2, dnijugador, fechanacimiento, dorsal, fotojugadorDBURL, equipoid], (error, results) => {
+
+          fotojugador.mv(`uploads/${fotojugador.name}`, error => {
             if (error) {
-              console.error('Error al insertar el jugador:', error);
-              return res.status(500).json({ error: 'Error al insertar el jugador' });
+              return res.status(500).json({
+                ok: false,
+                message: 'Error en la subida de la imagen. Por favor, inténtelo más tarde. ' + error
+              });
             }
-            // Jugador insertado exitosamente
-            return res.status(200).json({ success: true });
+
+            // Ejemplo de inserción en la base de datos
+            const fotojugadorDBURL = `${fotojugador.name}`;
+            const sql2 = 'INSERT INTO jugador VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, 0)';
+            db_connection.query(sql2, [nombre, apellido1, apellido2, dnijugador, fechanacimiento, dorsal, fotojugadorDBURL, equipoid], (error, results) => {
+              if (error) {
+                console.error('Error al insertar el jugador:', error);
+                return res.status(500).json({ error: 'Error al insertar el jugador' });
+              }
+              // Jugador insertado exitosamente
+              return res.status(200).json({ success: true });
+            });
           });
         });
       });

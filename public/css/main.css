@@ -89,9 +89,10 @@ main {
 }
 
 .active {
-  background-color: aqua;
+  background-color: #f6b54d;
   border-radius: 5px;
-  font-size: 20px;;
+  font-size: 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4), -2px -2px 4px rgba(255, 0, 0, 0.4);
 }
 
 /* Estilos para pantallas grandes */
