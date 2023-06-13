@@ -15,7 +15,7 @@
         <main>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <h3>Mis datos</h3>
                         <div class="row bordext">
                             <div class="col-md-4 borde fotofondos">
@@ -40,9 +40,39 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-1">
+                        <button id="btnModificar">Modificar</button>
+
+                        <form id="mdfdelegadoForm" method="POST">
+                            <label for="campoActualizar">Campo a actualizar:</label>
+                            <select id="campoActualizar" name="campoActualizar" required>
+                                <option value="">Seleccionar opción</option>
+                                <option value="opcion1">Nombre</option>
+                                <option value="opcion2">1r Apellido</option>
+                                <option value="opcion3">2º Apellido</option>
+                                <option value="opcion4">DNI</option>
+                                <option value="opcion5">Teléfono</option>
+                                <option value="opcion6">Email</option>
+                                <option value="opcion7">Usuario</option>
+                                <option value="opcion8">Contraseña</option>
+                            </select>
+                            <div id="campoAdicional">
+                                <!-- Aquí se mostrará el campo adicional según la opción seleccionada -->
+                            </div>
+
+                            <div>
+                                <label for="password">Contraseña:</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <button type="submit">Enviar</button>
+                        </form>
+
+
+
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <% if (equipo) { %>
                             <h3>Mi equipo</h3>
                             <div class="row bordext">
@@ -63,11 +93,38 @@
                                     </h6>
                                 </div>
                             </div>
-                            <% } %>
+
                     </div>
+                    <div class="col-md-1">
+                        <button id="btnModificar2">Modificar</button>
+
+                        <form id="mdfequipoForm" method="POST">
+                            <label for="campoActualizar">Campo a actualizar:</label>
+                            <select id="campoActualizar" name="campoActualizar" required>
+                                <option value="">Seleccionar opción</option>
+                                <option value="opcion1">Nombre</option>
+                                <option value="opcion2">Camiseta</option>
+                                <option value="opcion3">2ª Camiseta</option>
+                                <option value="opcion4">Dirección</option>
+                                <option value="opcion5">Escudo</option>
+                            </select>
+                            <div id="campoAdicional">
+                                <!-- Aquí se mostrará el campo adicional según la opción seleccionada -->
+                            </div>
+                            <div>
+                                <label for="password">Contraseña:</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <button type="submit">Enviar</button>
+                        </form>
+
+
+
+                    </div>
+                    <% } %>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <% if (jugador) { %>
                             <h3>Mis jugadores</h3>
 
@@ -123,13 +180,48 @@
                                     </div>
                                     <% }) %>
                             </div>
-                            <% } %>
-                        
+
+                    </div>
+                    <div class="col-md-1">
+                        <button id="btnModificar3">Modificar</button>
+
+                        <form id="mdfjugadorForm" method="POST">
+                            <label for="campoActualizar">Campo a actualizar:</label>
+                            <select id="campoActualizar" name="campoActualizar" required>
+                                <option value="">Seleccionar opción</option>
+                                <option value="opcion1">Nombre:</option>
+                                <option value="opcion2">1r Apellido:</option>
+                                <option value="opcion3">2º Apellido:</option>
+                                <option value="opcion4">DNI:</option>
+                                <option value="opcion5">Fecha nacimiento:</option>
+                                <option value="opcion6">Dorsal</option>
+                                <option value="opcion7">Foto</option>
+                            </select>
+                            <div>
+                                <label for="dorsal">Dorsal Jugador:</label>
+                                <input type="text" id="dorsal" name="dorsal" required>
+                            </div>
+                            <div id="campoAdicional">
+                                <!-- Aquí se mostrará el campo adicional según la opción seleccionada -->
+                            </div>
+                            <div>
+                                <label for="password">Contraseña:</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            
+
+                            <button type="submit">Enviar</button>
+                        </form>
+
+
+
                     </div>
                 </div>
+                <% } %>
             </div>
         </main>
         <%- include('partials/footer.ejs') %>
+            <script src="../js/miequipo.js"></script>
 </body>
 
 </html>
