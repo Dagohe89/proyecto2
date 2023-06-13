@@ -9,3 +9,5 @@ problemas a solucionar:
 5- diferentes problemas en consola del navegador, y ocultar errores de las cosas que no se cargan porque segun si estas logueado o no encuentra unos forms o otros
 
 8- necesito ayuda con el codigo del calendario
+9-añadir formularios baja
+10-como he puesto tantas vistas, quitarlas del centro del header y ponerlas en un despleglable o no pero debajode los otros dos elementos

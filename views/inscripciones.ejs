@@ -144,11 +144,11 @@
                                         </div>
                                     </div>
                                     <script src="js/inscripciones/equipoForm.js"></script>
-                                    <% } else if (user && equipo && ) { %>
+                                    <% } else if (user && equipo && jugadores.length < 25) { %>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <h2 class="text-center">Jugador</h2>
-                                                <p>Inscribe aquí los jugadores de tu equipo</p>
+                                                <p>Inscribe aquí los jugadores de tu equipo. Recuerda que hay un máximo de 25 jugadores por equipo.</p>
                                                 <p>Requisitos</p>
                                                 <div class="form-box">
                                                     <form id="myFormJugador" class="needs-validation" novalidate
@@ -202,7 +202,9 @@
                                             </div>
                                         </div>
                                         <script src="js/inscripciones/jugadorForm.js"></script>
-                                        <% } %>
+                                        <% } else if (user && equipo && jugadores.length >= 25) { %>
+                                            <h1>Ya tienes 25 jugadores inscritos, és el máximo por equipo. Si quieres inscribir nuevos jugadores debes dar de baja alguno de los que ya tienes.</h1>
+                                            <% } %>
                             </div>
                     </div>
 
