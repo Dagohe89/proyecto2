@@ -33,8 +33,9 @@ const viewRoutes = require('./routes/view.routes.js');
 const inscripcionesRoutes = require('./routes/inscripciones.routes.js');
 const authRoutes = require('./routes/auth.routes.js');
 const imagenesRoutes = require('./routes/imagenes.routes.js');
+const mdfybajasRoutes = require('./routes/mdfybajas.routes.js');
 
-app.use(indexRoutes, viewRoutes, inscripcionesRoutes, authRoutes, imagenesRoutes);
+app.use(indexRoutes, viewRoutes, inscripcionesRoutes, authRoutes, imagenesRoutes, mdfybajasRoutes);
 
 db_connection.getConnection(err => {
   if (err) throw err;

@@ -137,6 +137,7 @@ router.get('/inscripciones', (req, res) => {
   }
 });
 
+
 //Ruta de miequipo
 router.get('/miequipo', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
@@ -149,7 +150,7 @@ router.get('/miequipo', (req, res) => {
     const equiposql = 'SELECT * FROM equipo WHERE delegado_iddelegado = ?';
     db_connection.query(equiposql, [user.id], (error, equipoResults) => {
       if (equipoResults.length === 0) {
-        console.error('No se encontraron equipos para el delegado.');
+        console.error('No se encontraron equipos para el delegado: ', error);
         return res.render('miequipo', { user, delegado: delegadoResults[0], equipo: null, jugador: null });
       } else {
         const jugadorsql = 'SELECT *,  DATE_FORMAT(fechaNacimiento, "%D-%M-%Y") AS fecha FROM jugador WHERE equipo_idequipo = ?';

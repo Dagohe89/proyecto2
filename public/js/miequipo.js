@@ -93,29 +93,29 @@ document.getElementById("campoActualizar").addEventListener("change", function()
     }
 });
 
-document.getElementById("campoActualizar").addEventListener("change", function() {
+document.getElementById("campoActualizar2").addEventListener("change", function() {
     var opcionSeleccionada = this.value;
-    var campoAdicional = document.getElementById("campoAdicional");
+    var campoAdicional = document.getElementById("campoAdicional2");
 
     switch (opcionSeleccionada) {
         case "opcion1":
-            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Campo Adicional - Nombre:</label>' +
+            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Nuevo Nombre:</label>' +
                 '<input type="text" id="campoAdicionalInput" name="campoAdicionalInput">';
             break;
         case "opcion2":
-            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Campo Adicional - Camiseta 1:</label>' +
+            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Nueva Camiseta 1:</label>' +
                 '<input type="text" id="campoAdicionalInput" name="campoAdicionalInput">';
             break;
         case "opcion3":
-            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Campo Adicional - Camiseta 2:</label>' +
+            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Nueva Camiseta 2:</label>' +
                 '<input type="text" id="campoAdicionalInput" name="campoAdicionalInput">';
             break;
         case "opcion4":
-            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Campo Adicional - Dirección</label>' +
+            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Nueva Dirección</label>' +
                 '<input type="text" id="campoAdicionalInput" name="campoAdicionalInput">';
             break;
         case "opcion5":
-            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Campo Adicional - Escudo</label>' +
+            campoAdicional.innerHTML = '<label for="campoAdicionalInput">Nuevo Escudo</label>' +
                 '<input type="file" id="campoAdicionalInput" name="campoAdicionalInput">';
             break;
 
@@ -125,9 +125,9 @@ document.getElementById("campoActualizar").addEventListener("change", function()
     }
 });
 
-document.getElementById("campoActualizar").addEventListener("change", function() {
+document.getElementById("campoActualizar3").addEventListener("change", function() {
     var opcionSeleccionada = this.value;
-    var campoAdicional = document.getElementById("campoAdicional");
+    var campoAdicional = document.getElementById("campoAdicional3");
 
     switch (opcionSeleccionada) {
         case "opcion1":
@@ -164,3 +164,33 @@ document.getElementById("campoActualizar").addEventListener("change", function()
             break;
     }
 });
+
+document.getElementById('mdfdelegadoForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
+  
+    // Recoger los datos del formulario
+    const campoActualizar = document.getElementById('campoActualizar').value;
+    const password = document.getElementById('password').value;
+  
+    // Crear un objeto FormData para enviar los datos
+    const formData = new FormData();
+    formData.append('campoActualizar', campoActualizar);
+    formData.append('password', password);
+  
+
+    
+    // Realizar la solicitud POST con fetch
+    fetch('/mdfybajadelegado', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log(data); // Mostrar la respuesta del servidor en la consola
+      // Realizar acciones adicionales según sea necesario
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Realizar acciones adicionales en caso de error
+    });
+  });
