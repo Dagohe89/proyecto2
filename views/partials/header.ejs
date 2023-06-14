@@ -1,91 +1,93 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-9 d-flex justify-content-start">
-                            <a class="navbar-brand" href="/">
-                                <img src="/img/logoFAF.png" alt="Logo" id="headimg">
-                            </a>
-                        </div>
 
-                        <div class="col-md-3 d-flex justify-content-end">
-                            <div class="d-flex align-items-center">
-                                <% if (user) { %>
-                                    <form id="logoutForm" action="/logout" method="post">
-                                        <button id="BtnCierra" type="submit" class="btn btn-primary">Cerrar
-                                            sesión</button>
-                                    </form>
-                                    <% } else { %>
-                                        <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#loginModal">Iniciar sesión</button>
-                                        <% } %>
-                                            <div id="modal" class="modal">
-                                                <div class="modal-content">
-                                                    <div class="close-box">
-                                                        <span class="close">&times;</span>
-                                                    </div>
-                                                    <h2 class="text-center">Login</h2>
-                                                    <form id="loginForm" action="/login" method="post"
-                                                        class="text-center">
-                                                        <input id="nickname" type="text" name="nickname"
-                                                            placeholder="Nombre de usuario" style="margin-top: 15px;"
-                                                            required>
-                                                        <input id="password" type="password" name="password"
-                                                            placeholder="Contraseña" style="margin-top: 15px;" required>
-                                                        <button type="submit" class="btn btn-primary"
-                                                            style="margin-top: 15px;">Iniciar sesión</button>
-                                                        <p class="text-center" style="margin-top: 20px;">¿No tienes
-                                                            cuenta?
-                                                        </p>
-                                                        <a href="inscripciones" class="text-center">Regístrate aquí</a>
-                                                    </form>
-                                                </div>
-                                            </div>
-                            </div>
-                        </div>
 
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-9 d-flex justify-content-start">
+                        <a class="navbar-brand" href="/">
+                            <img src="/img/logoFAF.png" alt="Logo" id="headimg">
+                        </a>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/">Inicio</a></h6>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/competicion">Competición</a>
-                                        </h6>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/equipos">Equipos</a></h6>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/actualidad">Actualidad</a></h6>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/galeria">Galeria</a></h6>
-                                    </li>
-                                    <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/inscripciones">Inscripciones</a>
-                                        </h6>
-                                    </li>
-                                    <% if (user) { %>
-                                        <li class="nav-item">
-                                            <h6 class="navchico"><a class="nav-link" href="/miequipo">Mi equipo</a></h6>
-                                        </li>
-                                        <% } %>
 
-                            </div>
+                    <div class="col-md-3 d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
+                            <% if (user) { %>
+                                <form id="logoutForm" action="/logout" method="post">
+                                    <button id="BtnCierra" type="submit" class="btn btn-primary">Cerrar
+                                        sesión</button>
+                                </form>
+                                <% } else { %>
+                                    <button id="BtnLgn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">Iniciar sesión</button>
+                                    <% } %>
+                                        <div id="modal" class="modal">
+                                            <div class="modal-content">
+                                                <div class="close-box">
+                                                    <span class="close">&times;</span>
+                                                </div>
+                                                <h2 class="text-center">Login</h2>
+                                                <form id="loginForm" action="/login" method="post" class="text-center">
+                                                    <input id="nickname" type="text" name="nickname"
+                                                        placeholder="Nombre de usuario" style="margin-top: 15px;"
+                                                        required>
+                                                    <input id="password" type="password" name="password"
+                                                        placeholder="Contraseña" style="margin-top: 15px;" required>
+                                                    <button type="submit" class="btn btn-primary"
+                                                        style="margin-top: 15px;">Iniciar sesión</button>
+                                                    <p class="text-center" style="margin-top: 20px;">¿No tienes
+                                                        cuenta?
+                                                    </p>
+                                                    <a href="inscripciones" class="text-center">Regístrate aquí</a>
+                                                </form>
+                                            </div>
+                                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <h6 class="navchico"><a class="nav-link" href="/">Inicio</a></h6>
+                                </li>
+                                <li class="nav-item">
+                                    <h6 class="navchico"><a class="nav-link" href="/competicion">Competición</a>
+                                    </h6>
+                                </li>
+                                <li class="nav-item">
+                                    <h6 class="navchico"><a class="nav-link" href="/equipos">Equipos</a></h6>
+                                </li>
+                                <li class="nav-item">
+                                    <h6 class="navchico"><a class="nav-link" href="/actualidad">Actualidad</a></h6>
+                                </li>
+                                <li class="nav-item">
+                                    <h6 class="navchico"><a class="nav-link" href="/galeria">Galeria</a></h6>
+                                </li>
+                                <li class="nav-item">
+                                    <h6 class="navchico"><a class="nav-link" href="/inscripciones">Inscripciones</a>
+                                    </h6>
+                                </li>
+                                <% if (user) { %>
+                                    <li class="nav-item">
+                                        <h6 class="navchico"><a class="nav-link" href="/miequipo">Mi equipo</a></h6>
+                                    </li>
+                                    <% } %>
+                            </ul>
+
                         </div>
                     </div>
                 </div>
+            </div>
 
     </nav>
 

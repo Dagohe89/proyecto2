@@ -22,7 +22,7 @@ main {
 
 .bg-light {
   background-color: #f0a122 !important;
-  padding: 15px;
+  padding: 10px;
 }
 
 #footer {
@@ -93,6 +93,10 @@ main {
   border-radius: 5px;
   font-size: 20px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4), -2px -2px 4px rgba(255, 0, 0, 0.4);
+}
+
+#contacta {
+  background-color: #ffffff;
 }
 
 /* Estilos para pantallas grandes */
