@@ -10,4 +10,3 @@ problemas a solucionar:
 
 8- necesito ayuda con el codigo del calendario
 9-añadir formularios baja
-10-como he puesto tantas vistas, quitarlas del centro del header y ponerlas en un despleglable o no pero debajode los otros dos elementos
