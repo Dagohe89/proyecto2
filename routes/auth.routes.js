@@ -86,8 +86,8 @@ router.post('/logout', (req, res) => {
       // Reemplaza 'obtenerResultados' con tu lógica para obtener los datos
 
       // Verificar si 'user' está definido y proporcionar un valor predeterminado si no lo está
-const user = false;
-      const images = imagen.map((result) => ({ titulo: result.titulo, imagenurl: result.imagenurl}));
+      const user = false;
+      const images = imagen.map((result) => ({ titulo: result.titulo, imagenurl: result.imagenurl }));
       const randomizedImages = shuffleArray(images);
 
       res.clearCookie('connect.sid');
@@ -96,18 +96,18 @@ const user = false;
   });
 });
 
-  // Middleware para verificar la sesión
-  const requireAuth = (req, res, next) => {
-    if (!req.session.userId) {
-      return res.status(401).json({ error: 'Acceso no autorizado' });
-    }
-    // El usuario está autenticado, continúa con la siguiente ruta o controlador
-    next();
-  };
+// Middleware para verificar la sesión
+const requireAuth = (req, res, next) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ error: 'Acceso no autorizado' });
+  }
+  // El usuario está autenticado, continúa con la siguiente ruta o controlador
+  next();
+};
 
-  // Ruta protegida que requiere autenticación
-  router.get('/protected', requireAuth, (req, res) => {
-    res.status(200).json({ message: 'Acceso autorizado a la ruta protegida' });
-  });
+// Ruta protegida que requiere autenticación
+router.get('/protected', requireAuth, (req, res) => {
+  res.status(200).json({ message: 'Acceso autorizado a la ruta protegida' });
+});
 
-  module.exports = router;
+module.exports = router;

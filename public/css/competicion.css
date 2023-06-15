@@ -11,4 +11,10 @@ table, th, td {
     background-color: blue;
   }
 
-  
+  .dorado tbody tr:first-child {
+    background-color: #eac102; /* Cambia el color aquí */ /* Cambia el color del texto aquí */
+}
+
+.clasi tbody tr:last-child {
+  background-color: rgba(255, 0, 0);
+}

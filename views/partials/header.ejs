@@ -79,11 +79,15 @@
                                 </li>
                                 <% if (user) { %>
                                     <li class="nav-item">
-                                        <h6 class="navchico"><a class="nav-link" href="/miequipo">Mi equipo</a></h6>
+                                        <h6 class="navchico"><a class="nav-link" href="/miequipo">Mi equipo   
+                                            <% if (equipo) { %><img src="/<%= equipo.fotoescudourl %>" alt="Escudo del equipo"
+                                            width="25" height="25">
+                                            <% } %>
+                                        </a></h6>
+
                                     </li>
                                     <% } %>
                             </ul>
-
                         </div>
                     </div>
                 </div>
