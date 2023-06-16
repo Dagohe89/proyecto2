@@ -1,0 +1,56 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-box {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-box h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .form-box p {
+    margin-bottom: 20px;
+  }
+  
+  .form-box form {
+    margin-bottom: 0;
+  }
+  
+  .form-box .form-control {
+    margin-bottom: 10px;
+  }
+  
+  .form-box button[type="submit"] {
+    margin-top: 10px;
+  }
+  
+  /* Estilos adicionales para los elementos dentro de los formularios */
+  
+  .form-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-box input[type="file"] {
+    margin-top: 5px;
+  }
+  
+  .form-box textarea {
+    resize: vertical;
+  }
+
+  #gris {
+    background-color: grey;
+  }

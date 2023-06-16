@@ -16,16 +16,7 @@ function shuffleArray(array) {
 router.get('/', (req, res) => {
   const user = req.session.userId ? { id: req.session.userId } : null;
   //let activo = 1;
-  const equipo = null;
-  if (user) {
-    const equipouser = 'SELECT *FROM equipo WHERE delegado_iddelegado = ?';
-    db_connection.query(equipouser, [user.id], (error, equipo) => {
-      if (error) {
-        console.error('Error al obtener el equipo', error);
-        return res.status(500).json({ equipo, error: 'Error interno del servidor' });
-      }
-    })
-  }
+
 
   const sql = 'SELECT titulo, imagenurl FROM imagen';
   db_connection.query(sql, (error, results) => {
@@ -35,7 +26,7 @@ router.get('/', (req, res) => {
     }
     const images = results.map((result) => ({ titulo: result.titulo, imagenurl: result.imagenurl }));
     const randomizedImages = shuffleArray(images);
-    res.render('index', { user, images, randomizedImages, equipo });
+    res.render('index', { user, images, randomizedImages, });
   });
 });
 
