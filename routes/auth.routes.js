@@ -22,45 +22,9 @@ router.get('/login', (req, res) => {
 });
 
 
-router.post('/login', (req, res) => {
-  const { username, password } = req.body;
-
-  // Consulta SQL para buscar el usuario en la base de datos
-  const sql = 'SELECT * FROM delegado WHERE nickname = ?';
-  db_connection.query(sql, [username], (error, results) => {
-    if (error) {
-      console.error('Error al buscar el usuario en la base de datos:', error);
-      return res.status(500).json({ error: 'Error interno del servidor' });
-    }
-
-    // Verificar si se encontró el usuario en la base de datos
-    if (results.length === 0) {
-      return res.status(401).json({ error: 'Credenciales inválidas' });
-    }
-
-    const user = results[0];
-
-    // Verificar si la contraseña es válida (usando bcrypt)
-    bcrypt.compare(password, user.password, (error, isMatch) => {
-      if (error) {
-        console.error('Error al comparar las contraseñas:', error);
-        return res.status(500).json({ error: 'Error interno del servidor' });
-      }
-
-      if (isMatch) {
-        // Inicio de sesión exitoso, devuelve una respuesta 200 OK
-        req.session.userId = user.id; // Establecer la sesión del usuario si es necesario
-        return res.sendStatus(200);
-      } else {
-        // Credenciales inválidas, devuelve una respuesta de error 401 Unauthorized
-        return res.status(401).json({ error: 'Credenciales inválidas' });
-      }
-    });
-  });
-});
 
 // Ruta de inicio de sesión
-/*router.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
   const { nickname, password } = req.body;
   let results;
   const sql = 'SELECT titulo, imagenurl FROM imagen';
@@ -96,7 +60,7 @@ router.post('/login', (req, res) => {
       res.render('index', { user, images, randomizedImages });
     });
   });
-});*/
+});
 
   /*router.get('/logout', (req, res) => {
     // Verificar si hay un usuario con sesión iniciada

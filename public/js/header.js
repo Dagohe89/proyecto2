@@ -87,31 +87,3 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 })
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  // Obtén los valores de los campos de usuario y contraseña
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
-
-  // Realiza una solicitud AJAX utilizando fetch
-  fetch('/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ username: username, password: password })
-  })
-    .then(function(response) {
-      if (response.ok) {
-        // Inicio de sesión exitoso, redirige al usuario a otra página
-        window.location.href = '/dashboard';
-      } else {
-        // Mostrar mensaje de error si falla el inicio de sesión
-        alert('Error al iniciar sesión. Por favor, verifica tus credenciales.');
-      }
-    })
-    .catch(function(error) {
-      console.error('Error de red:', error);
-    });
-});
