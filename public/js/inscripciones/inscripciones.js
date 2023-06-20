@@ -4,7 +4,7 @@ const equipoForm = document.getElementById('myFormEquipo');
 const jugadorForm = document.getElementById('myFormJugador');
 
 
-delegadoForm.addEventListener('submit', function (event) {
+/*delegadoForm.addEventListener('submit', function (event) {
   event.preventDefault(); // Evitar el envío del formulario
 
   const nombreInput = document.getElementById('nombre');
@@ -115,7 +115,7 @@ delegadoForm.addEventListener('submit', function (event) {
       // Manejar el error en caso de que ocurra
       console.error('Error:', error);
     });
-});
+});*/
 
 // Agregar un controlador de eventos para el envío del formulario de equipo
 equipoForm.addEventListener('submit', function (event) {
